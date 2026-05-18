@@ -86,6 +86,7 @@ NEVER make a final trade decision.
             raw_output=raw_output,
             timestamp=timestamp,
             model_used=self.model,
+            cached=False,
         )
 
     def _extract_field(self, text: str, field_name: str) -> Optional[str]:

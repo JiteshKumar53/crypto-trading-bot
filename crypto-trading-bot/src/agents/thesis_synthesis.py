@@ -18,7 +18,7 @@ class ThesisSynthesisAgent(BaseRecommendationAgent):
     """Synthesizes all recommendations into a unified trading thesis."""
 
     def __init__(self, ollama_base_url: str = "http://187.124.18.55:32768"):
-        super().__init__("kimi-k2.6:cloud", "Compass", ollama_base_url)
+        super().__init__("qwen3.5:cloud", "Compass", ollama_base_url)
 
     def build_prompt(self, asset: str, market_data: Optional[Dict] = None, **kwargs) -> str:
         # Collect all 4 agent recommendations
@@ -103,6 +103,7 @@ Thesis must be validated through strategy logic, backtesting, QA, and Risk Gover
             raw_output=raw_output,
             timestamp=timestamp,
             model_used=self.model,
+            cached=False,
         )
 
     def _extract_field(self, text: str, field_name: str) -> Optional[str]:

@@ -3,6 +3,16 @@ Multi-Agent Recommendation Runner
 Agent: Jarvis / COO coordination
 
 Runs all 5 recommendation agents in sequence and produces a unified report.
+
+Sequential execution with tuned model timeouts:
+- Technical (kimi-k2.6:cloud): 180s timeout
+- Fundamental (deepseek-v4-pro:cloud): 120s timeout
+- Sentiment (qwen3.5:cloud): 60s timeout
+- Risk (deepseek-v4-pro:cloud): 120s timeout
+- Thesis (qwen3.5:cloud): 60s timeout
+
+Note: Parallel execution was tested but caused Ollama GPU contention,
+making it slower than sequential. Sequential with tuned timeouts is optimal.
 """
 
 import logging
@@ -20,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 
 class AgentRunner:
-    """Runs the full 5-agent recommendation pipeline."""
+    """Runs the full 5-agent recommendation pipeline sequentially."""
 
     def __init__(self, ollama_base_url: str = "http://187.124.18.55:32768"):
         self.technical = TechnicalAnalysisAgent(ollama_base_url)
@@ -38,7 +48,7 @@ class AgentRunner:
         current_position_value: float = 0,
     ) -> Dict:
         """
-        Run all 5 agents and return structured results.
+        Run all 5 agents sequentially and return structured results.
 
         Returns dict with:
         - asset
@@ -50,7 +60,7 @@ class AgentRunner:
         - thesis: AgentRecommendation
         - errors: list of any errors
         """
-        logger.info(f"[AgentRunner] Starting pipeline for {asset}")
+        logger.info(f"[AgentRunner] Starting sequential pipeline for {asset}")
         timestamp = datetime.utcnow().isoformat() + "Z"
         errors = []
 
@@ -135,4 +145,5 @@ class AgentRunner:
             raw_output=f"ERROR: {error}",
             timestamp=datetime.utcnow().isoformat() + "Z",
             model_used="N/A",
+            cached=False,
         )
