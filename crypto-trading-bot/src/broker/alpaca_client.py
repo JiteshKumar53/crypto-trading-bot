@@ -225,9 +225,8 @@ class AlpacaPaperClient:
             from alpaca.data.requests import CryptoBarsRequest
             from alpaca.data.timeframe import TimeFrame
 
-            alpaca_symbol = symbol.replace("/", "")
             request = CryptoBarsRequest(
-                symbol_or_symbols=alpaca_symbol,
+                symbol_or_symbols=symbol,
                 timeframe=TimeFrame.Hour,
                 limit=limit,
             )
