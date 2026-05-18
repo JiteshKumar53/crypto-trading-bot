@@ -1,0 +1,56 @@
+# Deterministic Risk Governor Configuration
+# Paper Trading Only — Live Trading Requires CEO Approval
+
+version: "1.0.0"
+mode: paper
+
+# Account-level limits
+account:
+  max_allocation_per_asset: 0.10        # 10% max per asset
+  max_total_crypto_exposure: 0.30         # 30% max total crypto exposure
+  max_daily_loss_pct: 0.02              # 2% max daily loss
+  max_strategy_drawdown_pct: 0.05         # 5% max drawdown before pause
+  max_open_positions: 3
+  max_consecutive_losses: 3               # Stop after 3 consecutive losing trades
+  cooldown_hours_after_kill_switch: 24
+  no_leverage: true
+
+# Per-asset limits
+per_asset:
+  btc:
+    max_position_size_usd: 10000
+    max_position_pct_of_portfolio: 0.10
+    min_order_size_usd: 1
+  eth:
+    max_position_size_usd: 10000
+    max_position_pct_of_portfolio: 0.10
+    min_order_size_usd: 1
+  sol:
+    max_position_size_usd: 10000
+    max_position_pct_of_portfolio: 0.10
+    min_order_size_usd: 1
+
+# Order checks
+order:
+  require_paper_mode: true
+  require_asset_validation: true
+  require_signal_validation: true
+  require_recommendation_review: true
+  require_risk_governor_approval: true
+  max_slippage_pct: 0.5                 # 0.5% max slippage
+
+# Kill switch conditions
+kill_switch:
+  daily_loss_limit_triggered: true
+  drawdown_limit_triggered: true
+  consecutive_losses_triggered: true
+  manual_override: true
+
+# CEO-reserved gates (these require explicit CEO approval to change)
+ceo_reserved:
+  - disable_paper_mode
+  - increase_live_trading_risk_limits
+  - disable_deterministic_risk_controls
+  - send_secrets_outside_system
+  - delete_production_data
+  - legal_financial_irreversible_actions

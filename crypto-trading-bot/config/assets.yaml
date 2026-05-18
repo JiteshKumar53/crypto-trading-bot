@@ -1,0 +1,29 @@
+# Traded Crypto Assets
+# Jarvis may add more assets if backtest supports and CEO is informed
+
+version: "1.0.0"
+
+assets:
+  - symbol: BTC/USD
+    name: Bitcoin
+    alpaca_symbol: BTCUSD
+    active: true
+    added_date: "2026-05-18"
+    added_by: Jarvis
+    backtest_approved: true
+
+  - symbol: ETH/USD
+    name: Ethereum
+    alpaca_symbol: ETHUSD
+    active: true
+    added_date: "2026-05-18"
+    added_by: Jarvis
+    backtest_approved: true
+
+  - symbol: SOL/USD
+    name: Solana
+    alpaca_symbol: SOLUSD
+    active: true
+    added_date: "2026-05-18"
+    added_by: Jarvis
+    backtest_approved: true

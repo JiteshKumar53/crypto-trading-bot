@@ -1,0 +1,21 @@
+# Alpaca Paper Trading Configuration
+# WARNING: Live trading requires explicit CEO approval
+
+version: "1.0.0"
+mode: paper
+
+api:
+  base_url: "https://paper-api.alpaca.markets"
+  data_url: "https://data.alpaca.markets"
+
+# Environment variables required:
+# ALPACA_API_KEY
+# ALPACA_SECRET_KEY
+# ALPACA_PAPER=true
+
+# Safety checks
+safety:
+  enforce_paper_mode: true
+  validate_before_order: true
+  log_all_orders: true
+  reconcile_after_order: true
