@@ -130,11 +130,11 @@
 |------------|-------|--------|
 | Jarvis | kimi-k2.6:cloud | Executive decision making |
 | COO (Coda) | deepseek-v4-pro:cloud | Planning, coordination |
-| Chief Architect (Blueprint) | qwen3.5:397b-cloud | Architecture, code |
+| Chief Architect (Blueprint) | qwen3.5:cloud | Architecture, code |
 | Technical (Candles) | kimi-k2.6:cloud | Pattern recognition |
 | Fundamental (Ledger) | deepseek-v4-pro:cloud | Research synthesis |
-| Sentiment (Pulse) | qwen3.5:397b-cloud | Contextual understanding |
+| Sentiment (Pulse) | qwen3.5:cloud | Contextual understanding |
 | Risk (Shield) | deepseek-v4-pro:cloud | Structured risk analysis |
 | Thesis (Compass) | kimi-k2.6:cloud | Strategic synthesis |
-| Strategy Engineering | qwen3.5:397b-cloud | Code generation |
+| Strategy Engineering | qwen3.5:cloud | Code generation |
 | Risk Governor (Sentinel) | Code-based | Deterministic safety |

@@ -1,46 +1,26 @@
----
-summary: "Workspace template for TOOLS.md"
-read_when:
-  - Bootstrapping a workspace manually
----
-
 # TOOLS.md - Local Notes
 
-Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
+## Ollama Setup
+- **Endpoint:** http://187.124.18.55:32768
+- **Container:** ollama-on3l-ollama-1
+- **Provider:** ollama
+- **Auth:** api-key (key: "ollama")
+- **Context Window:** 256000 tokens
 
-## What Goes Here
+## Available Models
+| Model | Role | Agent |
+|-------|------|-------|
+| ollama/kimi-k2.6:cloud | Default, executive, technical analysis, thesis synthesis | Jarvis, Candles, Compass |
+| ollama/deepseek-v4-pro:cloud | Deep architecture, long-context reasoning, COO, fundamental analysis, risk | Coda, Ledger, Shield |
+| ollama/qwen3.5:cloud | Secondary reviewer, sentiment analysis, code generation | Blueprint, Pulse |
+| ollama/glm-5.1:cloud | Backup |
+| ollama/gemma4:31b-cloud | Backup |
+| ollama/gpt-oss:120b-cloud | Backup |
+| ollama/minimax-m2.7:cloud | Backup |
 
-Things like:
-
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
-
-## Examples
-
-```markdown
-### Cameras
-
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
-
-### SSH
-
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
-```
-
-## Why Separate?
-
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
-
----
-
-Add whatever helps you do your job. This is your cheat sheet.
+## Alpaca Paper Trading
+- **API Key:** PKFL22AHRJSJ5HWYTWFSVXGZ35
+- **Secret:** [in .env]
+- **Mode:** Paper only
+- **Account:** $10,000
+- **Assets:** BTC/USD, ETH/USD, SOL/USD
