@@ -2,6 +2,7 @@
 """
 Autonomous Trading Daemon
 Runs the full agent pipeline + trading cycle every 4 hours.
+Includes continuous position monitoring between cycles.
 Designed to run as a persistent background process.
 
 Usage:
@@ -19,6 +20,8 @@ import signal
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
+
+from position_monitor import PositionMonitor
 
 # Setup logging
 log_dir = Path('/data/.openclaw/workspace/crypto-trading-bot/logs')
@@ -57,12 +60,18 @@ def is_already_running():
 
 
 def run_pipeline():
-    """Run one autonomous pipeline cycle."""
+    """Run one autonomous pipeline cycle with position monitoring."""
     logger.info("=" * 60)
     logger.info("DAEMON: Starting autonomous pipeline cycle")
     logger.info("=" * 60)
 
+    position_monitor = None
     try:
+        # Start continuous position monitoring in background
+        position_monitor = PositionMonitor()
+        position_monitor.start_background()
+        logger.info("[Daemon] Position monitor background thread started (5-min intervals)")
+
         # Run the autonomous pipeline script
         result = subprocess.run(
             [
@@ -71,7 +80,7 @@ def run_pipeline():
             ],
             capture_output=True,
             text=True,
-            timeout=600,  # 10 min max for full pipeline
+            timeout=1200,  # 20 min max for full 3-asset pipeline
             env={
                 **os.environ,
                 'PYTHONPATH': '/data/.openclaw/workspace/crypto-trading-bot/src',
@@ -92,9 +101,17 @@ def run_pipeline():
                 logger.info(f"[pipeline] {line}")
 
     except subprocess.TimeoutExpired:
-        logger.error("Pipeline cycle timed out after 10 minutes")
+        logger.error("Pipeline cycle timed out after 20 minutes")
     except Exception as e:
         logger.error(f"Pipeline cycle error: {e}", exc_info=True)
+    finally:
+        # Stop position monitor
+        if position_monitor:
+            try:
+                position_monitor.stop_background()
+                logger.info("[Daemon] Position monitor background thread stopped")
+            except Exception as e:
+                logger.error(f"Error stopping position monitor: {e}")
 
 
 def signal_handler(signum, frame):
