@@ -166,3 +166,55 @@ ValueError: ALPACA_API_KEY and ALPACA_SECRET_KEY must be set
 2026-05-19 16:18:59,312 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
 2026-05-19 16:18:59,313 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76463.03, unrealized=-0.81%, held=24.0h
 2026-05-19 16:18:59,313 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76463.03, unrealized=-0.81%, held=24.0h
+2026-05-19 16:23:59,694 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:23:59,694 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:23:59,694 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76335.75, unrealized=-0.98%, held=24.0h
+2026-05-19 16:23:59,694 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76335.75, unrealized=-0.98%, held=24.0h
+2026-05-19 16:29:00,094 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:29:00,094 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:29:00,094 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76487.60, unrealized=-0.78%, held=24.0h
+2026-05-19 16:29:00,094 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76487.60, unrealized=-0.78%, held=24.0h
+2026-05-19 16:29:17,929 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-19 16:29:17,929 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-19 16:29:17,929 [INFO] __main__: Next cycle at: 2026-05-19 18:29:17 UTC (position monitor keeps running)
+2026-05-19 16:29:17,929 [INFO] __main__: Next cycle at: 2026-05-19 18:29:17 UTC (position monitor keeps running)
+2026-05-19 16:34:00,474 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:34:00,474 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:34:00,474 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76279.50, unrealized=-1.05%, held=24.0h
+2026-05-19 16:34:00,474 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76279.50, unrealized=-1.05%, held=24.0h
+2026-05-19 16:39:00,954 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:39:00,954 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:39:00,954 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76396.35, unrealized=-0.90%, held=24.0h
+2026-05-19 16:39:00,954 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76396.35, unrealized=-0.90%, held=24.0h
+2026-05-19 16:44:01,351 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:44:01,351 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:44:01,351 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76492.56, unrealized=-0.77%, held=24.0h
+2026-05-19 16:44:01,351 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76492.56, unrealized=-0.77%, held=24.0h
+2026-05-19 16:49:01,735 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:49:01,735 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:49:01,735 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76168.14, unrealized=-1.19%, held=24.0h
+2026-05-19 16:49:01,735 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76168.14, unrealized=-1.19%, held=24.0h
+2026-05-19 16:54:02,143 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:54:02,143 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:54:02,143 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76129.50, unrealized=-1.24%, held=24.0h
+2026-05-19 16:54:02,143 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76129.50, unrealized=-1.24%, held=24.0h
+2026-05-19 16:59:02,549 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:59:02,549 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:59:02,549 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76336.10, unrealized=-0.97%, held=24.0h
+2026-05-19 16:59:02,549 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76336.10, unrealized=-0.97%, held=24.0h
+2026-05-19 17:04:02,951 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:04:02,951 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:04:02,952 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76361.40, unrealized=-0.94%, held=24.0h
+2026-05-19 17:04:02,952 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76361.40, unrealized=-0.94%, held=24.0h
+2026-05-19 17:09:03,359 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:09:03,359 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:09:03,359 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76465.40, unrealized=-0.81%, held=24.0h
+2026-05-19 17:09:03,359 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76465.40, unrealized=-0.81%, held=24.0h
+2026-05-19 17:14:03,742 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:14:03,742 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:14:03,742 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76522.59, unrealized=-0.73%, held=24.0h
+2026-05-19 17:14:03,742 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76522.59, unrealized=-0.73%, held=24.0h
+2026-05-19 17:19:04,126 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:19:04,126 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:19:04,126 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76580.40, unrealized=-0.66%, held=24.0h
+2026-05-19 17:19:04,126 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76580.40, unrealized=-0.66%, held=24.0h

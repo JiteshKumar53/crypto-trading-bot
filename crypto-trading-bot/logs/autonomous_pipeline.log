@@ -653,3 +653,261 @@
 2026-05-19 16:18:59,865 [INFO] agents.agent_runner: [AgentRunner] Running Technical Analysis (Candles)...
 2026-05-19 16:18:59,865 [INFO] agents.base_agent: [Candles] Running for BTC/USD
 2026-05-19 16:18:59,865 [INFO] agents.base_agent: [Candles] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:19:18,528 [INFO] agents.base_agent: [Candles] Ollama responded in 18.7s
+2026-05-19 16:19:18,528 [INFO] agents.base_agent: [Candles] Cached response (TTL: 300s)
+2026-05-19 16:19:18,529 [INFO] agents.base_agent: [Candles] Completed in 18.7s (LIVE)
+2026-05-19 16:19:18,529 [INFO] agents.agent_runner: [AgentRunner] Running Fundamental Analysis (Ledger)...
+2026-05-19 16:19:18,529 [INFO] agents.base_agent: [Ledger] Running for BTC/USD
+2026-05-19 16:19:18,529 [INFO] agents.base_agent: [Ledger] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:19:52,609 [INFO] agents.base_agent: [Ledger] Ollama responded in 34.1s
+2026-05-19 16:19:52,609 [INFO] agents.base_agent: [Ledger] Cached response (TTL: 300s)
+2026-05-19 16:19:52,610 [INFO] agents.base_agent: [Ledger] Completed in 34.1s (LIVE)
+2026-05-19 16:19:52,610 [INFO] agents.agent_runner: [AgentRunner] Running Sentiment Analysis (Pulse)...
+2026-05-19 16:19:52,610 [INFO] agents.base_agent: [Pulse] Running for BTC/USD
+2026-05-19 16:19:52,610 [INFO] agents.base_agent: [Pulse] Calling Ollama (qwen3.5:cloud, timeout=90s)...
+2026-05-19 16:20:55,410 [INFO] agents.base_agent: [Pulse] Ollama responded in 62.8s
+2026-05-19 16:20:55,410 [INFO] agents.base_agent: [Pulse] Cached response (TTL: 300s)
+2026-05-19 16:20:55,411 [INFO] agents.base_agent: [Pulse] Completed in 62.8s (LIVE)
+2026-05-19 16:20:55,411 [INFO] agents.agent_runner: [AgentRunner] Running Risk Assessment (Shield)...
+2026-05-19 16:20:55,411 [INFO] agents.base_agent: [Shield] Running for BTC/USD
+2026-05-19 16:20:55,411 [INFO] agents.base_agent: [Shield] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:21:25,288 [INFO] agents.base_agent: [Shield] Ollama responded in 29.9s
+2026-05-19 16:21:25,288 [INFO] agents.base_agent: [Shield] Cached response (TTL: 300s)
+2026-05-19 16:21:25,289 [INFO] agents.base_agent: [Shield] Completed in 29.9s (LIVE)
+2026-05-19 16:21:25,289 [INFO] agents.agent_runner: [AgentRunner] Running Thesis Synthesis (Compass)...
+2026-05-19 16:21:25,289 [INFO] agents.base_agent: [Compass] Running for BTC/USD
+2026-05-19 16:21:25,289 [INFO] agents.base_agent: [Compass] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:22:06,580 [INFO] agents.base_agent: [Compass] Ollama responded in 41.3s
+2026-05-19 16:22:06,580 [INFO] agents.base_agent: [Compass] Cached response (TTL: 300s)
+2026-05-19 16:22:06,580 [INFO] agents.base_agent: [Compass] Completed in 41.3s (LIVE)
+2026-05-19 16:22:06,580 [INFO] pipeline_controller: [Stage 3] Running backtest for BTC/USD
+2026-05-19 16:22:06,589 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 0.119063 BTC/USD at $79789.85 (MA: 79584.26)
+2026-05-19 16:22:06,590 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 0.119063 BTC/USD at $79215.66 (MA: 79489.01)
+2026-05-19 16:22:06,591 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 0.118100 BTC/USD at $79738.09 (MA: 79523.25)
+2026-05-19 16:22:06,594 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 0.118100 BTC/USD at $80713.34 (MA: 80881.33)
+2026-05-19 16:22:06,606 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 0.121708 BTC/USD at $78125.15 (MA: 78068.28)
+2026-05-19 16:22:06,607 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 0.121708 BTC/USD at $78045.13 (MA: 78088.69)
+2026-05-19 16:22:06,607 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 0.121188 BTC/USD at $78235.19 (MA: 78101.18)
+2026-05-19 16:22:06,609 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 0.121188 BTC/USD at $78004.91 (MA: 78127.53)
+2026-05-19 16:22:06,610 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 0.120644 BTC/USD at $78219.47 (MA: 78101.95)
+2026-05-19 16:22:06,612 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 0.120644 BTC/USD at $77922.53 (MA: 78166.68)
+2026-05-19 16:22:06,615 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 0.120923 BTC/USD at $77609.07 (MA: 77384.24)
+2026-05-19 16:22:06,615 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 0.120923 BTC/USD at $76899.69 (MA: 77325.80)
+2026-05-19 16:22:06,616 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 0.120822 BTC/USD at $76852.84 (MA: 76834.90)
+2026-05-19 16:22:06,618 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 0.120822 BTC/USD at $76622.77 (MA: 76826.36)
+2026-05-19 16:22:06,618 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 0.120217 BTC/USD at $76873.23 (MA: 76791.17)
+2026-05-19 16:22:06,620 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 0.120217 BTC/USD at $76754.74 (MA: 76760.91)
+2026-05-19 16:22:06,620 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 0.119640 BTC/USD at $76984.07 (MA: 76793.54)
+2026-05-19 16:22:06,620 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 0.119640 BTC/USD at $76634.42 (MA: 76807.11)
+2026-05-19 16:22:06,620 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 0.119090 BTC/USD at $76859.40 (MA: 76833.12)
+2026-05-19 16:22:06,621 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 0.119090 BTC/USD at $76797.04 (MA: 76840.45)
+2026-05-19 16:22:06,636 [INFO] strategy.strategy_engine: [rsi_14_30_70] BUY 0.120556 BTC/USD at $78801.85 (RSI: 19.3)
+2026-05-19 16:22:06,666 [INFO] strategy.strategy_engine: [rsi_14_30_70] SELL 0.120556 BTC/USD at $81319.00 (RSI: 70.5)
+2026-05-19 16:22:06,680 [INFO] strategy.strategy_engine: [rsi_14_30_70] BUY 0.121266 BTC/USD at $80566.07 (RSI: 28.5)
+2026-05-19 16:22:06,811 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 0.119063 BTC/USD at $79789.85 (MACD: -256.0714, Signal: -288.1678)
+2026-05-19 16:22:06,821 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 0.119063 BTC/USD at $81061.16 (MACD: 350.8986, Signal: 368.6669)
+2026-05-19 16:22:06,830 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 0.121787 BTC/USD at $79036.34 (MACD: -375.4763, Signal: -376.7069)
+2026-05-19 16:22:06,832 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 0.121787 BTC/USD at $78590.99 (MACD: -371.5228, Signal: -370.2056)
+2026-05-19 16:22:06,836 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 0.122191 BTC/USD at $78204.40 (MACD: -460.3115, Signal: -462.3827)
+2026-05-19 16:22:06,846 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 0.122191 BTC/USD at $77404.32 (MACD: -102.0094, Signal: -72.7158)
+2026-05-19 16:22:06,850 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 0.121698 BTC/USD at $77609.07 (MACD: -260.9673, Signal: -311.1574)
+2026-05-19 16:22:06,851 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 0.121698 BTC/USD at $76331.45 (MACD: -309.0255, Signal: -303.2155)
+2026-05-19 16:22:06,852 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 0.120742 BTC/USD at $76852.84 (MACD: -330.3968, Signal: -333.3643)
+2026-05-19 16:22:06,858 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 0.120742 BTC/USD at $76482.41 (MACD: -90.7517, Signal: -88.7797)
+2026-05-19 16:22:06,863 [INFO] strategy.strategy_engine: [bb_20_2.0] BUY 0.118512 BTC/USD at $80160.51 (BB lower: $80210.19)
+2026-05-19 16:22:06,870 [INFO] strategy.strategy_engine: [bb_20_2.0] SELL 0.118512 BTC/USD at $80953.60 (BB upper: $80368.15)
+2026-05-19 16:22:06,875 [INFO] strategy.strategy_engine: [bb_20_2.0] BUY 0.121601 BTC/USD at $78709.78 (BB lower: $79560.75)
+2026-05-19 16:22:06,889 [INFO] strategy.strategy_engine: [bb_20_2.0] SELL 0.121601 BTC/USD at $78443.03 (BB upper: $78429.92)
+2026-05-19 16:22:06,893 [INFO] strategy.strategy_engine: [bb_20_2.0] BUY 0.123019 BTC/USD at $77404.32 (BB lower: $77680.73)
+2026-05-19 16:22:06,905 [INFO] pipeline_controller: [Backtest] BTC/USD: Best strategy = bb_20_2.0, return=-1.00%, drawdown=2.84%, passed=True
+2026-05-19 16:22:06,905 [INFO] pipeline_controller: [Backtest] BTC/USD:   rsi_14_30_70: return=-2.21%, drawdown=5.44%, passed=False
+2026-05-19 16:22:06,905 [INFO] pipeline_controller: [Backtest] BTC/USD:   macd_12_26_9: return=-2.95%, drawdown=5.21%, passed=False
+2026-05-19 16:22:06,905 [INFO] pipeline_controller: [Backtest] BTC/USD:   ma_crossover_20: return=-3.91%, drawdown=5.38%, passed=False
+2026-05-19 16:22:06,906 [INFO] pipeline_controller: [Stage 4] Running Risk Governor for BTC/USD
+2026-05-19 16:22:07,301 [WARNING] pipeline_controller: Risk Governor BLOCKED order for BTC/USD: block
+2026-05-19 16:22:07,301 [INFO] pipeline_controller: === Starting cycle for ETH/USD ===
+2026-05-19 16:22:07,301 [INFO] pipeline_controller: [Stage 1] Fetching market data for ETH/USD
+2026-05-19 16:22:07,301 [INFO] data.data_fetcher: Fetching 168 hourly bars for ETH/USD
+2026-05-19 16:22:07,692 [INFO] data.data_fetcher: Data validation passed for ETH/USD
+2026-05-19 16:22:07,692 [INFO] data.data_fetcher: Fetched 168 bars for ETH/USD
+2026-05-19 16:22:07,692 [INFO] data.data_fetcher: Fetching 1 hourly bars for ETH/USD
+2026-05-19 16:22:07,808 [INFO] data.data_fetcher: Data validation passed for ETH/USD
+2026-05-19 16:22:07,809 [INFO] data.data_fetcher: Fetched 1 bars for ETH/USD
+2026-05-19 16:22:07,809 [INFO] pipeline_controller: Current price for ETH/USD: $2,098.42
+2026-05-19 16:22:07,809 [INFO] pipeline_controller: [Stage 2] Running agent recommendations for ETH/USD
+2026-05-19 16:22:07,809 [INFO] agents.agent_runner: [AgentRunner] Starting sequential pipeline for ETH/USD
+2026-05-19 16:22:07,809 [INFO] agents.agent_runner: [AgentRunner] Running Technical Analysis (Candles)...
+2026-05-19 16:22:07,809 [INFO] agents.base_agent: [Candles] Running for ETH/USD
+2026-05-19 16:22:07,809 [INFO] agents.base_agent: [Candles] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:22:17,469 [INFO] agents.base_agent: [Candles] Ollama responded in 9.7s
+2026-05-19 16:22:17,469 [INFO] agents.base_agent: [Candles] Cached response (TTL: 300s)
+2026-05-19 16:22:17,470 [INFO] agents.base_agent: [Candles] Completed in 9.7s (LIVE)
+2026-05-19 16:22:17,470 [INFO] agents.agent_runner: [AgentRunner] Running Fundamental Analysis (Ledger)...
+2026-05-19 16:22:17,470 [INFO] agents.base_agent: [Ledger] Running for ETH/USD
+2026-05-19 16:22:17,470 [INFO] agents.base_agent: [Ledger] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:23:01,495 [INFO] agents.base_agent: [Ledger] Ollama responded in 44.0s
+2026-05-19 16:23:01,495 [INFO] agents.base_agent: [Ledger] Cached response (TTL: 300s)
+2026-05-19 16:23:01,496 [INFO] agents.base_agent: [Ledger] Completed in 44.0s (LIVE)
+2026-05-19 16:23:01,496 [INFO] agents.agent_runner: [AgentRunner] Running Sentiment Analysis (Pulse)...
+2026-05-19 16:23:01,496 [INFO] agents.base_agent: [Pulse] Running for ETH/USD
+2026-05-19 16:23:01,496 [INFO] agents.base_agent: [Pulse] Calling Ollama (qwen3.5:cloud, timeout=90s)...
+2026-05-19 16:24:31,505 [ERROR] agents.base_agent: [Pulse] Ollama API timeout after 90.0s (limit: 90s)
+2026-05-19 16:24:31,505 [ERROR] agents.base_agent: [Pulse] Failed after 90.0s: HTTPConnectionPool(host='187.124.18.55', port=32768): Read timed out. (read timeout=90)
+2026-05-19 16:24:31,506 [INFO] agents.agent_runner: [AgentRunner] Running Risk Assessment (Shield)...
+2026-05-19 16:24:31,506 [INFO] agents.base_agent: [Shield] Running for ETH/USD
+2026-05-19 16:24:31,506 [INFO] agents.base_agent: [Shield] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:25:18,535 [INFO] agents.base_agent: [Shield] Ollama responded in 47.0s
+2026-05-19 16:25:18,535 [INFO] agents.base_agent: [Shield] Cached response (TTL: 300s)
+2026-05-19 16:25:18,536 [INFO] agents.base_agent: [Shield] Completed in 47.0s (LIVE)
+2026-05-19 16:25:18,536 [INFO] agents.agent_runner: [AgentRunner] Running Thesis Synthesis (Compass)...
+2026-05-19 16:25:18,536 [INFO] agents.base_agent: [Compass] Running for ETH/USD
+2026-05-19 16:25:18,536 [INFO] agents.base_agent: [Compass] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:26:07,640 [INFO] agents.base_agent: [Compass] Ollama responded in 49.1s
+2026-05-19 16:26:07,640 [INFO] agents.base_agent: [Compass] Cached response (TTL: 300s)
+2026-05-19 16:26:07,640 [INFO] agents.base_agent: [Compass] Completed in 49.1s (LIVE)
+2026-05-19 16:26:07,640 [INFO] pipeline_controller: [Stage 3] Running backtest for ETH/USD
+2026-05-19 16:26:07,644 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 4.115750 ETH/USD at $2308.21 (MA: 2290.20)
+2026-05-19 16:26:07,645 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 4.115750 ETH/USD at $2283.25 (MA: 2293.13)
+2026-05-19 16:26:07,648 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 4.137674 ETH/USD at $2268.06 (MA: 2262.90)
+2026-05-19 16:26:07,649 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 4.137674 ETH/USD at $2256.42 (MA: 2257.86)
+2026-05-19 16:26:07,649 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 4.121989 ETH/USD at $2261.27 (MA: 2257.60)
+2026-05-19 16:26:07,649 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 4.121989 ETH/USD at $2253.31 (MA: 2258.49)
+2026-05-19 16:26:07,650 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 4.101670 ETH/USD at $2260.56 (MA: 2259.08)
+2026-05-19 16:26:07,650 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 4.101670 ETH/USD at $2249.40 (MA: 2258.65)
+2026-05-19 16:26:07,650 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 4.026004 ETH/USD at $2287.88 (MA: 2260.08)
+2026-05-19 16:26:07,653 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 4.026004 ETH/USD at $2275.01 (MA: 2281.96)
+2026-05-19 16:26:07,665 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 4.192832 ETH/USD at $2180.95 (MA: 2177.84)
+2026-05-19 16:26:07,669 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 4.192832 ETH/USD at $2182.20 (MA: 2183.89)
+2026-05-19 16:26:07,670 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 4.176320 ETH/USD at $2186.60 (MA: 2184.24)
+2026-05-19 16:26:07,671 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 4.176320 ETH/USD at $2177.57 (MA: 2186.76)
+2026-05-19 16:26:07,675 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 4.221889 ETH/USD at $2150.41 (MA: 2141.11)
+2026-05-19 16:26:07,675 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 4.221889 ETH/USD at $2129.59 (MA: 2138.45)
+2026-05-19 16:26:07,677 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 4.229898 ETH/USD at $2122.54 (MA: 2116.18)
+2026-05-19 16:26:07,677 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 4.229898 ETH/USD at $2116.18 (MA: 2116.32)
+2026-05-19 16:26:07,677 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 4.184102 ETH/USD at $2135.59 (MA: 2117.22)
+2026-05-19 16:26:07,679 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 4.184102 ETH/USD at $2113.09 (MA: 2121.63)
+2026-05-19 16:26:07,705 [INFO] strategy.strategy_engine: [rsi_14_30_70] BUY 4.205465 ETH/USD at $2258.97 (RSI: 29.9)
+2026-05-19 16:26:07,729 [INFO] strategy.strategy_engine: [rsi_14_30_70] SELL 4.205465 ETH/USD at $2315.65 (RSI: 72.4)
+2026-05-19 16:26:07,744 [INFO] strategy.strategy_engine: [rsi_14_30_70] BUY 4.324293 ETH/USD at $2245.03 (RSI: 26.1)
+2026-05-19 16:26:07,850 [INFO] strategy.strategy_engine: [rsi_14_30_70] SELL 4.324293 ETH/USD at $2132.84 (RSI: 71.8)
+2026-05-19 16:26:07,862 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 4.188608 ETH/USD at $2268.06 (MACD: -6.0492, Signal: -6.1792)
+2026-05-19 16:26:07,868 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 4.188608 ETH/USD at $2275.01 (MACD: 5.7875, Signal: 6.7429)
+2026-05-19 16:26:07,875 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 4.274271 ETH/USD at $2224.85 (MACD: -12.8907, Signal: -13.0636)
+2026-05-19 16:26:07,877 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 4.274271 ETH/USD at $2194.29 (MACD: -11.1824, Signal: -10.8182)
+2026-05-19 16:26:07,880 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 4.296672 ETH/USD at $2180.20 (MACD: -16.2916, Signal: -16.6971)
+2026-05-19 16:26:07,888 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 4.296672 ETH/USD at $2130.44 (MACD: -5.6311, Signal: -2.4459)
+2026-05-19 16:26:07,891 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 4.288184 ETH/USD at $2133.05 (MACD: -16.8498, Signal: -17.0564)
+2026-05-19 16:26:07,893 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 4.288184 ETH/USD at $2096.55 (MACD: -15.5787, Signal: -15.2268)
+2026-05-19 16:26:07,894 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 4.231244 ETH/USD at $2122.54 (MACD: -15.2524, Signal: -15.6108)
+2026-05-19 16:26:07,899 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 4.231244 ETH/USD at $2108.55 (MACD: -3.6344, Signal: -3.1172)
+2026-05-19 16:26:07,905 [INFO] strategy.strategy_engine: [bb_20_2.0] BUY 4.198800 ETH/USD at $2262.55 (BB lower: $2263.64)
+2026-05-19 16:26:07,912 [INFO] strategy.strategy_engine: [bb_20_2.0] SELL 4.198800 ETH/USD at $2287.88 (BB upper: $2278.96)
+2026-05-19 16:26:07,919 [INFO] strategy.strategy_engine: [bb_20_2.0] BUY 4.334567 ETH/USD at $2210.80 (BB lower: $2223.54)
+2026-05-19 16:26:07,931 [INFO] strategy.strategy_engine: [bb_20_2.0] SELL 4.334567 ETH/USD at $2187.17 (BB upper: $2185.66)
+2026-05-19 16:26:07,937 [INFO] strategy.strategy_engine: [bb_20_2.0] BUY 4.347710 ETH/USD at $2177.57 (BB lower: $2178.17)
+2026-05-19 16:26:07,954 [INFO] pipeline_controller: [Backtest] ETH/USD: Best strategy = rsi_14_30_70, return=-2.85%, drawdown=7.78%, passed=False
+2026-05-19 16:26:07,954 [INFO] pipeline_controller: [Backtest] ETH/USD:   bb_20_2.0: return=-3.88%, drawdown=6.15%, passed=False
+2026-05-19 16:26:07,954 [INFO] pipeline_controller: [Backtest] ETH/USD:   macd_12_26_9: return=-6.23%, drawdown=7.98%, passed=False
+2026-05-19 16:26:07,954 [INFO] pipeline_controller: [Backtest] ETH/USD:   ma_crossover_20: return=-7.06%, drawdown=7.06%, passed=False
+2026-05-19 16:26:07,954 [INFO] pipeline_controller: [Stage 4] Running Risk Governor for ETH/USD
+2026-05-19 16:26:08,346 [INFO] pipeline_controller: [Stage 5] Running orchestrator decision for ETH/USD
+2026-05-19 16:26:08,346 [WARNING] pipeline_controller: Backtest failed: max drawdown 7.78% > 5%
+2026-05-19 16:26:08,347 [INFO] orchestrator: [Pipeline Start] dec-20260519-142608-ETHUSD for buy 0.2379621104680864 ETH/USD
+2026-05-19 16:26:08,347 [WARNING] pipeline_controller: Orchestrator REJECTED order for ETH/USD
+2026-05-19 16:26:08,347 [INFO] pipeline_controller: === Starting cycle for SOL/USD ===
+2026-05-19 16:26:08,347 [INFO] pipeline_controller: [Stage 1] Fetching market data for SOL/USD
+2026-05-19 16:26:08,347 [INFO] data.data_fetcher: Fetching 168 hourly bars for SOL/USD
+2026-05-19 16:26:08,729 [INFO] data.data_fetcher: Data validation passed for SOL/USD
+2026-05-19 16:26:08,729 [INFO] data.data_fetcher: Fetched 168 bars for SOL/USD
+2026-05-19 16:26:08,729 [INFO] data.data_fetcher: Fetching 1 hourly bars for SOL/USD
+2026-05-19 16:26:08,837 [INFO] data.data_fetcher: Data validation passed for SOL/USD
+2026-05-19 16:26:08,837 [INFO] data.data_fetcher: Fetched 1 bars for SOL/USD
+2026-05-19 16:26:08,837 [INFO] pipeline_controller: Current price for SOL/USD: $84.18
+2026-05-19 16:26:08,837 [INFO] pipeline_controller: [Stage 2] Running agent recommendations for SOL/USD
+2026-05-19 16:26:08,837 [INFO] agents.agent_runner: [AgentRunner] Starting sequential pipeline for SOL/USD
+2026-05-19 16:26:08,837 [INFO] agents.agent_runner: [AgentRunner] Running Technical Analysis (Candles)...
+2026-05-19 16:26:08,837 [INFO] agents.base_agent: [Candles] Running for SOL/USD
+2026-05-19 16:26:08,837 [INFO] agents.base_agent: [Candles] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:26:21,447 [INFO] agents.base_agent: [Candles] Ollama responded in 12.6s
+2026-05-19 16:26:21,447 [INFO] agents.base_agent: [Candles] Cached response (TTL: 300s)
+2026-05-19 16:26:21,447 [INFO] agents.base_agent: [Candles] Completed in 12.6s (LIVE)
+2026-05-19 16:26:21,447 [INFO] agents.agent_runner: [AgentRunner] Running Fundamental Analysis (Ledger)...
+2026-05-19 16:26:21,447 [INFO] agents.base_agent: [Ledger] Running for SOL/USD
+2026-05-19 16:26:21,447 [INFO] agents.base_agent: [Ledger] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:27:28,181 [INFO] agents.base_agent: [Ledger] Ollama responded in 66.7s
+2026-05-19 16:27:28,181 [INFO] agents.base_agent: [Ledger] Cached response (TTL: 300s)
+2026-05-19 16:27:28,182 [INFO] agents.base_agent: [Ledger] Completed in 66.7s (LIVE)
+2026-05-19 16:27:28,182 [INFO] agents.agent_runner: [AgentRunner] Running Sentiment Analysis (Pulse)...
+2026-05-19 16:27:28,182 [INFO] agents.base_agent: [Pulse] Running for SOL/USD
+2026-05-19 16:27:28,182 [INFO] agents.base_agent: [Pulse] Calling Ollama (qwen3.5:cloud, timeout=90s)...
+2026-05-19 16:27:59,574 [INFO] agents.base_agent: [Pulse] Ollama responded in 31.4s
+2026-05-19 16:27:59,574 [INFO] agents.base_agent: [Pulse] Cached response (TTL: 300s)
+2026-05-19 16:27:59,574 [INFO] agents.base_agent: [Pulse] Completed in 31.4s (LIVE)
+2026-05-19 16:27:59,574 [INFO] agents.agent_runner: [AgentRunner] Running Risk Assessment (Shield)...
+2026-05-19 16:27:59,574 [INFO] agents.base_agent: [Shield] Running for SOL/USD
+2026-05-19 16:27:59,575 [INFO] agents.base_agent: [Shield] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:28:31,269 [INFO] agents.base_agent: [Shield] Ollama responded in 31.7s
+2026-05-19 16:28:31,269 [INFO] agents.base_agent: [Shield] Cached response (TTL: 300s)
+2026-05-19 16:28:31,269 [INFO] agents.base_agent: [Shield] Completed in 31.7s (LIVE)
+2026-05-19 16:28:31,269 [INFO] agents.agent_runner: [AgentRunner] Running Thesis Synthesis (Compass)...
+2026-05-19 16:28:31,270 [INFO] agents.base_agent: [Compass] Running for SOL/USD
+2026-05-19 16:28:31,270 [INFO] agents.base_agent: [Compass] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:29:16,780 [INFO] agents.base_agent: [Compass] Ollama responded in 45.5s
+2026-05-19 16:29:16,780 [INFO] agents.base_agent: [Compass] Cached response (TTL: 300s)
+2026-05-19 16:29:16,780 [INFO] agents.base_agent: [Compass] Completed in 45.5s (LIVE)
+2026-05-19 16:29:16,780 [INFO] pipeline_controller: [Stage 3] Running backtest for SOL/USD
+2026-05-19 16:29:16,787 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 104.037760 SOL/USD at $91.31 (MA: 91.30)
+2026-05-19 16:29:16,788 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 104.037760 SOL/USD at $90.83 (MA: 91.12)
+2026-05-19 16:29:16,788 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 103.639020 SOL/USD at $91.03 (MA: 91.01)
+2026-05-19 16:29:16,788 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 103.639020 SOL/USD at $90.80 (MA: 90.94)
+2026-05-19 16:29:16,789 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 103.221711 SOL/USD at $91.01 (MA: 90.90)
+2026-05-19 16:29:16,789 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 103.221711 SOL/USD at $90.61 (MA: 90.91)
+2026-05-19 16:29:16,789 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 102.407639 SOL/USD at $91.18 (MA: 90.93)
+2026-05-19 16:29:16,789 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 102.407639 SOL/USD at $90.75 (MA: 90.92)
+2026-05-19 16:29:16,790 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 100.790014 SOL/USD at $92.06 (MA: 90.98)
+2026-05-19 16:29:16,792 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 100.790014 SOL/USD at $91.74 (MA: 91.98)
+2026-05-19 16:29:16,792 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 99.999655 SOL/USD at $92.31 (MA: 92.03)
+2026-05-19 16:29:16,792 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 99.999655 SOL/USD at $92.03 (MA: 92.09)
+2026-05-19 16:29:16,802 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 106.199628 SOL/USD at $86.51 (MA: 86.42)
+2026-05-19 16:29:16,805 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 106.199628 SOL/USD at $86.37 (MA: 86.61)
+2026-05-19 16:29:16,806 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 105.576068 SOL/USD at $86.72 (MA: 86.52)
+2026-05-19 16:29:16,808 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 105.576068 SOL/USD at $86.10 (MA: 86.61)
+2026-05-19 16:29:16,811 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 106.084847 SOL/USD at $85.56 (MA: 85.36)
+2026-05-19 16:29:16,812 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 106.084847 SOL/USD at $84.66 (MA: 85.29)
+2026-05-19 16:29:16,814 [INFO] strategy.strategy_engine: [ma_crossover_20] BUY 105.666124 SOL/USD at $84.87 (MA: 84.66)
+2026-05-19 16:29:16,817 [INFO] strategy.strategy_engine: [ma_crossover_20] SELL 105.666124 SOL/USD at $84.69 (MA: 84.86)
+2026-05-19 16:29:16,836 [INFO] strategy.strategy_engine: [rsi_14_30_70] BUY 103.537382 SOL/USD at $91.75 (RSI: 25.6)
+2026-05-19 16:29:16,861 [INFO] strategy.strategy_engine: [rsi_14_30_70] SELL 103.537382 SOL/USD at $93.01 (RSI: 71.7)
+2026-05-19 16:29:16,875 [INFO] strategy.strategy_engine: [rsi_14_30_70] BUY 106.028190 SOL/USD at $90.59 (RSI: 26.7)
+2026-05-19 16:29:16,918 [INFO] strategy.strategy_engine: [rsi_14_30_70] SELL 106.028190 SOL/USD at $86.62 (RSI: 73.2)
+2026-05-19 16:29:16,952 [INFO] strategy.strategy_engine: [rsi_14_30_70] BUY 107.907949 SOL/USD at $85.14 (RSI: 26.9)
+2026-05-19 16:29:16,986 [INFO] strategy.strategy_engine: [rsi_14_30_70] SELL 107.907949 SOL/USD at $85.30 (RSI: 71.6)
+2026-05-19 16:29:16,993 [INFO] strategy.strategy_engine: [rsi_14_30_70] BUY 109.124741 SOL/USD at $84.18 (RSI: 29.2)
+2026-05-19 16:29:17,000 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 103.945839 SOL/USD at $91.39 (MACD: -0.8304, Signal: -0.8711)
+2026-05-19 16:29:17,007 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 103.945839 SOL/USD at $92.03 (MACD: 0.0974, Signal: 0.1149)
+2026-05-19 16:29:17,014 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 107.084918 SOL/USD at $89.14 (MACD: -0.6236, Signal: -0.6390)
+2026-05-19 16:29:17,015 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 107.084918 SOL/USD at $88.00 (MACD: -0.6708, Signal: -0.6360)
+2026-05-19 16:29:17,019 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 108.514157 SOL/USD at $86.73 (MACD: -0.9642, Signal: -0.9992)
+2026-05-19 16:29:17,028 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 108.514157 SOL/USD at $85.14 (MACD: -0.2686, Signal: -0.2249)
+2026-05-19 16:29:17,033 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 107.883939 SOL/USD at $85.56 (MACD: -0.4468, Signal: -0.4991)
+2026-05-19 16:29:17,034 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 107.883939 SOL/USD at $83.98 (MACD: -0.4918, Signal: -0.4889)
+2026-05-19 16:29:17,035 [INFO] strategy.strategy_engine: [macd_12_26_9] BUY 106.643826 SOL/USD at $84.87 (MACD: -0.4653, Signal: -0.4983)
+2026-05-19 16:29:17,040 [INFO] strategy.strategy_engine: [macd_12_26_9] SELL 106.643826 SOL/USD at $84.31 (MACD: -0.1070, Signal: -0.0774)
+2026-05-19 16:29:17,046 [INFO] strategy.strategy_engine: [bb_20_2.0] BUY 102.013423 SOL/USD at $93.12 (BB lower: $93.73)
+2026-05-19 16:29:17,054 [INFO] strategy.strategy_engine: [bb_20_2.0] SELL 102.013423 SOL/USD at $92.06 (BB upper: $91.81)
+2026-05-19 16:29:17,061 [INFO] strategy.strategy_engine: [bb_20_2.0] BUY 105.568736 SOL/USD at $88.84 (BB lower: $89.62)
+2026-05-19 16:29:17,091 [INFO] pipeline_controller: [Backtest] SOL/USD: Best strategy = rsi_14_30_70, return=-3.40%, drawdown=6.92%, passed=False
+2026-05-19 16:29:17,092 [INFO] pipeline_controller: [Backtest] SOL/USD:   macd_12_26_9: return=-5.50%, drawdown=7.34%, passed=False
+2026-05-19 16:29:17,092 [INFO] pipeline_controller: [Backtest] SOL/USD:   ma_crossover_20: return=-5.98%, drawdown=5.98%, passed=False
+2026-05-19 16:29:17,092 [INFO] pipeline_controller: [Backtest] SOL/USD:   bb_20_2.0: return=-6.29%, drawdown=6.86%, passed=False
+2026-05-19 16:29:17,092 [INFO] pipeline_controller: [Stage 4] Running Risk Governor for SOL/USD
+2026-05-19 16:29:17,507 [INFO] pipeline_controller: [Stage 5] Running orchestrator decision for SOL/USD
+2026-05-19 16:29:17,507 [WARNING] pipeline_controller: Backtest failed: max drawdown 6.92% > 5%
+2026-05-19 16:29:17,507 [INFO] orchestrator: [Pipeline Start] dec-20260519-142917-SOLUSD for buy 5.933060109289617 SOL/USD
+2026-05-19 16:29:17,507 [WARNING] pipeline_controller: Orchestrator REJECTED order for SOL/USD
+2026-05-19 16:29:17,798 [INFO] dashboard.dashboard_generator: [Dashboard] Written to dashboard/index.html
+2026-05-19 16:29:17,799 [INFO] __main__: Dashboard updated
+2026-05-19 16:29:17,799 [INFO] __main__: === CYCLE COMPLETE ===
+2026-05-19 16:29:17,799 [INFO] __main__:   BTC/USD: REJECTED/BLOCKED
+2026-05-19 16:29:17,799 [INFO] __main__:   ETH/USD: REJECTED/BLOCKED
+2026-05-19 16:29:17,799 [INFO] __main__:   SOL/USD: REJECTED/BLOCKED

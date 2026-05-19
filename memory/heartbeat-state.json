@@ -1,21 +1,8 @@
 {
   "lastChecks": {
-    "test_status": "2026-05-19T07:08:00Z",
-    "deploy_status": "2026-05-19T07:08:00Z",
-    "agent_health": "2026-05-19T07:08:00Z",
-    "model_status": "2026-05-19T07:08:00Z",
-    "data_pipeline": "2026-05-19T07:08:00Z",
-    "backtest": "2026-05-19T07:08:00Z"
-  },
-  "autonomous_mode": true,
-  "last_ceo_update": "2026-05-19T07:08:00Z",
-  "current_priority": "agent_pipeline_enable",
-  "next_priority": "first_agent_recommendation_run",
-  "test_count": 70,
-  "test_status": "passing",
-  "datetime_warnings_fixed": true,
-  "data_fetcher_fixed": true,
-  "pipeline_runs": 1,
-  "trades_executed": 2,
-  "positions_open": 1
+    "daemon": 1779200356.4357789,
+    "tests": 1779200356.4357793,
+    "trading": 1779200356.4357793,
+    "diversification_audit": 1779200356.4357793
+  }
 }

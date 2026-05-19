@@ -295,12 +295,24 @@ class PipelineController:
     def _run_backtest(self, symbol: str, data: pd.DataFrame) -> Dict:
         """
         Run backtest for ALL implemented strategies and return the best result.
+        Includes regime detection and parameter optimization (only on real data).
         A strategy passes if max_drawdown <= 5%.
-        Returns the best passing strategy or the least-bad failing strategy.
         """
         from strategy.strategy_engine import (
             SimpleMAStrategy, RSIStrategy, MACDStrategy, BollingerBandsStrategy
         )
+
+        # Detect market regime (only on real data with OHLC columns)
+        regime = "unknown"
+        has_real_data = hasattr(data, 'columns') and 'close' in data.columns
+        if has_real_data:
+            try:
+                from agents.strategy_research import StrategyResearchAgent
+                researcher = StrategyResearchAgent()
+                regime = researcher.regime_detect(data)
+                logger.info(f"[Backtest] {symbol}: Detected regime = {regime}")
+            except Exception as e:
+                logger.warning(f"[Backtest] {symbol}: Regime detection failed: {e}")
 
         strategies = [
             SimpleMAStrategy(symbol, ma_window=20),
@@ -334,11 +346,49 @@ class PipelineController:
                 "passed": result.max_drawdown <= 0.05,
             })
 
+        # Parameter optimization for top 2 strategies (only on real data)
+        if has_real_data:
+            try:
+                from agents.strategy_research import StrategyResearchAgent
+                researcher = StrategyResearchAgent()
+                param_results = []
+                for strat_result in sorted(results, key=lambda r: r["total_return"], reverse=True)[:2]:
+                    if "ma_crossover" in strat_result["strategy_name"]:
+                        grid = {"ma_window": [10, 15, 20, 30, 50]}
+                        param_results.extend(researcher.parameter_optimize("ma_crossover", symbol, data, grid))
+                    elif "rsi" in strat_result["strategy_name"]:
+                        grid = {"period": [7, 14, 21], "oversold": [20, 30, 40], "overbought": [60, 70, 80]}
+                        param_results.extend(researcher.parameter_optimize("rsi", symbol, data, grid))
+
+                if param_results:
+                    best_param = param_results[0]
+                    logger.info(f"[Backtest] {symbol}: Best optimized params = {best_param['params']}, "
+                                f"return={best_param['return']:.2%}, drawdown={best_param['drawdown']:.2%}, "
+                                f"passed={best_param['passed']}")
+                    # Add optimized version to results
+                    results.append({
+                        "strategy_name": f"{strat_result['strategy_name']}_optimized",
+                        "total_return": best_param["return"],
+                        "max_drawdown": best_param["drawdown"],
+                        "sharpe_ratio": best_param["sharpe"],
+                        "num_trades": best_param["trades"],
+                        "passed": best_param["passed"],
+                        "annualized_return": 0,
+                        "sortino_ratio": 0,
+                        "calmar_ratio": 0,
+                        "win_rate": 0,
+                        "profit_factor": 0,
+                        "exposure_time": 0,
+                        "worst_day": 0,
+                    })
+            except Exception as e:
+                logger.warning(f"[Backtest] {symbol}: Parameter optimization failed: {e}")
+
         # Sort by: passed first, then highest return
         results.sort(key=lambda r: (r["passed"], r["total_return"]), reverse=True)
         best = results[0]
 
-        logger.info(f"[Backtest] {symbol}: Best strategy = {best['strategy_name']}, "
+        logger.info(f"[Backtest] {symbol}: Regime={regime}, Best={best['strategy_name']}, "
                     f"return={best['total_return']:.2%}, drawdown={best['max_drawdown']:.2%}, "
                     f"passed={best['passed']}")
         for r in results[1:]:
