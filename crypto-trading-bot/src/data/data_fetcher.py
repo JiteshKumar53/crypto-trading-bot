@@ -31,12 +31,33 @@ class DataFetcher:
     ) -> Optional[pd.DataFrame]:
         """
         Fetch hourly bars for a crypto symbol.
+        Uses explicit date range to ensure full historical data.
         Returns DataFrame or None if fetch/validation fails.
         """
         logger.info(f"Fetching {limit} hourly bars for {symbol}")
 
         try:
-            df = self.client.get_latest_crypto_bars(symbol, limit=limit)
+            # Use date range instead of just limit to get proper historical data
+            from datetime import timezone
+            from alpaca.data.requests import CryptoBarsRequest
+            from alpaca.data.timeframe import TimeFrame
+            end = datetime.now(timezone.utc)
+            start = end - timedelta(hours=limit)
+
+            request = CryptoBarsRequest(
+                symbol_or_symbols=symbol,
+                timeframe=TimeFrame.Hour,
+                start=start,
+                end=end,
+            )
+
+            if self.client.data_client is None:
+                logger.warning("Alpaca data client not initialized")
+                return None
+
+            bars = self.client.data_client.get_crypto_bars(request)
+            df = bars.df if hasattr(bars, 'df') else None
+
             if df is None or df.empty:
                 logger.warning(f"No data returned for {symbol}")
                 return None
