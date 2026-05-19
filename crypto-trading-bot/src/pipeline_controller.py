@@ -216,7 +216,7 @@ class PipelineController:
                 "reason": "use_risk_governor=False",
             }
 
-        # Stage 5: Orchestrator decision
+        # Stage 5: Orchestrator decision (BUY or SELL based on signal)
         logger.info(f"[Stage 5] Running orchestrator decision for {symbol}")
 
         # Build recommendations for orchestrator
@@ -229,6 +229,14 @@ class PipelineController:
                 {"agent": "Shield", "warnings": agent_results["risk"].warnings},
                 {"agent": "Compass", "warnings": agent_results["thesis"].warnings},
             ]
+            # Determine side from agent consensus
+            thesis_rec = agent_results["thesis"].recommendation.lower()
+            if "sell" in thesis_rec or "exit" in thesis_rec or "short" in thesis_rec:
+                side = "sell"
+            elif "buy" in thesis_rec or "long" in thesis_rec:
+                side = "buy"
+            else:
+                side = "buy"  # Default if agents say WAIT/HOLD
         else:
             # Provide placeholder recommendations when agents disabled
             recommendations = [
@@ -238,6 +246,14 @@ class PipelineController:
                 {"agent": "Shield (disabled)", "warnings": "Agent recommendations disabled in config"},
                 {"agent": "Compass (disabled)", "warnings": "Agent recommendations disabled in config"},
             ]
+            side = "buy"  # Default when agents disabled
+
+        # If we have a position and agents say SELL, evaluate sell opportunity
+        if side == "sell" and current_position_value > 0:
+            logger.info(f"[Stage 5] Sell signal detected for {symbol} with open position")
+        elif side == "sell" and current_position_value == 0:
+            logger.info(f"[Stage 5] Sell signal for {symbol} but no position — skipping")
+            side = "buy"  # Can't sell what we don't have
 
         # Determine if backtest passed
         backtest_passed = True
@@ -247,7 +263,7 @@ class PipelineController:
 
         orchestrator_result = self.orchestrator.run_pipeline(
             symbol=symbol,
-            side="buy",
+            side=side,
             qty=qty,
             price=current_price,
             portfolio_value=portfolio_value,
@@ -271,10 +287,10 @@ class PipelineController:
         if self.paper_only and not self.alpaca.is_paper():
             raise ValueError("Paper mode required but not in paper mode!")
 
-        logger.info(f"[Stage 6] Executing paper order for {symbol}")
+        logger.info(f"[Stage 6] Executing paper order for {symbol}: {side} {qty:.6f}")
         order_result = self.alpaca.submit_order(
             symbol=symbol,
-            side="buy",
+            side=side,
             qty=round(qty, 6),  # Round to reasonable precision
         )
 

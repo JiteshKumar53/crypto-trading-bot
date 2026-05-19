@@ -21,7 +21,7 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
-from position_monitor import PositionMonitor
+from position_monitor_v2 import PositionMonitorV2
 
 # Setup logging
 log_dir = Path('/data/.openclaw/workspace/crypto-trading-bot/logs')
@@ -120,9 +120,9 @@ def main():
     write_pid()
 
     # Start position monitor ONCE — runs continuously between cycles
-    position_monitor = PositionMonitor()
+    position_monitor = PositionMonitorV2()
     position_monitor.start_background()
-    logger.info("[Daemon] Position monitor background thread started (5-min intervals, runs 24/7)")
+    logger.info("[Daemon] Position monitor v2 started (5-min intervals, 24/7)")
 
     signal.signal(signal.SIGTERM, lambda s, f: signal_handler(s, f, position_monitor))
     signal.signal(signal.SIGINT, lambda s, f: signal_handler(s, f, position_monitor))
