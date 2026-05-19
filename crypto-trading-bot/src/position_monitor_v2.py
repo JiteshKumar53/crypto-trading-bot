@@ -45,7 +45,8 @@ PARTIAL_PROFIT_LEVEL_1 = 0.015     # Sell 50% at +1.5% (reduced from 3%)
 MOMENTUM_REVERSAL_DROP = 0.005     # Exit if profit drops 0.5% from peak (covers ~0.4-0.5% fees)
 MINIMUM_PROFIT_EXIT = 0.005        # Don't exit if profit < 0.5% (fee breakeven)
 
-# State persistence
+DEFAULT_RUNNER_TRIGGER = 0.015      # Activate runner trailing stop after +1.5%
+DEFAULT_RUNNER_TRAIL = 0.015         # Runner trails at -1.5% from highest (wider than standard -2%)
 STATE_FILE = Path("/data/.openclaw/workspace/crypto-trading-bot/logs/position_monitor_state.json")
 REJECTED_SIGNALS_FILE = Path("/data/.openclaw/workspace/crypto-trading-bot/logs/rejected_signals.jsonl")
 
@@ -220,7 +221,14 @@ class PositionMonitorV2:
             return self._make_action("SELL_ALL", symbol, state.qty, current,
                                      f"take_profit ({unrealized_pct:.2%})")
 
-        # 4. Trailing stop check
+        # 4. Runner trailing stop: After +1.5%, trail at -1.5% from highest to capture trends
+        if highest >= entry * (1 + DEFAULT_RUNNER_TRIGGER):
+            runner_trail = highest * (1 - DEFAULT_RUNNER_TRAIL)
+            if current <= runner_trail:
+                return self._make_action("SELL_ALL", symbol, state.qty, current,
+                                         f"runner_exit (high: {highest:.2f}, trail: {runner_trail:.2f}, profit: {unrealized_pct:.2%})")
+
+        # 5. Standard trailing stop check (tighter, -2% from highest)
         if highest > entry:
             trail_price = highest * (1 - self.trailing_stop_pct)
             if current <= trail_price and not state.trailing_stop_triggered:
@@ -250,12 +258,12 @@ class PositionMonitorV2:
             return self._make_action("SELL_ALL", symbol, state.qty, current,
                                      f"stale_loss_exit ({holding:.1f}h, {unrealized_pct:.2%})")
 
-        # 7. Stale position review (profitable but going nowhere)
+        # 8. Stale position review (profitable but going nowhere)
         if 0 < unrealized_pct < PARTIAL_PROFIT_LEVEL_1 and holding >= self.stale_profit_hours:
             return self._make_action("SELL_ALL", symbol, state.qty, current,
                                      f"stale_profit_exit ({holding:.1f}h, {unrealized_pct:.2%})")
 
-        # 8. Capital efficiency exit (held too long with minimal return)
+        # 9. Capital efficiency exit (held too long with minimal return)
         if holding >= self.capital_efficiency_days * 24 and abs(unrealized_pct) < 0.01:
             return self._make_action("SELL_ALL", symbol, state.qty, current,
                                      f"capital_efficiency ({holding:.1f}h, {unrealized_pct:.2%})")
