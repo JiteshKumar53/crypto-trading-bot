@@ -7,8 +7,11 @@ deterministic, configurable risk rules.
 Cannot be disabled without CEO approval.
 """
 
+import logging
 import os
 import yaml
+
+logger = logging.getLogger(__name__)
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Dict, List, Optional, Tuple
@@ -58,11 +61,22 @@ class RiskGovernor:
         self.state = {
             "consecutive_losses": 0,
             "daily_pnl": 0.0,
+            "daily_trades": 0,
+            "daily_trade_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
             "peak_portfolio_value": 0.0,
             "kill_switch_active": False,
             "kill_switch_time": None,
             "open_positions": 0,
         }
+
+    def _reset_daily_counters(self):
+        """Reset daily counters if date changed."""
+        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        if today != self.state.get("daily_trade_date"):
+            self.state["daily_trades"] = 0
+            self.state["daily_pnl"] = 0.0
+            self.state["daily_trade_date"] = today
+            logger.info(f"[RiskGovernor] Daily counters reset for {today}")
 
     def reset_state(self):
         """Reset runtime state. Used for testing and initialization."""
@@ -253,6 +267,50 @@ class RiskGovernor:
             )
         )
 
+        # 8a. Daily trade limit check
+        self._reset_daily_counters()
+        max_daily_trades = self.config["account"].get("max_daily_trades", 7)
+        if self.state["daily_trades"] >= max_daily_trades:
+            checks.append(
+                RiskCheck(
+                    name="max_daily_trades",
+                    passed=False,
+                    reason=f"Daily trade limit ({max_daily_trades}) reached",
+                )
+            )
+            return RiskResult(decision=RiskDecision.BLOCK, checks=checks)
+
+        checks.append(
+            RiskCheck(
+                name="max_daily_trades",
+                passed=True,
+                reason=f"Daily trades {self.state['daily_trades']}/{max_daily_trades}",
+            )
+        )
+
+        # 8b. Daily loss limit check
+        max_daily_loss_pct = self.config["account"].get("max_daily_loss_pct", 0.02)
+        max_daily_loss_usd = portfolio_value * max_daily_loss_pct
+        if self.state["daily_pnl"] <= -max_daily_loss_usd:
+            checks.append(
+                RiskCheck(
+                    name="max_daily_loss",
+                    passed=False,
+                    reason=f"Daily loss {self.state['daily_pnl']:.2f} >= limit {-max_daily_loss_usd:.2f}",
+                )
+            )
+            self.state["kill_switch_active"] = True
+            self.state["kill_switch_time"] = datetime.now(timezone.utc)
+            return RiskResult(decision=RiskDecision.KILL_SWITCH, checks=checks)
+
+        checks.append(
+            RiskCheck(
+                name="max_daily_loss",
+                passed=True,
+                reason=f"Daily PnL {self.state['daily_pnl']:.2f} within limit",
+            )
+        )
+
         # 9. Leverage check
         if self.config["account"]["no_leverage"]:
             # In paper trading, we don't have margin accounts configured
@@ -274,7 +332,9 @@ class RiskGovernor:
         portfolio_value: float,
     ):
         """Update state after a trade closes."""
+        self._reset_daily_counters()
         self.state["daily_pnl"] += realized_pnl
+        self.state["daily_trades"] += 1
         if realized_pnl < 0:
             self.state["consecutive_losses"] += 1
         else:

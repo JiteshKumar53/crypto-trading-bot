@@ -11,7 +11,8 @@ account:
   max_daily_loss_pct: 0.02              # 2% max daily loss
   max_strategy_drawdown_pct: 0.05         # 5% max drawdown before pause
   max_open_positions: 3
-  max_consecutive_losses: 3               # Stop after 3 consecutive losing trades
+  max_daily_trades: 7                   # Max 7 trades per day to prevent overtrading
+  max_consecutive_losses: 3             # Stop after 3 consecutive losing trades
   cooldown_hours_after_kill_switch: 24
   no_leverage: true
 
