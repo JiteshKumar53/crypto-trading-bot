@@ -18,7 +18,10 @@ class ThesisSynthesisAgent(BaseRecommendationAgent):
     """Synthesizes all recommendations into a unified trading thesis."""
 
     def __init__(self, ollama_base_url: str = "http://187.124.18.55:32768"):
-        super().__init__("qwen3.5:cloud", "Compass", ollama_base_url)
+        # Switched from qwen3.5 (times out on thesis at 90s) to deepseek-v4-pro
+        super().__init__("deepseek-v4-pro:cloud", "Compass", ollama_base_url)
+        # Thesis synthesis needs more time than standard
+        self.timeout = 120
 
     def build_prompt(self, asset: str, market_data: Optional[Dict] = None, **kwargs) -> str:
         # Collect all 4 agent recommendations

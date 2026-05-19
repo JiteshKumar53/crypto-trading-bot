@@ -18,7 +18,8 @@ class TechnicalAnalysisAgent(BaseRecommendationAgent):
     """Provides technical analysis recommendations."""
 
     def __init__(self, ollama_base_url: str = "http://187.124.18.55:32768"):
-        super().__init__("kimi-k2.6:cloud", "Candles", ollama_base_url)
+        # Switched from kimi-k2.6 (1T params, times out at 180s) to deepseek-v4-pro (fast, deep reasoning)
+        super().__init__("deepseek-v4-pro:cloud", "Candles", ollama_base_url)
 
     def build_prompt(self, asset: str, market_data: Optional[Dict] = None, **kwargs) -> str:
         current_price = kwargs.get("current_price", "N/A")

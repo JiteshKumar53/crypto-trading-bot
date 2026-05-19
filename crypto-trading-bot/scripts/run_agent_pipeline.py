@@ -14,9 +14,9 @@ fetcher = DataFetcher(client)
 df = fetcher.fetch_hourly_bars('BTC/USD', limit=168)
 price = fetcher.get_latest_price('BTC/USD')
 
-# Build OHLCV summary
-summary = "Latest 10 hourly bars (most recent first):\n"
-for i in range(min(10, len(df))):
+# Build OHLCV summary — use last 20 bars for technical agent (168 is too much for 1T model)
+summary = "Latest 20 hourly bars (most recent first):\n"
+for i in range(min(20, len(df))):
     row = df.iloc[-(i+1)]
     ts = str(df.index.get_level_values(1)[-(i+1)]) if hasattr(df.index, 'get_level_values') else str(df.index[-(i+1)])
     summary += f"  {ts}: O={row['open']:.2f} H={row['high']:.2f} L={row['low']:.2f} C={row['close']:.2f} V={row['volume']:.2f}\n"
