@@ -10,7 +10,7 @@ Cannot be disabled without CEO approval.
 import os
 import yaml
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional, Tuple
 from enum import Enum
 
@@ -33,7 +33,7 @@ class RiskCheck:
 class RiskResult:
     decision: RiskDecision
     checks: List[RiskCheck]
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     requires_ceo_approval: bool = False
 
     @property
@@ -242,7 +242,7 @@ class RiskGovernor:
                 )
             )
             self.state["kill_switch_active"] = True
-            self.state["kill_switch_time"] = datetime.utcnow()
+            self.state["kill_switch_time"] = datetime.now(timezone.utc)
             return RiskResult(decision=RiskDecision.KILL_SWITCH, checks=checks)
 
         checks.append(
@@ -291,7 +291,7 @@ class RiskGovernor:
             max_drawdown = self.config["account"]["max_strategy_drawdown_pct"]
             if drawdown >= max_drawdown:
                 self.state["kill_switch_active"] = True
-                self.state["kill_switch_time"] = datetime.utcnow()
+                self.state["kill_switch_time"] = datetime.now(timezone.utc)
 
         # Update open positions count (simplified)
         # In production, this would be fetched from broker

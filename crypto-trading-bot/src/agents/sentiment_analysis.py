@@ -7,7 +7,7 @@ Model: ollama/qwen3.5:cloud
 import re
 import logging
 from typing import Dict, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 from .base_agent import BaseRecommendationAgent, AgentRecommendation
 
@@ -48,7 +48,7 @@ NEVER make a final trade decision. Recommendation only.
 """
 
     def parse_output(self, raw_output: str, asset: str) -> AgentRecommendation:
-        timestamp = datetime.utcnow().isoformat() + "Z"
+        timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         recommendation = self._extract_field(raw_output, "Sentiment recommendation")
         confidence = self._extract_field(raw_output, "Confidence")
         warnings = self._extract_field(raw_output, "Warnings")

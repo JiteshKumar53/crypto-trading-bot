@@ -14,7 +14,7 @@ Runs the full decision pipeline:
 import logging
 from dataclasses import asdict
 from typing import Dict, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 from risk_governor import RiskGovernor, RiskDecision
 from memory.decision_log import DecisionLog, DecisionRecord
@@ -67,8 +67,8 @@ class TradingOrchestrator:
         Returns:
             Dict with decision, reason, and execution details
         """
-        decision_id = f"dec-{datetime.utcnow().strftime('%Y%m%d-%H%M%S')}-{symbol.replace('/', '')}"
-        timestamp = datetime.utcnow().isoformat() + "Z"
+        decision_id = f"dec-{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}-{symbol.replace('/', '')}"
+        timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
         logger.info(f"[Pipeline Start] {decision_id} for {side} {qty} {symbol}")
 
@@ -176,7 +176,7 @@ class TradingOrchestrator:
         risk_result=None,
     ) -> Dict:
         """Helper to create rejection response."""
-        timestamp = datetime.utcnow().isoformat() + "Z"
+        timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
         # Log rejection
         record = DecisionRecord(

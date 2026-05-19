@@ -9,7 +9,7 @@ Reads decision logs and account state to produce real-time views.
 import json
 import os
 import glob
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional
 import logging
 
@@ -287,7 +287,7 @@ def generate_dashboard_html(account_state: Optional[Dict] = None, agent_status: 
     </div>
 
     <div class="meta">
-        Generated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')} | 
+        Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')} | 
         <a href="?" style="color:var(--accent)">Refresh Now</a> | 
         <a href="../logs/decisions/decisions.jsonl" style="color:var(--accent)">Raw Logs</a>
     </div>

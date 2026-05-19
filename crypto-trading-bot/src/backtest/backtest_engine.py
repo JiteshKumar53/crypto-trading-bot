@@ -9,7 +9,7 @@ Simulates order execution with fees and slippage.
 import logging
 from typing import Dict, List, Optional, Callable
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 import pandas as pd
 import numpy as np
@@ -34,7 +34,7 @@ class Order:
     qty: float
     order_type: OrderType = OrderType.MARKET
     price: Optional[float] = None  # For limit orders
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -282,8 +282,8 @@ class BacktestEngine:
             return BacktestResult(
                 strategy_name="unknown",
                 symbol=symbol,
-                start_date=datetime.utcnow(),
-                end_date=datetime.utcnow(),
+                start_date=datetime.now(timezone.utc),
+                end_date=datetime.now(timezone.utc),
                 initial_capital=self.initial_capital,
                 final_equity=self.initial_capital,
                 total_return=0.0,

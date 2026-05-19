@@ -7,7 +7,7 @@ Model: ollama/kimi-k2.6:cloud
 import re
 import logging
 from typing import Dict, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 from .base_agent import BaseRecommendationAgent, AgentRecommendation
 
@@ -66,7 +66,7 @@ Be honest about uncertainty. If data is insufficient, say so.
 
     def parse_output(self, raw_output: str, asset: str) -> AgentRecommendation:
         """Parse raw LLM output into structured recommendation."""
-        timestamp = datetime.utcnow().isoformat() + "Z"
+        timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
         # Extract key fields with regex
         recommendation = self._extract_field(raw_output, "Technical recommendation")

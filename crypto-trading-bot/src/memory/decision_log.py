@@ -7,7 +7,7 @@ Persistent, auditable records of all crucial decisions.
 
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional
 from dataclasses import dataclass, asdict
 from pathlib import Path
@@ -46,7 +46,7 @@ class DecisionLog:
 
     def log(self, record: DecisionRecord) -> str:
         """Log a decision. Returns the decision_id."""
-        record.timestamp = datetime.utcnow().isoformat() + "Z"
+        record.timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         with open(self.log_file, "a") as f:
             f.write(json.dumps(asdict(record), indent=None) + "\n")
         return record.decision_id

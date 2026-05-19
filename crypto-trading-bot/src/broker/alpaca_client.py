@@ -10,7 +10,7 @@ import os
 import logging
 from typing import Dict, List, Optional
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)
 
@@ -149,7 +149,7 @@ class AlpacaPaperClient:
                 order_id=None,
                 status="rejected",
                 filled_avg_price=None,
-                timestamp=datetime.utcnow(),
+                timestamp=datetime.now(timezone.utc),
                 paper_mode=False,
                 error="Not in paper mode. Live trading requires CEO approval.",
             )
@@ -162,7 +162,7 @@ class AlpacaPaperClient:
                 order_id=None,
                 status="rejected",
                 filled_avg_price=None,
-                timestamp=datetime.utcnow(),
+                timestamp=datetime.now(timezone.utc),
                 paper_mode=True,
                 error="Alpaca client not initialized",
             )
@@ -199,7 +199,7 @@ class AlpacaPaperClient:
                 order_id=order.id,
                 status=order.status.value,
                 filled_avg_price=float(order.filled_avg_price) if order.filled_avg_price else None,
-                timestamp=datetime.utcnow(),
+                timestamp=datetime.now(timezone.utc),
                 paper_mode=True,
             )
 
@@ -212,7 +212,7 @@ class AlpacaPaperClient:
                 order_id=None,
                 status="rejected",
                 filled_avg_price=None,
-                timestamp=datetime.utcnow(),
+                timestamp=datetime.now(timezone.utc),
                 paper_mode=True,
                 error=str(e),
             )

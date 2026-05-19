@@ -7,7 +7,7 @@ Model: ollama/kimi-k2.6:cloud
 import re
 import logging
 from typing import Dict, Optional, List
-from datetime import datetime
+from datetime import datetime, timezone
 
 from .base_agent import BaseRecommendationAgent, AgentRecommendation
 
@@ -86,7 +86,7 @@ Thesis must be validated through strategy logic, backtesting, QA, and Risk Gover
 """
 
     def parse_output(self, raw_output: str, asset: str) -> AgentRecommendation:
-        timestamp = datetime.utcnow().isoformat() + "Z"
+        timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         recommendation = self._extract_field(raw_output, "Final recommendation")
         confidence = self._extract_field(raw_output, "Confidence")
         if not confidence:

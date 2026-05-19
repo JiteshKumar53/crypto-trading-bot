@@ -17,7 +17,7 @@ making it slower than sequential. Sequential with tuned timeouts is optimal.
 
 import logging
 from typing import Dict, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 from .technical_analysis import TechnicalAnalysisAgent
 from .fundamental_analysis import FundamentalAnalysisAgent
@@ -61,7 +61,7 @@ class AgentRunner:
         - errors: list of any errors
         """
         logger.info(f"[AgentRunner] Starting sequential pipeline for {asset}")
-        timestamp = datetime.utcnow().isoformat() + "Z"
+        timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         errors = []
 
         # Step 1: Technical Analysis
@@ -143,7 +143,7 @@ class AgentRunner:
             confidence="Low",
             warnings=error,
             raw_output=f"ERROR: {error}",
-            timestamp=datetime.utcnow().isoformat() + "Z",
+            timestamp=datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
             model_used="N/A",
             cached=False,
         )

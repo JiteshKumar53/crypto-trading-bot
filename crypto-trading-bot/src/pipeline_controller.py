@@ -17,7 +17,7 @@ import os
 import sys
 import logging
 from typing import Dict, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import pandas as pd
 
 from broker.alpaca_client import AlpacaPaperClient
@@ -82,7 +82,7 @@ class PipelineController:
         Returns:
             Dict with full cycle results
         """
-        cycle_start = datetime.utcnow().isoformat() + "Z"
+        cycle_start = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         results = {
             "cycle_start": cycle_start,
             "symbol": symbol,
@@ -326,7 +326,7 @@ class PipelineController:
         orders = self.alpaca.get_open_orders()
 
         return {
-            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
             "paper_mode": self.alpaca.is_paper(),
             "account": account,
             "positions": positions,

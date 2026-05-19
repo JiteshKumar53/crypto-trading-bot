@@ -13,7 +13,7 @@ import time
 from typing import Dict, Optional, Any
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, asdict
-from datetime import datetime
+from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)
 
@@ -160,7 +160,7 @@ class BaseRecommendationAgent(ABC):
                 # Use cached response
                 result = self.parse_output(cached_output, asset)
                 result.cached = True
-                result.timestamp = datetime.utcnow().isoformat() + "Z"
+                result.timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
                 elapsed = time.time() - start_time
                 logger.info(f"[{self.agent_name}] Completed in {elapsed:.1f}s (CACHED)")
                 return result
@@ -169,7 +169,7 @@ class BaseRecommendationAgent(ABC):
             raw_output = self._call_ollama(prompt)
             result = self.parse_output(raw_output, asset)
             result.cached = False
-            result.timestamp = datetime.utcnow().isoformat() + "Z"
+            result.timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
             elapsed = time.time() - start_time
             logger.info(f"[{self.agent_name}] Completed in {elapsed:.1f}s (LIVE)")
             return result
@@ -184,7 +184,7 @@ class BaseRecommendationAgent(ABC):
                 confidence="Low",
                 warnings=str(e),
                 raw_output=f"ERROR: {e}",
-                timestamp=datetime.utcnow().isoformat() + "Z",
+                timestamp=datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
                 model_used=self.model,
                 cached=False,
             )
