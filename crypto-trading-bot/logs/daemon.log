@@ -238,3 +238,189 @@ ValueError: ALPACA_API_KEY and ALPACA_SECRET_KEY must be set
 2026-05-19 17:44:06,106 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
 2026-05-19 17:44:06,106 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76400.50, unrealized=-0.89%, held=24.0h
 2026-05-19 17:44:06,106 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76400.50, unrealized=-0.89%, held=24.0h
+2026-05-19 17:46:33,484 [INFO] position_monitor_v2: [POSITION MONITOR v2] Started (interval: 300s)
+2026-05-19 17:46:33,484 [INFO] position_monitor_v2: [POSITION MONITOR v2] Started (interval: 300s)
+2026-05-19 17:46:33,485 [INFO] __main__: [Daemon] Position monitor v2 started (5-min intervals, 24/7)
+2026-05-19 17:46:33,485 [INFO] __main__: [Daemon] Position monitor v2 started (5-min intervals, 24/7)
+2026-05-19 17:46:33,485 [INFO] __main__: ============================================================
+2026-05-19 17:46:33,485 [INFO] __main__: ============================================================
+2026-05-19 17:46:33,485 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-19 17:46:33,485 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-19 17:46:33,485 [INFO] __main__: Interval: 4 hours
+2026-05-19 17:46:33,485 [INFO] __main__: Interval: 4 hours
+2026-05-19 17:46:33,485 [INFO] __main__: PID: 2490
+2026-05-19 17:46:33,485 [INFO] __main__: PID: 2490
+2026-05-19 17:46:33,485 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-19 17:46:33,485 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-19 17:46:33,485 [INFO] __main__: ============================================================
+2026-05-19 17:46:33,485 [INFO] __main__: ============================================================
+2026-05-19 17:46:33,486 [INFO] __main__: ============================================================
+2026-05-19 17:46:33,486 [INFO] __main__: ============================================================
+2026-05-19 17:46:33,486 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-19 17:46:33,486 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-19 17:46:33,486 [INFO] __main__: ============================================================
+2026-05-19 17:46:33,486 [INFO] __main__: ============================================================
+2026-05-19 17:46:33,794 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:46:33,794 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:46:33,794 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76396.13, unrealized=-0.90%, held=0.0h, high=$76396.13
+2026-05-19 17:46:33,794 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76396.13, unrealized=-0.90%, held=0.0h, high=$76396.13
+2026-05-19 17:51:34,078 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:51:34,078 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 17:51:34,078 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76396.13, unrealized=-0.90%, held=0.1h, high=$76396.13
+2026-05-19 17:51:34,078 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76396.13, unrealized=-0.90%, held=0.1h, high=$76396.13
+2026-05-19 17:55:58,340 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-19 17:55:58,340 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-19 17:55:58,340 [INFO] __main__: Next cycle at: 2026-05-19 19:55:58 UTC (position monitor keeps running)
+2026-05-19 17:55:58,340 [INFO] __main__: Next cycle at: 2026-05-19 19:55:58 UTC (position monitor keeps running)
+2026-05-19 17:56:34,385 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 17:56:34,385 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 17:56:34,385 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76396.13, unrealized=-0.90%, held=0.2h, high=$76396.13
+2026-05-19 17:56:34,385 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76396.13, unrealized=-0.90%, held=0.2h, high=$76396.13
+2026-05-19 17:56:34,385 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2107.74, unrealized=-0.16%, held=0.0h, high=$2107.74
+2026-05-19 17:56:34,385 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2107.74, unrealized=-0.16%, held=0.0h, high=$2107.74
+2026-05-19 17:56:34,385 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.55, unrealized=0.35%, held=0.0h, high=$84.55
+2026-05-19 17:56:34,385 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.55, unrealized=0.35%, held=0.0h, high=$84.55
+2026-05-19 18:01:34,690 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:01:34,690 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:01:34,690 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76476.50, unrealized=-0.79%, held=0.3h, high=$76476.50
+2026-05-19 18:01:34,690 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76476.50, unrealized=-0.79%, held=0.3h, high=$76476.50
+2026-05-19 18:01:34,690 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2109.89, unrealized=-0.06%, held=0.1h, high=$2109.89
+2026-05-19 18:01:34,690 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2109.89, unrealized=-0.06%, held=0.1h, high=$2109.89
+2026-05-19 18:01:34,690 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.44, unrealized=0.22%, held=0.1h, high=$84.55
+2026-05-19 18:01:34,690 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.44, unrealized=0.22%, held=0.1h, high=$84.55
+2026-05-19 18:06:34,987 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:06:34,987 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:06:34,987 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76344.99, unrealized=-0.96%, held=0.3h, high=$76476.50
+2026-05-19 18:06:34,987 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76344.99, unrealized=-0.96%, held=0.3h, high=$76476.50
+2026-05-19 18:06:34,987 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2105.87, unrealized=-0.25%, held=0.2h, high=$2109.89
+2026-05-19 18:06:34,987 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2105.87, unrealized=-0.25%, held=0.2h, high=$2109.89
+2026-05-19 18:06:34,987 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.44, unrealized=0.22%, held=0.2h, high=$84.55
+2026-05-19 18:06:34,987 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.44, unrealized=0.22%, held=0.2h, high=$84.55
+2026-05-19 18:11:35,277 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:11:35,277 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:11:35,278 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76344.99, unrealized=-0.96%, held=0.4h, high=$76476.50
+2026-05-19 18:11:35,278 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76344.99, unrealized=-0.96%, held=0.4h, high=$76476.50
+2026-05-19 18:11:35,278 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2105.87, unrealized=-0.25%, held=0.3h, high=$2109.89
+2026-05-19 18:11:35,278 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2105.87, unrealized=-0.25%, held=0.3h, high=$2109.89
+2026-05-19 18:11:35,278 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.44, unrealized=0.22%, held=0.3h, high=$84.55
+2026-05-19 18:11:35,278 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.44, unrealized=0.22%, held=0.3h, high=$84.55
+2026-05-19 18:16:35,571 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:16:35,571 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:16:35,571 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76344.99, unrealized=-0.96%, held=0.5h, high=$76476.50
+2026-05-19 18:16:35,571 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76344.99, unrealized=-0.96%, held=0.5h, high=$76476.50
+2026-05-19 18:16:35,571 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2108.62, unrealized=-0.12%, held=0.3h, high=$2109.89
+2026-05-19 18:16:35,571 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2108.62, unrealized=-0.12%, held=0.3h, high=$2109.89
+2026-05-19 18:16:35,571 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.44, unrealized=0.22%, held=0.3h, high=$84.55
+2026-05-19 18:16:35,571 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.44, unrealized=0.22%, held=0.3h, high=$84.55
+2026-05-19 18:21:35,865 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:21:35,865 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:21:35,865 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76553.56, unrealized=-0.69%, held=0.6h, high=$76553.56
+2026-05-19 18:21:35,865 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76553.56, unrealized=-0.69%, held=0.6h, high=$76553.56
+2026-05-19 18:21:35,865 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2108.62, unrealized=-0.12%, held=0.4h, high=$2109.89
+2026-05-19 18:21:35,865 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2108.62, unrealized=-0.12%, held=0.4h, high=$2109.89
+2026-05-19 18:21:35,865 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.38, unrealized=0.15%, held=0.4h, high=$84.55
+2026-05-19 18:21:35,865 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.38, unrealized=0.15%, held=0.4h, high=$84.55
+2026-05-19 18:26:36,151 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:26:36,151 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:26:36,151 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76496.70, unrealized=-0.77%, held=0.7h, high=$76553.56
+2026-05-19 18:26:36,151 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76496.70, unrealized=-0.77%, held=0.7h, high=$76553.56
+2026-05-19 18:26:36,152 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2107.33, unrealized=-0.18%, held=0.5h, high=$2109.89
+2026-05-19 18:26:36,152 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2107.33, unrealized=-0.18%, held=0.5h, high=$2109.89
+2026-05-19 18:26:36,152 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.08, unrealized=-0.20%, held=0.5h, high=$84.55
+2026-05-19 18:26:36,152 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.08, unrealized=-0.20%, held=0.5h, high=$84.55
+2026-05-19 18:31:36,500 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:31:36,500 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:31:36,500 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76572.34, unrealized=-0.67%, held=0.8h, high=$76572.34
+2026-05-19 18:31:36,500 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76572.34, unrealized=-0.67%, held=0.8h, high=$76572.34
+2026-05-19 18:31:36,501 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2110.84, unrealized=-0.01%, held=0.6h, high=$2110.84
+2026-05-19 18:31:36,501 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2110.84, unrealized=-0.01%, held=0.6h, high=$2110.84
+2026-05-19 18:31:36,501 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=0.6h, high=$84.55
+2026-05-19 18:31:36,501 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=0.6h, high=$84.55
+2026-05-19 18:36:36,814 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:36:36,814 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:36:36,814 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76730.69, unrealized=-0.46%, held=0.8h, high=$76730.69
+2026-05-19 18:36:36,814 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76730.69, unrealized=-0.46%, held=0.8h, high=$76730.69
+2026-05-19 18:36:36,814 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2115.96, unrealized=0.23%, held=0.7h, high=$2115.96
+2026-05-19 18:36:36,814 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2115.96, unrealized=0.23%, held=0.7h, high=$2115.96
+2026-05-19 18:36:36,814 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=0.7h, high=$84.55
+2026-05-19 18:36:36,814 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=0.7h, high=$84.55
+2026-05-19 18:41:37,121 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:41:37,121 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:41:37,121 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76697.60, unrealized=-0.51%, held=0.9h, high=$76730.69
+2026-05-19 18:41:37,121 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76697.60, unrealized=-0.51%, held=0.9h, high=$76730.69
+2026-05-19 18:41:37,121 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2115.96, unrealized=0.23%, held=0.8h, high=$2115.96
+2026-05-19 18:41:37,121 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2115.96, unrealized=0.23%, held=0.8h, high=$2115.96
+2026-05-19 18:41:37,121 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=0.8h, high=$84.55
+2026-05-19 18:41:37,121 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=0.8h, high=$84.55
+2026-05-19 18:46:37,414 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:46:37,414 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:46:37,414 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76807.40, unrealized=-0.36%, held=1.0h, high=$76807.40
+2026-05-19 18:46:37,414 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76807.40, unrealized=-0.36%, held=1.0h, high=$76807.40
+2026-05-19 18:46:37,414 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2116.40, unrealized=0.25%, held=0.8h, high=$2116.40
+2026-05-19 18:46:37,414 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2116.40, unrealized=0.25%, held=0.8h, high=$2116.40
+2026-05-19 18:46:37,414 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=0.8h, high=$84.55
+2026-05-19 18:46:37,414 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=0.8h, high=$84.55
+2026-05-19 18:51:37,719 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:51:37,719 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:51:37,719 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76807.40, unrealized=-0.36%, held=1.1h, high=$76807.40
+2026-05-19 18:51:37,719 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76807.40, unrealized=-0.36%, held=1.1h, high=$76807.40
+2026-05-19 18:51:37,719 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2115.90, unrealized=0.23%, held=0.9h, high=$2116.40
+2026-05-19 18:51:37,719 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2115.90, unrealized=0.23%, held=0.9h, high=$2116.40
+2026-05-19 18:51:37,719 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=0.9h, high=$84.55
+2026-05-19 18:51:37,719 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=0.9h, high=$84.55
+2026-05-19 18:56:38,016 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:56:38,016 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 18:56:38,016 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76846.36, unrealized=-0.31%, held=1.2h, high=$76846.36
+2026-05-19 18:56:38,016 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76846.36, unrealized=-0.31%, held=1.2h, high=$76846.36
+2026-05-19 18:56:38,016 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2118.93, unrealized=0.37%, held=1.0h, high=$2118.93
+2026-05-19 18:56:38,016 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2118.93, unrealized=0.37%, held=1.0h, high=$2118.93
+2026-05-19 18:56:38,016 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=1.0h, high=$84.55
+2026-05-19 18:56:38,016 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.52, unrealized=0.32%, held=1.0h, high=$84.55
+2026-05-19 19:01:38,305 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:01:38,305 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:01:38,306 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76874.30, unrealized=-0.28%, held=1.3h, high=$76874.30
+2026-05-19 19:01:38,306 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76874.30, unrealized=-0.28%, held=1.3h, high=$76874.30
+2026-05-19 19:01:38,306 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2120.71, unrealized=0.46%, held=1.1h, high=$2120.71
+2026-05-19 19:01:38,306 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2120.71, unrealized=0.46%, held=1.1h, high=$2120.71
+2026-05-19 19:01:38,306 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.66, unrealized=0.48%, held=1.1h, high=$84.66
+2026-05-19 19:01:38,306 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.66, unrealized=0.48%, held=1.1h, high=$84.66
+2026-05-19 19:06:38,602 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:06:38,602 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:06:38,602 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76937.00, unrealized=-0.20%, held=1.3h, high=$76937.00
+2026-05-19 19:06:38,602 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76937.00, unrealized=-0.20%, held=1.3h, high=$76937.00
+2026-05-19 19:06:38,602 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2123.11, unrealized=0.57%, held=1.2h, high=$2123.11
+2026-05-19 19:06:38,602 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2123.11, unrealized=0.57%, held=1.2h, high=$2123.11
+2026-05-19 19:06:38,602 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.66, unrealized=0.48%, held=1.2h, high=$84.66
+2026-05-19 19:06:38,602 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.66, unrealized=0.48%, held=1.2h, high=$84.66
+2026-05-19 19:11:38,904 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:11:38,904 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:11:38,904 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76885.42, unrealized=-0.26%, held=1.4h, high=$76937.00
+2026-05-19 19:11:38,904 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76885.42, unrealized=-0.26%, held=1.4h, high=$76937.00
+2026-05-19 19:11:38,904 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2123.11, unrealized=0.57%, held=1.3h, high=$2123.11
+2026-05-19 19:11:38,904 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2123.11, unrealized=0.57%, held=1.3h, high=$2123.11
+2026-05-19 19:11:38,904 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.66, unrealized=0.48%, held=1.3h, high=$84.66
+2026-05-19 19:11:38,904 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.66, unrealized=0.48%, held=1.3h, high=$84.66
+2026-05-19 19:16:39,205 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:16:39,205 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:16:39,205 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76816.60, unrealized=-0.35%, held=1.5h, high=$76937.00
+2026-05-19 19:16:39,205 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76816.60, unrealized=-0.35%, held=1.5h, high=$76937.00
+2026-05-19 19:16:39,205 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2123.11, unrealized=0.57%, held=1.3h, high=$2123.11
+2026-05-19 19:16:39,205 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2123.11, unrealized=0.57%, held=1.3h, high=$2123.11
+2026-05-19 19:16:39,205 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.88, unrealized=0.75%, held=1.3h, high=$84.88
+2026-05-19 19:16:39,205 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.88, unrealized=0.75%, held=1.3h, high=$84.88
+2026-05-19 19:21:39,494 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:21:39,494 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:21:39,494 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76937.40, unrealized=-0.20%, held=1.6h, high=$76937.40
+2026-05-19 19:21:39,494 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76937.40, unrealized=-0.20%, held=1.6h, high=$76937.40
+2026-05-19 19:21:39,494 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2123.72, unrealized=0.60%, held=1.4h, high=$2123.72
+2026-05-19 19:21:39,494 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2123.72, unrealized=0.60%, held=1.4h, high=$2123.72
+2026-05-19 19:21:39,494 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.88, unrealized=0.75%, held=1.4h, high=$84.88
+2026-05-19 19:21:39,494 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.88, unrealized=0.75%, held=1.4h, high=$84.88
+2026-05-19 19:26:39,952 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:26:39,952 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-19 19:26:39,952 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76927.26, unrealized=-0.21%, held=1.7h, high=$76937.40
+2026-05-19 19:26:39,952 [INFO] position_monitor_v2:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76927.26, unrealized=-0.21%, held=1.7h, high=$76937.40
+2026-05-19 19:26:39,952 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2120.79, unrealized=0.46%, held=1.5h, high=$2123.72
+2026-05-19 19:26:39,952 [INFO] position_monitor_v2:   ETHUSD: qty=0.236186, entry=$2111.10, current=$2120.79, unrealized=0.46%, held=1.5h, high=$2123.72
+2026-05-19 19:26:39,952 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.88, unrealized=0.75%, held=1.5h, high=$84.88
+2026-05-19 19:26:39,952 [INFO] position_monitor_v2:   SOLUSD: qty=5.908745, entry=$84.25, current=$84.88, unrealized=0.75%, held=1.5h, high=$84.88
