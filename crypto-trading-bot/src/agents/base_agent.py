@@ -21,8 +21,8 @@ logger = logging.getLogger(__name__)
 MODEL_TIMEOUTS = {
     "kimi-k2.6:cloud": 180,       # 1T params — needs 3 min
     "deepseek-v4-pro:cloud": 120,  # Deep reasoning — 2 min
-    "qwen3.5:cloud": 60,          # Fast — 1 min
-    "default": 60,
+    "qwen3.5:cloud": 90,          # Increased from 60s after timeout on thesis
+    "default": 90,
 }
 
 MODEL_TEMPERATURES = {

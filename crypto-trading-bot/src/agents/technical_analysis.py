@@ -23,12 +23,16 @@ class TechnicalAnalysisAgent(BaseRecommendationAgent):
     def build_prompt(self, asset: str, market_data: Optional[Dict] = None, **kwargs) -> str:
         current_price = kwargs.get("current_price", "N/A")
         recent_data = kwargs.get("recent_data", "N/A")
+        ohlcv_summary = kwargs.get("ohlcv_summary", "N/A")
 
         return f"""You are Candles, a Market Structure and Technical Analysis Agent for crypto trading.
 
 Your task: Provide a structured technical recommendation for {asset}.
 
 CURRENT PRICE: {current_price}
+
+OHLCV SUMMARY (last 168 hourly bars):
+{ohlcv_summary}
 
 RECENT DATA (last few hourly bars if available):
 {recent_data}

@@ -46,6 +46,7 @@ class AgentRunner:
         recent_data: Optional[str] = None,
         portfolio_value: float = 10000,
         current_position_value: float = 0,
+        ohlcv_summary: Optional[str] = None,
     ) -> Dict:
         """
         Run all 5 agents sequentially and return structured results.
@@ -71,6 +72,7 @@ class AgentRunner:
                 asset=asset,
                 current_price=current_price,
                 recent_data=recent_data,
+                ohlcv_summary=ohlcv_summary,
             )
         except Exception as e:
             logger.error(f"Technical analysis failed: {e}")
@@ -80,7 +82,7 @@ class AgentRunner:
         # Step 2: Fundamental Analysis
         logger.info("[AgentRunner] Running Fundamental Analysis (Ledger)...")
         try:
-            fund = self.fundamental.run(asset=asset)
+            fund = self.fundamental.run(asset=asset, current_price=current_price)
         except Exception as e:
             logger.error(f"Fundamental analysis failed: {e}")
             errors.append(f"Fundamental: {e}")
