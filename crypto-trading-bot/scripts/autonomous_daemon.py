@@ -59,19 +59,13 @@ def is_already_running():
         return False
 
 
-def run_pipeline():
-    """Run one autonomous pipeline cycle with position monitoring."""
+def run_pipeline(position_monitor):
+    """Run one autonomous pipeline cycle with shared position monitor."""
     logger.info("=" * 60)
     logger.info("DAEMON: Starting autonomous pipeline cycle")
     logger.info("=" * 60)
 
-    position_monitor = None
     try:
-        # Start continuous position monitoring in background
-        position_monitor = PositionMonitor()
-        position_monitor.start_background()
-        logger.info("[Daemon] Position monitor background thread started (5-min intervals)")
-
         # Run the autonomous pipeline script
         result = subprocess.run(
             [
@@ -104,18 +98,16 @@ def run_pipeline():
         logger.error("Pipeline cycle timed out after 20 minutes")
     except Exception as e:
         logger.error(f"Pipeline cycle error: {e}", exc_info=True)
-    finally:
-        # Stop position monitor
-        if position_monitor:
-            try:
-                position_monitor.stop_background()
-                logger.info("[Daemon] Position monitor background thread stopped")
-            except Exception as e:
-                logger.error(f"Error stopping position monitor: {e}")
 
 
-def signal_handler(signum, frame):
+def signal_handler(signum, frame, position_monitor=None):
     logger.info(f"Received signal {signum}, shutting down...")
+    if position_monitor:
+        try:
+            position_monitor.stop_background()
+            logger.info("[Daemon] Position monitor stopped on shutdown")
+        except Exception as e:
+            logger.error(f"Error stopping position monitor: {e}")
     remove_pid()
     sys.exit(0)
 
@@ -126,8 +118,14 @@ def main():
         sys.exit(1)
 
     write_pid()
-    signal.signal(signal.SIGTERM, signal_handler)
-    signal.signal(signal.SIGINT, signal_handler)
+
+    # Start position monitor ONCE — runs continuously between cycles
+    position_monitor = PositionMonitor()
+    position_monitor.start_background()
+    logger.info("[Daemon] Position monitor background thread started (5-min intervals, runs 24/7)")
+
+    signal.signal(signal.SIGTERM, lambda s, f: signal_handler(s, f, position_monitor))
+    signal.signal(signal.SIGINT, lambda s, f: signal_handler(s, f, position_monitor))
 
     logger.info("=" * 60)
     logger.info("JARVIS AUTONOMOUS DAEMON STARTED")
@@ -136,15 +134,15 @@ def main():
     logger.info(f"PID file: {PID_FILE}")
     logger.info("=" * 60)
 
-    # Run immediately on start
-    run_pipeline()
+    # Run immediately on start (position monitor already running)
+    run_pipeline(position_monitor)
 
     while True:
         next_run = datetime.now(timezone.utc).timestamp() + RUN_INTERVAL_SECONDS
         next_run_str = datetime.fromtimestamp(next_run, timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
-        logger.info(f"Next cycle at: {next_run_str}")
+        logger.info(f"Next cycle at: {next_run_str} (position monitor keeps running)")
         time.sleep(RUN_INTERVAL_SECONDS)
-        run_pipeline()
+        run_pipeline(position_monitor)
 
 
 if __name__ == '__main__':
