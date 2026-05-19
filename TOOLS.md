@@ -18,7 +18,18 @@
 | ollama/gpt-oss:120b-cloud | Backup |
 | ollama/minimax-m2.7:cloud | Backup |
 
-## Alpaca Paper Trading
+## Model Routing (Updated 2026-05-19)
+- **Candles (Technical)**: deepseek-v4-pro:cloud — reliable, ~87s, handles OHLCV data
+- **Ledger (Fundamental)**: deepseek-v4-pro:cloud — reliable, ~43s
+- **Pulse (Sentiment)**: qwen3.5:cloud — moderate, ~77s
+- **Shield (Risk)**: deepseek-v4-pro:cloud — reliable, ~40s
+- **Compass (Thesis)**: deepseek-v4-pro:cloud — reliable, ~61s with 120s timeout
+- **kimi-k2.6:cloud**: DEPRECATED — consistently times out at 180s regardless of data size
+
+## Pipeline Runtime
+- Full 5-agent sequential pipeline: ~5 minutes total
+- Agent response times: 40-90s each
+- Sequential execution required due to Ollama GPU contention
 - **API Key:** PKFL22AHRJSJ5HWYTWFSVXGZ35
 - **Secret:** [in .env]
 - **Mode:** Paper only
