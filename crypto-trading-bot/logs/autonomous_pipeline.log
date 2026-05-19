@@ -25,3 +25,48 @@
 2026-05-19 09:01:16,737 [INFO] agents.agent_runner: [AgentRunner] Running Fundamental Analysis (Ledger)...
 2026-05-19 09:01:16,737 [INFO] agents.base_agent: [Ledger] Running for BTC/USD
 2026-05-19 09:01:16,737 [INFO] agents.base_agent: [Ledger] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 09:31:43,264 [INFO] __main__: === AUTONOMOUS CYCLE START: 2026-05-19T07:31:43.264392Z ===
+2026-05-19 09:31:43,393 [INFO] pipeline_controller: PipelineController initialized
+2026-05-19 09:31:43,393 [INFO] pipeline_controller: Assets: ['BTC/USD', 'ETH/USD', 'SOL/USD']
+2026-05-19 09:31:43,393 [INFO] pipeline_controller: Use agents: True
+2026-05-19 09:31:43,393 [INFO] pipeline_controller: Use backtest: True
+2026-05-19 09:31:43,393 [INFO] pipeline_controller: Use risk governor: True
+2026-05-19 09:31:43,393 [INFO] pipeline_controller: Paper only: True
+2026-05-19 09:31:43,393 [INFO] pipeline_controller: === Starting cycle for BTC/USD ===
+2026-05-19 09:31:43,393 [INFO] pipeline_controller: [Stage 1] Fetching market data for BTC/USD
+2026-05-19 09:31:43,393 [INFO] data.data_fetcher: Fetching 168 hourly bars for BTC/USD
+2026-05-19 09:31:43,737 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-19 09:31:43,737 [INFO] data.data_fetcher: Fetched 168 bars for BTC/USD
+2026-05-19 09:31:43,737 [INFO] data.data_fetcher: Fetching 1 hourly bars for BTC/USD
+2026-05-19 09:31:43,845 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-19 09:31:43,845 [INFO] data.data_fetcher: Fetched 1 bars for BTC/USD
+2026-05-19 09:31:43,845 [INFO] pipeline_controller: Current price for BTC/USD: $77,058.16
+2026-05-19 09:31:43,845 [INFO] pipeline_controller: [Stage 2] Running agent recommendations for BTC/USD
+2026-05-19 09:31:43,846 [INFO] agents.agent_runner: [AgentRunner] Starting sequential pipeline for BTC/USD
+2026-05-19 09:31:43,846 [INFO] agents.agent_runner: [AgentRunner] Running Technical Analysis (Candles)...
+2026-05-19 09:31:43,846 [INFO] agents.base_agent: [Candles] Running for BTC/USD
+2026-05-19 09:31:43,846 [INFO] agents.base_agent: [Candles] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 09:31:51,524 [INFO] agents.base_agent: [Candles] Ollama responded in 7.7s
+2026-05-19 09:31:51,524 [INFO] agents.base_agent: [Candles] Cached response (TTL: 300s)
+2026-05-19 09:31:51,524 [INFO] agents.base_agent: [Candles] Completed in 7.7s (LIVE)
+2026-05-19 09:31:51,524 [INFO] agents.agent_runner: [AgentRunner] Running Fundamental Analysis (Ledger)...
+2026-05-19 09:31:51,524 [INFO] agents.base_agent: [Ledger] Running for BTC/USD
+2026-05-19 09:31:51,524 [INFO] agents.base_agent: [Ledger] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 09:32:23,677 [INFO] agents.base_agent: [Ledger] Ollama responded in 32.2s
+2026-05-19 09:32:23,677 [INFO] agents.base_agent: [Ledger] Cached response (TTL: 300s)
+2026-05-19 09:32:23,678 [INFO] agents.base_agent: [Ledger] Completed in 32.2s (LIVE)
+2026-05-19 09:32:23,678 [INFO] agents.agent_runner: [AgentRunner] Running Sentiment Analysis (Pulse)...
+2026-05-19 09:32:23,678 [INFO] agents.base_agent: [Pulse] Running for BTC/USD
+2026-05-19 09:32:23,678 [INFO] agents.base_agent: [Pulse] Calling Ollama (qwen3.5:cloud, timeout=90s)...
+2026-05-19 09:33:04,686 [INFO] agents.base_agent: [Pulse] Ollama responded in 41.0s
+2026-05-19 09:33:04,686 [INFO] agents.base_agent: [Pulse] Cached response (TTL: 300s)
+2026-05-19 09:33:04,686 [INFO] agents.base_agent: [Pulse] Completed in 41.0s (LIVE)
+2026-05-19 09:33:04,686 [INFO] agents.agent_runner: [AgentRunner] Running Risk Assessment (Shield)...
+2026-05-19 09:33:04,686 [INFO] agents.base_agent: [Shield] Running for BTC/USD
+2026-05-19 09:33:04,686 [INFO] agents.base_agent: [Shield] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 09:33:56,716 [INFO] agents.base_agent: [Shield] Ollama responded in 52.0s
+2026-05-19 09:33:56,716 [INFO] agents.base_agent: [Shield] Cached response (TTL: 300s)
+2026-05-19 09:33:56,717 [INFO] agents.base_agent: [Shield] Completed in 52.0s (LIVE)
+2026-05-19 09:33:56,717 [INFO] agents.agent_runner: [AgentRunner] Running Thesis Synthesis (Compass)...
+2026-05-19 09:33:56,717 [INFO] agents.base_agent: [Compass] Running for BTC/USD
+2026-05-19 09:33:56,717 [INFO] agents.base_agent: [Compass] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
