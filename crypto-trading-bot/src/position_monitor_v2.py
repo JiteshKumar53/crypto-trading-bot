@@ -41,7 +41,8 @@ DEFAULT_STALE_PROFIT_HOURS = 48      # Exit if unprofitable after 48h
 DEFAULT_STALE_LOSS_HOURS = 24        # Exit if losing after 24h
 DEFAULT_CAPITAL_EFFICIENCY_DAYS = 5  # Exit if no profit after 5 days
 
-PARTIAL_PROFIT_LEVEL_1 = 0.03       # Sell 50% at +3%
+PARTIAL_PROFIT_LEVEL_1 = 0.015     # Sell 50% at +1.5% (reduced from 3%)
+MOMENTUM_REVERSAL_DROP = 0.003     # Exit if profit drops 0.3% from peak while still profitable
 
 # State persistence
 STATE_FILE = Path("/data/.openclaw/workspace/crypto-trading-bot/logs/position_monitor_state.json")
@@ -225,13 +226,20 @@ class PositionMonitorV2:
                 return self._make_action("SELL_ALL", symbol, state.qty, current,
                                          f"trailing_stop (high: {highest:.2f}, trail: {trail_price:.2f})")
 
-        # 5. Partial profit-taking: Level 1 (+3%)
+        # 5. Momentum-reversal exit: if price dropped 0.3% from peak while still profitable, exit
+        if unrealized_pct > 0 and state.highest_price_pct > unrealized_pct + MOMENTUM_REVERSAL_DROP:
+            drop_from_peak = state.highest_price_pct - unrealized_pct
+            if drop_from_peak >= MOMENTUM_REVERSAL_DROP:
+                return self._make_action("SELL_ALL", symbol, state.qty, current,
+                                         f"momentum_reversal (peak: {state.highest_price_pct:.2%}, now: {unrealized_pct:.2%}, drop: {drop_from_peak:.2%})")
+
+        # 6. Partial profit-taking: Level 1 (+1.5%)
         if unrealized_pct >= PARTIAL_PROFIT_LEVEL_1 and not state.partial_sold:
             sell_qty = state.qty * 0.5
             return self._make_action("SELL_PARTIAL", symbol, sell_qty, current,
                                      f"partial_profit_1 (+{unrealized_pct:.2%})")
 
-        # 6. Stale position review (unprofitable + held too long)
+        # 7. Stale position review (unprofitable + held too long)
         if unrealized_pct < 0 and holding >= self.stale_loss_hours:
             return self._make_action("SELL_ALL", symbol, state.qty, current,
                                      f"stale_loss_exit ({holding:.1f}h, {unrealized_pct:.2%})")
