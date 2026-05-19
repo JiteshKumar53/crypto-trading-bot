@@ -41,12 +41,12 @@ DEFAULT_STALE_PROFIT_HOURS = 48      # Exit if unprofitable after 48h
 DEFAULT_STALE_LOSS_HOURS = 24        # Exit if losing after 24h
 DEFAULT_CAPITAL_EFFICIENCY_DAYS = 5  # Exit if no profit after 5 days
 
-PARTIAL_PROFIT_LEVEL_1 = 0.015     # Sell 50% at +1.5% (reduced from 3%)
-MOMENTUM_REVERSAL_DROP = 0.005     # Exit if profit drops 0.5% from peak (covers ~0.4-0.5% fees)
+PARTIAL_PROFIT_LEVEL_1 = 0.005     # Sell 50% at +0.5% (covers fees, locks in profit)
+MOMENTUM_REVERSAL_DROP = 0.003     # Exit if profit drops 0.3% from peak
 MINIMUM_PROFIT_EXIT = 0.005        # Don't exit if profit < 0.5% (fee breakeven)
 
-DEFAULT_RUNNER_TRIGGER = 0.015      # Activate runner trailing stop after +1.5%
-DEFAULT_RUNNER_TRAIL = 0.015         # Runner trails at -1.5% from highest (wider than standard -2%)
+DEFAULT_RUNNER_TRIGGER = 0.010      # Activate runner trailing stop after +1.0%
+DEFAULT_RUNNER_TRAIL = 0.010         # Runner trails at -1.0% from highest
 STATE_FILE = Path("/data/.openclaw/workspace/crypto-trading-bot/logs/position_monitor_state.json")
 REJECTED_SIGNALS_FILE = Path("/data/.openclaw/workspace/crypto-trading-bot/logs/rejected_signals.jsonl")
 
