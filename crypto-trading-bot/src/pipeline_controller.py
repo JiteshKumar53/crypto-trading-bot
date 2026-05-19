@@ -293,31 +293,60 @@ class PipelineController:
         return result
 
     def _run_backtest(self, symbol: str, data: pd.DataFrame) -> Dict:
-        """Run backtest and return simplified result dict."""
-        # Use SimpleMAStrategy as the test strategy
-        strategy = SimpleMAStrategy(symbol, ma_window=20)
+        """
+        Run backtest for ALL implemented strategies and return the best result.
+        A strategy passes if max_drawdown <= 5%.
+        Returns the best passing strategy or the least-bad failing strategy.
+        """
+        from strategy.strategy_engine import (
+            SimpleMAStrategy, RSIStrategy, MACDStrategy, BollingerBandsStrategy
+        )
 
-        def strategy_wrapper(engine, timestamp, prices, data_slice):
-            return strategy.on_bar(engine, timestamp, prices, data_slice)
+        strategies = [
+            SimpleMAStrategy(symbol, ma_window=20),
+            RSIStrategy(symbol, period=14, oversold=30, overbought=70),
+            MACDStrategy(symbol, fast=12, slow=26, signal=9),
+            BollingerBandsStrategy(symbol, period=20, std_dev=2.0),
+        ]
 
-        engine = BacktestEngine(initial_capital=10000)
-        result = engine.run(strategy_wrapper, data, symbol)
-        result.strategy_name = strategy.name
+        results = []
+        for strategy in strategies:
+            def strategy_wrapper(engine, timestamp, prices, data_slice):
+                return strategy.on_bar(engine, timestamp, prices, data_slice)
 
-        return {
-            "strategy_name": result.strategy_name,
-            "total_return": result.total_return,
-            "annualized_return": result.annualized_return,
-            "sharpe_ratio": result.sharpe_ratio,
-            "sortino_ratio": result.sortino_ratio,
-            "max_drawdown": result.max_drawdown,
-            "calmar_ratio": result.calmar_ratio,
-            "win_rate": result.win_rate,
-            "profit_factor": result.profit_factor,
-            "num_trades": result.num_trades,
-            "exposure_time": result.exposure_time,
-            "worst_day": result.worst_day,
-        }
+            engine = BacktestEngine(initial_capital=10000)
+            result = engine.run(strategy_wrapper, data, symbol)
+            result.strategy_name = strategy.name
+
+            results.append({
+                "strategy_name": result.strategy_name,
+                "total_return": result.total_return,
+                "annualized_return": result.annualized_return,
+                "sharpe_ratio": result.sharpe_ratio,
+                "sortino_ratio": result.sortino_ratio,
+                "max_drawdown": result.max_drawdown,
+                "calmar_ratio": result.calmar_ratio,
+                "win_rate": result.win_rate,
+                "profit_factor": result.profit_factor,
+                "num_trades": result.num_trades,
+                "exposure_time": result.exposure_time,
+                "worst_day": result.worst_day,
+                "passed": result.max_drawdown <= 0.05,
+            })
+
+        # Sort by: passed first, then highest return
+        results.sort(key=lambda r: (r["passed"], r["total_return"]), reverse=True)
+        best = results[0]
+
+        logger.info(f"[Backtest] {symbol}: Best strategy = {best['strategy_name']}, "
+                    f"return={best['total_return']:.2%}, drawdown={best['max_drawdown']:.2%}, "
+                    f"passed={best['passed']}")
+        for r in results[1:]:
+            logger.info(f"[Backtest] {symbol}:   {r['strategy_name']}: "
+                        f"return={r['total_return']:.2%}, drawdown={r['max_drawdown']:.2%}, "
+                        f"passed={r['passed']}")
+
+        return best
 
     def get_status(self) -> Dict:
         """Get current system status."""

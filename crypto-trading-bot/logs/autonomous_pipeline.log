@@ -574,3 +574,82 @@
 2026-05-19 12:05:31,601 [INFO] __main__:   BTC/USD: REJECTED/BLOCKED
 2026-05-19 12:05:31,601 [INFO] __main__:   ETH/USD: REJECTED/BLOCKED
 2026-05-19 12:05:31,601 [INFO] __main__:   SOL/USD: REJECTED/BLOCKED
+2026-05-19 13:00:46,840 [INFO] __main__: === AUTONOMOUS CYCLE START: 2026-05-19T11:00:46.840540Z ===
+2026-05-19 13:00:46,982 [INFO] pipeline_controller: PipelineController initialized
+2026-05-19 13:00:46,982 [INFO] pipeline_controller: Assets: ['BTC/USD', 'ETH/USD', 'SOL/USD']
+2026-05-19 13:00:46,982 [INFO] pipeline_controller: Use agents: True
+2026-05-19 13:00:46,982 [INFO] pipeline_controller: Use backtest: True
+2026-05-19 13:00:46,982 [INFO] pipeline_controller: Use risk governor: True
+2026-05-19 13:00:46,982 [INFO] pipeline_controller: Paper only: True
+2026-05-19 13:00:46,982 [INFO] pipeline_controller: === Starting cycle for BTC/USD ===
+2026-05-19 13:00:46,982 [INFO] pipeline_controller: [Stage 1] Fetching market data for BTC/USD
+2026-05-19 13:00:46,982 [INFO] data.data_fetcher: Fetching 168 hourly bars for BTC/USD
+2026-05-19 13:00:47,389 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-19 13:00:47,389 [INFO] data.data_fetcher: Fetched 167 bars for BTC/USD
+2026-05-19 13:00:47,389 [INFO] data.data_fetcher: Fetching 1 hourly bars for BTC/USD
+2026-05-19 13:00:47,490 [WARNING] data.data_fetcher: No data returned for BTC/USD
+2026-05-19 13:00:47,490 [ERROR] pipeline_controller: Cycle failed for BTC/USD: Failed to get current price for BTC/USD
+2026-05-19 13:00:47,490 [INFO] pipeline_controller: === Starting cycle for ETH/USD ===
+2026-05-19 13:00:47,490 [INFO] pipeline_controller: [Stage 1] Fetching market data for ETH/USD
+2026-05-19 13:00:47,490 [INFO] data.data_fetcher: Fetching 168 hourly bars for ETH/USD
+2026-05-19 13:00:47,627 [INFO] data.data_fetcher: Data validation passed for ETH/USD
+2026-05-19 13:00:47,627 [INFO] data.data_fetcher: Fetched 167 bars for ETH/USD
+2026-05-19 13:00:47,627 [INFO] data.data_fetcher: Fetching 1 hourly bars for ETH/USD
+2026-05-19 13:00:47,724 [WARNING] data.data_fetcher: No data returned for ETH/USD
+2026-05-19 13:00:47,725 [ERROR] pipeline_controller: Cycle failed for ETH/USD: Failed to get current price for ETH/USD
+2026-05-19 13:00:47,725 [INFO] pipeline_controller: === Starting cycle for SOL/USD ===
+2026-05-19 13:00:47,725 [INFO] pipeline_controller: [Stage 1] Fetching market data for SOL/USD
+2026-05-19 13:00:47,725 [INFO] data.data_fetcher: Fetching 168 hourly bars for SOL/USD
+2026-05-19 13:00:47,892 [INFO] data.data_fetcher: Data validation passed for SOL/USD
+2026-05-19 13:00:47,892 [INFO] data.data_fetcher: Fetched 167 bars for SOL/USD
+2026-05-19 13:00:47,892 [INFO] data.data_fetcher: Fetching 1 hourly bars for SOL/USD
+2026-05-19 13:00:47,990 [WARNING] data.data_fetcher: No data returned for SOL/USD
+2026-05-19 13:00:47,990 [ERROR] pipeline_controller: Cycle failed for SOL/USD: Failed to get current price for SOL/USD
+2026-05-19 13:00:48,293 [INFO] dashboard.dashboard_generator: [Dashboard] Written to dashboard/index.html
+2026-05-19 13:00:48,293 [INFO] __main__: Dashboard updated
+2026-05-19 13:00:48,293 [INFO] __main__: === CYCLE COMPLETE ===
+2026-05-19 13:00:48,293 [INFO] __main__:   BTC/USD: REJECTED/BLOCKED
+2026-05-19 13:00:48,294 [INFO] __main__:   ETH/USD: REJECTED/BLOCKED
+2026-05-19 13:00:48,294 [INFO] __main__:   SOL/USD: REJECTED/BLOCKED
+2026-05-19 16:17:45,243 [INFO] __main__: === AUTONOMOUS CYCLE START: 2026-05-19T14:17:45.243173Z ===
+2026-05-19 16:17:45,390 [INFO] pipeline_controller: PipelineController initialized
+2026-05-19 16:17:45,390 [INFO] pipeline_controller: Assets: ['BTC/USD', 'ETH/USD', 'SOL/USD']
+2026-05-19 16:17:45,390 [INFO] pipeline_controller: Use agents: True
+2026-05-19 16:17:45,390 [INFO] pipeline_controller: Use backtest: True
+2026-05-19 16:17:45,390 [INFO] pipeline_controller: Use risk governor: True
+2026-05-19 16:17:45,390 [INFO] pipeline_controller: Paper only: True
+2026-05-19 16:17:45,390 [INFO] pipeline_controller: === Starting cycle for BTC/USD ===
+2026-05-19 16:17:45,390 [INFO] pipeline_controller: [Stage 1] Fetching market data for BTC/USD
+2026-05-19 16:17:45,390 [INFO] data.data_fetcher: Fetching 168 hourly bars for BTC/USD
+2026-05-19 16:17:45,752 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-19 16:17:45,752 [INFO] data.data_fetcher: Fetched 168 bars for BTC/USD
+2026-05-19 16:17:45,752 [INFO] data.data_fetcher: Fetching 1 hourly bars for BTC/USD
+2026-05-19 16:17:45,860 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-19 16:17:45,861 [INFO] data.data_fetcher: Fetched 1 bars for BTC/USD
+2026-05-19 16:17:45,861 [INFO] pipeline_controller: Current price for BTC/USD: $76,500.30
+2026-05-19 16:17:45,861 [INFO] pipeline_controller: [Stage 2] Running agent recommendations for BTC/USD
+2026-05-19 16:17:45,861 [INFO] agents.agent_runner: [AgentRunner] Starting sequential pipeline for BTC/USD
+2026-05-19 16:17:45,861 [INFO] agents.agent_runner: [AgentRunner] Running Technical Analysis (Candles)...
+2026-05-19 16:17:45,861 [INFO] agents.base_agent: [Candles] Running for BTC/USD
+2026-05-19 16:17:45,861 [INFO] agents.base_agent: [Candles] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-19 16:18:59,228 [INFO] __main__: === AUTONOMOUS CYCLE START: 2026-05-19T14:18:59.228925Z ===
+2026-05-19 16:18:59,374 [INFO] pipeline_controller: PipelineController initialized
+2026-05-19 16:18:59,374 [INFO] pipeline_controller: Assets: ['BTC/USD', 'ETH/USD', 'SOL/USD']
+2026-05-19 16:18:59,374 [INFO] pipeline_controller: Use agents: True
+2026-05-19 16:18:59,374 [INFO] pipeline_controller: Use backtest: True
+2026-05-19 16:18:59,374 [INFO] pipeline_controller: Use risk governor: True
+2026-05-19 16:18:59,374 [INFO] pipeline_controller: Paper only: True
+2026-05-19 16:18:59,374 [INFO] pipeline_controller: === Starting cycle for BTC/USD ===
+2026-05-19 16:18:59,374 [INFO] pipeline_controller: [Stage 1] Fetching market data for BTC/USD
+2026-05-19 16:18:59,374 [INFO] data.data_fetcher: Fetching 168 hourly bars for BTC/USD
+2026-05-19 16:18:59,765 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-19 16:18:59,766 [INFO] data.data_fetcher: Fetched 168 bars for BTC/USD
+2026-05-19 16:18:59,766 [INFO] data.data_fetcher: Fetching 1 hourly bars for BTC/USD
+2026-05-19 16:18:59,865 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-19 16:18:59,865 [INFO] data.data_fetcher: Fetched 1 bars for BTC/USD
+2026-05-19 16:18:59,865 [INFO] pipeline_controller: Current price for BTC/USD: $76,482.41
+2026-05-19 16:18:59,865 [INFO] pipeline_controller: [Stage 2] Running agent recommendations for BTC/USD
+2026-05-19 16:18:59,865 [INFO] agents.agent_runner: [AgentRunner] Starting sequential pipeline for BTC/USD
+2026-05-19 16:18:59,865 [INFO] agents.agent_runner: [AgentRunner] Running Technical Analysis (Candles)...
+2026-05-19 16:18:59,865 [INFO] agents.base_agent: [Candles] Running for BTC/USD
+2026-05-19 16:18:59,865 [INFO] agents.base_agent: [Candles] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...

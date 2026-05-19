@@ -1,21 +1,168 @@
-2026-05-19 11:57:05,819 [INFO] __main__: ============================================================
-2026-05-19 11:57:05,819 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
-2026-05-19 11:57:05,819 [INFO] __main__: Interval: 4 hours
-2026-05-19 11:57:05,819 [INFO] __main__: PID: 1729
-2026-05-19 11:57:05,819 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
-2026-05-19 11:57:05,819 [INFO] __main__: ============================================================
-2026-05-19 11:57:05,819 [INFO] __main__: ============================================================
-2026-05-19 11:57:05,819 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
-2026-05-19 11:57:05,819 [INFO] __main__: ============================================================
-2026-05-19 11:57:06,261 [INFO] position_monitor: [POSITION MONITOR] Background monitoring started (interval: 300s)
-2026-05-19 11:57:06,261 [INFO] __main__: [Daemon] Position monitor background thread started (5-min intervals)
-2026-05-19 11:57:06,657 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
-2026-05-19 11:57:06,657 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76690.59, unrealized=-0.52%, held=24.0h
-2026-05-19 12:02:07,045 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
-2026-05-19 12:02:07,045 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76809.65, unrealized=-0.36%, held=24.0h
-2026-05-19 12:05:31,703 [INFO] __main__: Pipeline cycle completed successfully
-2026-05-19 12:05:36,703 [INFO] position_monitor: [POSITION MONITOR] Background monitoring stopped
-2026-05-19 12:05:36,703 [INFO] __main__: [Daemon] Position monitor background thread stopped
-2026-05-19 12:05:36,703 [INFO] __main__: Next cycle at: 2026-05-19 14:05:36 UTC
-ain__: [Daemon] Position monitor background thread stopped
-2026-05-19 12:05:36,703 [INFO] __main__: Next cycle at: 2026-05-19 14:05:36 UTC
+2026-05-19 13:00:46,471 [INFO] position_monitor: [POSITION MONITOR] Background monitoring started (interval: 300s)
+2026-05-19 13:00:46,471 [INFO] __main__: [Daemon] Position monitor background thread started (5-min intervals, runs 24/7)
+2026-05-19 13:00:46,471 [INFO] __main__: ============================================================
+2026-05-19 13:00:46,471 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-19 13:00:46,471 [INFO] __main__: Interval: 4 hours
+2026-05-19 13:00:46,471 [INFO] __main__: PID: 1829
+2026-05-19 13:00:46,471 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-19 13:00:46,471 [INFO] __main__: ============================================================
+2026-05-19 13:00:46,472 [INFO] __main__: ============================================================
+2026-05-19 13:00:46,472 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-19 13:00:46,472 [INFO] __main__: ============================================================
+2026-05-19 13:00:46,868 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:00:46,868 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76994.84, unrealized=-0.12%, held=24.0h
+2026-05-19 13:00:48,412 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-19 13:00:48,412 [INFO] __main__: Next cycle at: 2026-05-19 15:00:48 UTC (position monitor keeps running)
+2026-05-19 13:05:47,249 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:05:47,250 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76962.94, unrealized=-0.16%, held=24.0h
+2026-05-19 13:10:47,632 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:10:47,632 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76961.24, unrealized=-0.16%, held=24.0h
+2026-05-19 13:15:48,022 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:15:48,022 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76930.40, unrealized=-0.20%, held=24.0h
+2026-05-19 13:20:48,403 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:20:48,404 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76930.40, unrealized=-0.20%, held=24.0h
+2026-05-19 13:25:48,796 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:25:48,797 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76930.40, unrealized=-0.20%, held=24.0h
+2026-05-19 13:30:49,201 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:30:49,202 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76930.40, unrealized=-0.20%, held=24.0h
+2026-05-19 13:35:49,610 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:35:49,610 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76845.57, unrealized=-0.31%, held=24.0h
+2026-05-19 13:40:50,019 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:40:50,019 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76742.58, unrealized=-0.45%, held=24.0h
+2026-05-19 13:45:50,416 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:45:50,416 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76623.68, unrealized=-0.60%, held=24.0h
+2026-05-19 13:50:50,800 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:50:50,800 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76628.10, unrealized=-0.60%, held=24.0h
+2026-05-19 13:55:51,207 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 13:55:51,207 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76714.30, unrealized=-0.48%, held=24.0h
+2026-05-19 14:00:51,621 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:00:51,621 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76692.55, unrealized=-0.51%, held=24.0h
+2026-05-19 14:05:52,030 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:05:52,030 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76673.11, unrealized=-0.54%, held=24.0h
+2026-05-19 14:10:52,415 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:10:52,416 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76660.90, unrealized=-0.55%, held=24.0h
+2026-05-19 14:15:52,817 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:15:52,817 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76763.20, unrealized=-0.42%, held=24.0h
+2026-05-19 14:20:53,223 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:20:53,223 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76749.43, unrealized=-0.44%, held=24.0h
+2026-05-19 14:25:53,630 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:25:53,630 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76763.53, unrealized=-0.42%, held=24.0h
+2026-05-19 14:30:54,017 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:30:54,017 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76744.95, unrealized=-0.45%, held=24.0h
+2026-05-19 14:35:54,400 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:35:54,400 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76826.78, unrealized=-0.34%, held=24.0h
+2026-05-19 14:40:54,785 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:40:54,785 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76789.11, unrealized=-0.39%, held=24.0h
+2026-05-19 14:45:55,173 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:45:55,173 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76789.11, unrealized=-0.39%, held=24.0h
+2026-05-19 14:50:55,559 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:50:55,559 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76832.80, unrealized=-0.33%, held=24.0h
+2026-05-19 14:55:55,961 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 14:55:55,961 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76894.50, unrealized=-0.25%, held=24.0h
+2026-05-19 15:00:56,343 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:00:56,343 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76915.93, unrealized=-0.22%, held=24.0h
+2026-05-19 15:05:56,748 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:05:56,748 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76915.93, unrealized=-0.22%, held=24.0h
+2026-05-19 15:10:57,135 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:10:57,136 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76666.12, unrealized=-0.55%, held=24.0h
+2026-05-19 15:15:57,540 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:15:57,540 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76666.12, unrealized=-0.55%, held=24.0h
+2026-05-19 15:20:58,096 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:20:58,096 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76706.06, unrealized=-0.50%, held=24.0h
+2026-05-19 15:25:58,489 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:25:58,489 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76706.06, unrealized=-0.50%, held=24.0h
+2026-05-19 15:30:58,898 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:30:58,898 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76617.00, unrealized=-0.61%, held=24.0h
+2026-05-19 15:35:59,293 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:35:59,294 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76617.00, unrealized=-0.61%, held=24.0h
+2026-05-19 15:40:59,703 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:40:59,703 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$77038.40, unrealized=-0.06%, held=24.0h
+2026-05-19 15:46:00,120 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:46:00,120 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76747.60, unrealized=-0.44%, held=24.0h
+2026-05-19 15:51:00,522 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:51:00,523 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76871.07, unrealized=-0.28%, held=24.0h
+2026-05-19 15:56:00,939 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 15:56:00,939 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76888.54, unrealized=-0.26%, held=24.0h
+2026-05-19 16:01:01,356 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:01:01,356 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76888.54, unrealized=-0.26%, held=24.0h
+2026-05-19 16:06:01,759 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:06:01,759 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76898.70, unrealized=-0.24%, held=24.0h
+2026-05-19 16:11:02,146 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:11:02,146 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76712.02, unrealized=-0.49%, held=24.0h
+2026-05-19 16:11:44,563 [INFO] __main__: Received signal 15, shutting down...
+2026-05-19 16:11:49,563 [INFO] position_monitor: [POSITION MONITOR] Background monitoring stopped
+2026-05-19 16:11:49,563 [INFO] __main__: [Daemon] Position monitor stopped on shutdown
+on already running. Exiting.
+2026-05-19 16:11:46,625 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:11:49,563 [INFO] position_monitor: [POSITION MONITOR] Background monitoring stopped
+2026-05-19 16:11:49,563 [INFO] __main__: [Daemon] Position monitor stopped on shutdown
+2026-05-19 16:11:58,923 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:11:58,923 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:12:21,887 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:12:21,887 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:12:41,457 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:12:41,457 [ERROR] __main__: Daemon already running. Exiting.
+Traceback (most recent call last):
+  File "/data/.openclaw/workspace/crypto-trading-bot/scripts/autonomous_daemon.py", line 149, in <module>
+    main()
+    ~~~~^^
+  File "/data/.openclaw/workspace/crypto-trading-bot/scripts/autonomous_daemon.py", line 123, in main
+    position_monitor = PositionMonitor()
+  File "/data/.openclaw/workspace/crypto-trading-bot/src/position_monitor.py", line 75, in __init__
+    self.client = AlpacaPaperClient()
+                  ~~~~~~~~~~~~~~~~~^^
+  File "/data/.openclaw/workspace/crypto-trading-bot/src/broker/alpaca_client.py", line 48, in __init__
+    raise ValueError("ALPACA_API_KEY and ALPACA_SECRET_KEY must be set")
+ValueError: ALPACA_API_KEY and ALPACA_SECRET_KEY must be set
+2026-05-19 16:13:58,565 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:13:58,565 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:14:29,310 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:14:29,310 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:14:55,789 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:14:55,789 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:16:56,026 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:16:56,026 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:17:44,872 [INFO] position_monitor: [POSITION MONITOR] Background monitoring started (interval: 300s)
+2026-05-19 16:17:44,872 [INFO] __main__: [Daemon] Position monitor background thread started (5-min intervals, runs 24/7)
+2026-05-19 16:17:44,873 [INFO] __main__: ============================================================
+2026-05-19 16:17:44,873 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-19 16:17:44,873 [INFO] __main__: Interval: 4 hours
+2026-05-19 16:17:44,873 [INFO] __main__: PID: 2164
+2026-05-19 16:17:44,873 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-19 16:17:44,873 [INFO] __main__: ============================================================
+2026-05-19 16:17:44,873 [INFO] __main__: ============================================================
+2026-05-19 16:17:44,873 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-19 16:17:44,873 [INFO] __main__: ============================================================
+2026-05-19 16:17:45,273 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:17:45,273 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76554.17, unrealized=-0.69%, held=24.0h
+2026-05-19 16:17:47,347 [INFO] __main__: Received signal 15, shutting down...
+2026-05-19 16:17:52,347 [INFO] position_monitor: [POSITION MONITOR] Background monitoring stopped
+2026-05-19 16:17:52,347 [INFO] __main__: [Daemon] Position monitor stopped on shutdown
+2026-05-19 16:18:13,750 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:18:13,750 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-19 16:18:58,902 [INFO] position_monitor: [POSITION MONITOR] Background monitoring started (interval: 300s)
+2026-05-19 16:18:58,902 [INFO] position_monitor: [POSITION MONITOR] Background monitoring started (interval: 300s)
+2026-05-19 16:18:58,902 [INFO] __main__: [Daemon] Position monitor background thread started (5-min intervals, runs 24/7)
+2026-05-19 16:18:58,902 [INFO] __main__: [Daemon] Position monitor background thread started (5-min intervals, runs 24/7)
+2026-05-19 16:18:58,902 [INFO] __main__: ============================================================
+2026-05-19 16:18:58,902 [INFO] __main__: ============================================================
+2026-05-19 16:18:58,902 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-19 16:18:58,902 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-19 16:18:58,902 [INFO] __main__: Interval: 4 hours
+2026-05-19 16:18:58,902 [INFO] __main__: Interval: 4 hours
+2026-05-19 16:18:58,902 [INFO] __main__: PID: 2201
+2026-05-19 16:18:58,902 [INFO] __main__: PID: 2201
+2026-05-19 16:18:58,902 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-19 16:18:58,902 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-19 16:18:58,902 [INFO] __main__: ============================================================
+2026-05-19 16:18:58,902 [INFO] __main__: ============================================================
+2026-05-19 16:18:58,904 [INFO] __main__: ============================================================
+2026-05-19 16:18:58,904 [INFO] __main__: ============================================================
+2026-05-19 16:18:58,904 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-19 16:18:58,904 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-19 16:18:58,904 [INFO] __main__: ============================================================
+2026-05-19 16:18:58,904 [INFO] __main__: ============================================================
+2026-05-19 16:18:59,312 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:18:59,312 [INFO] position_monitor: [POSITION MONITOR] Checking 1 open positions
+2026-05-19 16:18:59,313 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76463.03, unrealized=-0.81%, held=24.0h
+2026-05-19 16:18:59,313 [INFO] position_monitor:   BTCUSD: qty=0.012933, entry=$77087.82, current=$76463.03, unrealized=-0.81%, held=24.0h

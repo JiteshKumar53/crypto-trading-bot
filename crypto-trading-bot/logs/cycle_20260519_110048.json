@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-19T11:00:46.840540Z",
+  "asset": null,
+  "results": {
+    "cycle_start": "2026-05-19T11:00:46.982836Z",
+    "symbol": "None",
+    "stages": "{'BTC/USD': {'error': 'Failed to get current price for BTC/USD'}, 'ETH/USD': {'error': 'Failed to get current price for ETH/USD'}, 'SOL/USD': {'error': 'Failed to get current price for SOL/USD'}}",
+    "success": "False",
+    "errors": "['BTC/USD: Failed to get current price for BTC/USD', 'ETH/USD: Failed to get current price for ETH/USD', 'SOL/USD: Failed to get current price for SOL/USD']"
+  }
+}
