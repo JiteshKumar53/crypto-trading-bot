@@ -68,5 +68,12 @@
     "enforcement": "evolution audit",
     "origin": "EV-20260520-006",
     "status": "active"
+  },
+  "GENE-011": {
+    "name": "Strategy-Market Fit Check",
+    "rule": "Before backtesting any mean-reversion strategy, verify market is in ranging regime (>50% of time). If market is trending >70% of time, reject mean-reversion strategy without optimization.",
+    "enforcement": "backtest gate",
+    "origin": "EV-20260520-007",
+    "status": "active"
   }
 }
