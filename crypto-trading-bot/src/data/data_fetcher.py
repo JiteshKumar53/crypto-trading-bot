@@ -135,8 +135,18 @@ class DataFetcher:
         return True
 
     def get_latest_price(self, symbol: str) -> Optional[float]:
-        """Get the latest closing price for a symbol."""
-        df = self.fetch_hourly_bars(symbol, limit=1)
+        """Get the latest closing price for a symbol.
+        
+        Uses cached data if available to avoid extra API calls.
+        Falls back to fetching recent bars with a wider window for reliability.
+        """
+        # Try cache first (avoids extra API call, already fetched in pipeline)
+        cached = self.get_cached(symbol)
+        if cached is not None and not cached.empty:
+            return float(cached["close"].iloc[-1])
+        
+        # Fallback: fetch more bars than needed for reliability
+        df = self.fetch_hourly_bars(symbol, limit=24)
         if df is not None and not df.empty:
             return float(df["close"].iloc[-1])
         return None
