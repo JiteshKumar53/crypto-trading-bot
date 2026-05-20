@@ -107,16 +107,21 @@ def test_kill_switch_cooldown(governor):
 
 def test_total_exposure_limit(governor):
     governor.state["total_crypto_exposure_pct"] = 0.25
-    result = governor.check_order(
-        symbol="BTC/USD", side="buy", qty=0.1, price=50000,  # Would add 5%
-        portfolio_value=100000, current_position_value=0
-    )
-    # 25% + 5% = 30%, which equals max. Should pass.
-    # But let's test exceeding
-    governor.state["total_crypto_exposure_pct"] = 0.28
+    # Test 50/50 capital rule: total exposure must stay below 50% of equity
+    # Current exposure: $46,000 (46% of $100k)
+    # Proposed: +$5,000 = $51,000 > $50,000 (50% limit) → BLOCK
+    governor.state["total_crypto_exposure_usd"] = 46000
     result = governor.check_order(
         symbol="BTC/USD", side="buy", qty=0.1, price=50000,
         portfolio_value=100000, current_position_value=0
     )
-    # 28% + 5% = 33% > 30%
     assert result.decision == RiskDecision.BLOCK
+    assert any(c.name == "total_exposure" and not c.passed for c in result.checks)
+
+    # Test just below limit: $44,000 + $5,000 = $49,000 < $50,000 → ALLOW
+    governor.state["total_crypto_exposure_usd"] = 44000
+    result = governor.check_order(
+        symbol="BTC/USD", side="buy", qty=0.1, price=50000,
+        portfolio_value=100000, current_position_value=0
+    )
+    assert result.decision == RiskDecision.ALLOW

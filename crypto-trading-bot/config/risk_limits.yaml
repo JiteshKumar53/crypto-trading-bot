@@ -1,17 +1,19 @@
 # Deterministic Risk Governor Configuration
 # Paper Trading Only — Live Trading Requires CEO Approval
 
-version: "1.0.0"
+version: "1.1.0"
 mode: paper
 
 # Account-level limits
 account:
   max_allocation_per_asset: 0.10        # 10% max per asset
-  max_total_crypto_exposure: 0.30         # 30% max total crypto exposure
+  max_total_crypto_exposure: 0.50       # 50% max total crypto exposure (50/50 capital rule)
+  max_investable_capital_pct: 0.50      # 50% of equity may be invested
+  required_reserve_capital_pct: 0.50   # 50% of equity must remain in reserve
   max_daily_loss_pct: 0.02              # 2% max daily loss
-  max_strategy_drawdown_pct: 0.05         # 5% max drawdown before pause
-  max_open_positions: 3
-  max_daily_trades: 5                   # Max 5 trades per day (conservative until avg profit >0.5%)
+  max_strategy_drawdown_pct: 0.05       # 5% max drawdown before pause
+  max_open_positions: 5                 # UPDATED: max 5 open positions (was 3)
+  max_daily_trades: 5                   # Max 5 trades per day
   max_consecutive_losses: 3             # Stop after 3 consecutive losing trades
   cooldown_hours_after_kill_switch: 24
   no_leverage: true

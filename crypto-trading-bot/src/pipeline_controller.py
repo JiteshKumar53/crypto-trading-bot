@@ -186,9 +186,17 @@ class PipelineController:
             current_pos = next((p for p in positions if p["symbol"] == symbol.replace("/", "")), None)
             current_position_value = current_pos["market_value"] if current_pos else 0
 
-            # Determine order size (conservative: 5% of portfolio per trade)
-            order_value = portfolio_value * 0.05
+            # Determine order size (50/50 capital rule aware)
+            # Conservative: 10% of equity per trade when 5 positions max
+            order_value = portfolio_value * 0.05  # 5% default, will be adjusted by risk governor
             qty = order_value / current_price
+
+            # Calculate total crypto exposure from all positions
+            total_crypto_exposure = sum(
+                float(p["market_value"]) for p in positions
+            ) if positions else 0.0
+            self.risk_governor.state["total_crypto_exposure_usd"] = total_crypto_exposure
+            logger.info(f"Total crypto exposure: ${total_crypto_exposure:.2f} / ${portfolio_value:.2f} ({(total_crypto_exposure/portfolio_value)*100:.1f}%)")
 
             risk_result = self.risk_governor.check_order(
                 symbol=symbol,

@@ -208,23 +208,28 @@ class RiskGovernor:
             )
         )
 
-        # 6. Total crypto exposure
-        # Note: This requires tracking total crypto exposure externally
-        # For now, we check against the per-asset limit as a proxy
-        total_exposure_pct = self.state.get("total_crypto_exposure_pct", 0.0)
-        max_total = self.config["account"]["max_total_crypto_exposure"]
-        if total_exposure_pct + (order_value / portfolio_value if portfolio_value > 0 else 0) > max_total:
+        # 6. Total crypto exposure (50/50 capital rule)
+        # Calculate current + proposed total crypto exposure
+        max_investable_pct = self.config["account"].get("max_investable_capital_pct", 0.50)
+        max_investable_usd = portfolio_value * max_investable_pct
+        current_total_exposure = self.state.get("total_crypto_exposure_usd", 0.0)
+        new_total_exposure = current_total_exposure + order_value
+        if new_total_exposure > max_investable_usd:
             checks.append(
                 RiskCheck(
                     name="total_exposure",
                     passed=False,
-                    reason=f"Total exposure would exceed {max_total:.0%}",
+                    reason=f"Total exposure ${new_total_exposure:.2f} would exceed 50% investable capital (${max_investable_usd:.2f}). Reserve protection active.",
                 )
             )
             return RiskResult(decision=RiskDecision.BLOCK, checks=checks)
 
         checks.append(
-            RiskCheck(name="total_exposure", passed=True, reason="Total exposure within limits")
+            RiskCheck(
+                name="total_exposure",
+                passed=True,
+                reason=f"Total exposure ${new_total_exposure:.2f} within 50% limit (${max_investable_usd:.2f})",
+            )
         )
 
         # 7. Open positions limit
