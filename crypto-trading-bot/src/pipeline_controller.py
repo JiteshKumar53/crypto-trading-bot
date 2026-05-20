@@ -196,12 +196,12 @@ class PipelineController:
                 "status": "success",
             }
             
-            rsi_str = f"{chart_obs.rsi_value:.1f}" if chart_obs.rsi_value else 'N/A'
+            rsi_str = f"{float(chart_obs.rsi_value):.1f}" if chart_obs.rsi_value is not None else 'N/A'
             logger.info(
                 f"[ChartMonitor] {symbol}: trend={chart_obs.trend_state.value}, "
                 f"RSI={rsi_str}, "
                 f"action={chart_obs.recommended_review_action}, "
-                f"confidence={chart_obs.confidence:.0%}"
+                f"confidence={float(chart_obs.confidence):.0%}"
             )
             
         except Exception as e:
@@ -320,17 +320,17 @@ class PipelineController:
             if chart_obs:
                 chart_warnings = []
                 if chart_obs.breakout_detected:
-                    chart_warnings.append(f"Breakout detected above ${chart_obs.nearest_resistance:,.2f}")
+                    chart_warnings.append(f"Breakout detected above ${float(chart_obs.nearest_resistance):,.2f}")
                 if chart_obs.breakdown_detected:
-                    chart_warnings.append(f"Breakdown detected below ${chart_obs.nearest_support:,.2f}")
+                    chart_warnings.append(f"Breakdown detected below ${float(chart_obs.nearest_support):,.2f}")
                 if chart_obs.reversal_warning:
                     chart_warnings.append(f"Reversal warning: {chart_obs.reversal_type}")
                 if chart_obs.momentum_status.value in ["strong_bullish", "strong_bearish"]:
-                    chart_warnings.append(f"Momentum: {chart_obs.momentum_status.value} (RSI: {chart_obs.rsi_value:.1f})")
+                    chart_warnings.append(f"Momentum: {chart_obs.momentum_status.value} (RSI: {float(chart_obs.rsi_value):.1f})")
                 if chart_obs.volume_anomaly:
-                    chart_warnings.append(f"Volume anomaly: {chart_obs.volume_vs_avg:.1f}x average")
+                    chart_warnings.append(f"Volume anomaly: {float(chart_obs.volume_vs_avg):.1f}x average")
                 if chart_obs.open_position_affected and chart_obs.position_pnl_pct is not None:
-                    chart_warnings.append(f"Position PnL: {chart_obs.position_pnl_pct:+.2f}%")
+                    chart_warnings.append(f"Position PnL: {float(chart_obs.position_pnl_pct):+.2f}%")
                 
                 recommendations.append({
                     "agent": "LiveChartMonitor",

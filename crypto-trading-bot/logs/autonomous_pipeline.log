@@ -7963,3 +7963,73 @@
 2026-05-20 14:10:44,206 [INFO] __main__:   BTC/USD: APPROVED
 2026-05-20 14:10:44,206 [INFO] __main__:   ETH/USD: APPROVED
 2026-05-20 14:10:44,206 [INFO] __main__:   SOL/USD: APPROVED
+2026-05-20 15:41:03,099 [INFO] __main__: === AUTONOMOUS CYCLE START: 2026-05-20T13:41:03.099919Z ===
+2026-05-20 15:41:03,250 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-20 15:41:03,250 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-20 15:41:03,250 [INFO] pipeline_controller: [PipelineController] LiveChartMonitor initialized
+2026-05-20 15:41:03,251 [INFO] pipeline_controller: PipelineController initialized
+2026-05-20 15:41:03,251 [INFO] pipeline_controller: Assets: ['BTC/USD', 'ETH/USD', 'SOL/USD']
+2026-05-20 15:41:03,251 [INFO] pipeline_controller: Use agents: True
+2026-05-20 15:41:03,251 [INFO] pipeline_controller: Use backtest: True
+2026-05-20 15:41:03,251 [INFO] pipeline_controller: Use risk governor: True
+2026-05-20 15:41:03,251 [INFO] pipeline_controller: Paper only: True
+2026-05-20 15:41:03,251 [INFO] pipeline_controller: === Starting cycle for BTC/USD ===
+2026-05-20 15:41:03,251 [INFO] pipeline_controller: [Stage 1] Fetching market data for BTC/USD
+2026-05-20 15:41:03,251 [INFO] data.data_fetcher: Fetching 168 hourly bars for BTC/USD
+2026-05-20 15:41:03,887 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-20 15:41:03,887 [INFO] data.data_fetcher: Fetched 168 bars for BTC/USD
+2026-05-20 15:41:03,888 [INFO] pipeline_controller: Current price for BTC/USD: $76,997.38
+2026-05-20 15:41:03,888 [INFO] pipeline_controller: [Stage 1.5] Running Live Chart Monitor for BTC/USD
+2026-05-20 15:41:04,225 [INFO] pipeline_controller: [ChartMonitor] BTC/USD: trend=uptrend, RSI=55.4, action=review_soon, confidence=90%
+2026-05-20 15:41:04,225 [INFO] pipeline_controller: [Stage 2] Running agent recommendations for BTC/USD
+2026-05-20 15:41:04,225 [INFO] agents.agent_runner: [AgentRunner] Starting sequential pipeline for BTC/USD
+2026-05-20 15:41:04,225 [INFO] agents.agent_runner: [AgentRunner] Running Technical Analysis (Candles)...
+2026-05-20 15:41:04,226 [INFO] agents.base_agent: [Candles] Running for BTC/USD
+2026-05-20 15:41:04,226 [INFO] agents.base_agent: [Candles] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-20 15:41:17,812 [INFO] agents.base_agent: [Candles] Ollama responded in 13.6s
+2026-05-20 15:41:17,812 [INFO] agents.base_agent: [Candles] Cached response (TTL: 300s)
+2026-05-20 15:41:17,813 [INFO] agents.base_agent: [Candles] Completed in 13.6s (LIVE)
+2026-05-20 15:41:17,813 [INFO] agents.agent_runner: [AgentRunner] Running Fundamental Analysis (Ledger)...
+2026-05-20 15:41:17,813 [INFO] agents.base_agent: [Ledger] Running for BTC/USD
+2026-05-20 15:41:17,814 [INFO] agents.base_agent: [Ledger] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-20 15:41:56,694 [INFO] __main__: === AUTONOMOUS CYCLE START: 2026-05-20T13:41:56.694786Z ===
+2026-05-20 15:41:56,975 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-20 15:41:56,975 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-20 15:41:56,975 [INFO] pipeline_controller: [PipelineController] LiveChartMonitor initialized
+2026-05-20 15:41:56,977 [INFO] pipeline_controller: PipelineController initialized
+2026-05-20 15:41:56,977 [INFO] pipeline_controller: Assets: ['BTC/USD', 'ETH/USD', 'SOL/USD']
+2026-05-20 15:41:56,977 [INFO] pipeline_controller: Use agents: True
+2026-05-20 15:41:56,977 [INFO] pipeline_controller: Use backtest: True
+2026-05-20 15:41:56,977 [INFO] pipeline_controller: Use risk governor: True
+2026-05-20 15:41:56,977 [INFO] pipeline_controller: Paper only: True
+2026-05-20 15:41:56,977 [INFO] pipeline_controller: === Starting cycle for BTC/USD ===
+2026-05-20 15:41:56,977 [INFO] pipeline_controller: [Stage 1] Fetching market data for BTC/USD
+2026-05-20 15:41:56,977 [INFO] data.data_fetcher: Fetching 168 hourly bars for BTC/USD
+2026-05-20 15:41:57,779 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-20 15:41:57,779 [INFO] data.data_fetcher: Fetched 168 bars for BTC/USD
+2026-05-20 15:41:57,779 [INFO] pipeline_controller: Current price for BTC/USD: $76,997.38
+2026-05-20 15:41:57,779 [INFO] pipeline_controller: [Stage 1.5] Running Live Chart Monitor for BTC/USD
+2026-05-20 15:41:58,083 [INFO] pipeline_controller: [ChartMonitor] BTC/USD: trend=uptrend, RSI=55.4, action=review_soon, confidence=90%
+2026-05-20 15:41:58,083 [INFO] pipeline_controller: [Stage 2] Running agent recommendations for BTC/USD
+2026-05-20 15:41:58,083 [INFO] agents.agent_runner: [AgentRunner] Starting sequential pipeline for BTC/USD
+2026-05-20 15:41:58,083 [INFO] agents.agent_runner: [AgentRunner] Running Technical Analysis (Candles)...
+2026-05-20 15:41:58,083 [INFO] agents.base_agent: [Candles] Running for BTC/USD
+2026-05-20 15:41:58,083 [INFO] agents.base_agent: [Candles] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-20 15:42:06,157 [INFO] agents.base_agent: [Ledger] Ollama responded in 48.3s
+2026-05-20 15:42:06,157 [INFO] agents.base_agent: [Ledger] Cached response (TTL: 300s)
+2026-05-20 15:42:06,157 [INFO] agents.base_agent: [Ledger] Completed in 48.3s (LIVE)
+2026-05-20 15:42:06,158 [INFO] agents.agent_runner: [AgentRunner] Running Sentiment Analysis (Pulse)...
+2026-05-20 15:42:06,158 [INFO] agents.base_agent: [Pulse] Running for BTC/USD
+2026-05-20 15:42:06,158 [INFO] agents.base_agent: [Pulse] Calling Ollama (qwen3.5:cloud, timeout=90s)...
+2026-05-20 15:42:08,623 [INFO] agents.base_agent: [Candles] Ollama responded in 10.5s
+2026-05-20 15:42:08,624 [INFO] agents.base_agent: [Candles] Cached response (TTL: 300s)
+2026-05-20 15:42:08,624 [INFO] agents.base_agent: [Candles] Completed in 10.5s (LIVE)
+2026-05-20 15:42:08,625 [INFO] agents.agent_runner: [AgentRunner] Running Fundamental Analysis (Ledger)...
+2026-05-20 15:42:08,625 [INFO] agents.base_agent: [Ledger] Running for BTC/USD
+2026-05-20 15:42:08,625 [INFO] agents.base_agent: [Ledger] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-20 15:42:50,881 [INFO] agents.base_agent: [Ledger] Ollama responded in 42.3s
+2026-05-20 15:42:50,881 [INFO] agents.base_agent: [Ledger] Cached response (TTL: 300s)
+2026-05-20 15:42:50,882 [INFO] agents.base_agent: [Ledger] Completed in 42.3s (LIVE)
+2026-05-20 15:42:50,882 [INFO] agents.agent_runner: [AgentRunner] Running Sentiment Analysis (Pulse)...
+2026-05-20 15:42:50,882 [INFO] agents.base_agent: [Pulse] Running for BTC/USD
+2026-05-20 15:42:50,882 [INFO] agents.base_agent: [Pulse] Calling Ollama (qwen3.5:cloud, timeout=90s)...

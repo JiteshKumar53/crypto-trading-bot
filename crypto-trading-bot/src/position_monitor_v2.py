@@ -293,13 +293,13 @@ class PositionMonitorV2:
                     # Only exit if momentum is weakening AND we're past break-even
                     if chart_obs.momentum_status.value in ["bearish", "strong_bearish"]:
                         return self._make_action("SELL_ALL", symbol, state.qty, current,
-                                                f"chart_reversal (RSI: {chart_obs.rsi_value:.1f}, {chart_obs.reason})")
+                                                f"chart_reversal (RSI: {float(chart_obs.rsi_value):.1f}, {chart_obs.reason})")
                 
                 # Chart detects breakdown below support on losing position
                 if (chart_obs.breakdown_detected and unrealized_pct < 0 
                         and not state.stop_triggered):
                     return self._make_action("SELL_ALL", symbol, state.qty, current,
-                                            f"chart_breakdown (support: ${chart_obs.nearest_support:,.2f}, {chart_obs.reason})")
+                                            f"chart_breakdown (support: ${float(chart_obs.nearest_support):,.2f}, {chart_obs.reason})")
                 
                 # Chart warns volatility expanding — tighten runner stop
                 if (chart_obs.volatility_state.value == "expanding" and unrealized_pct > DEFAULT_RUNNER_TRIGGER
