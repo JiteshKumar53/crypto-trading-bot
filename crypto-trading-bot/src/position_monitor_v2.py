@@ -252,7 +252,12 @@ class PositionMonitorV2:
             logger.info(f"[POSITION MONITOR] Momentum drop detected for {symbol} but profit {unrealized_pct:.2%} < fee breakeven {MINIMUM_PROFIT_EXIT:.2%} — HOLDING")
 
         # 6. Partial profit-taking: Level 1 (+1.5%)
+        # Skip if remaining qty is negligible (already fully sold)
         if unrealized_pct >= PARTIAL_PROFIT_LEVEL_1 and not state.partial_sold:
+            if state.qty < 0.00001:  # Minimum viable order size
+                logger.info(f"[POSITION MONITOR] Partial profit triggered for {symbol} but qty {state.qty} too small — SKIP")
+                return self._make_action("HOLD", symbol, 0, current,
+                                         f"partial_profit_1 (+{unrealized_pct:.2%}) — qty too small")
             sell_qty = state.qty * 0.5
             return self._make_action("SELL_PARTIAL", symbol, sell_qty, current,
                                      f"partial_profit_1 (+{unrealized_pct:.2%})")
