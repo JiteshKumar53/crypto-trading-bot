@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-05-20T15:30:43.050053+00:00",
+  "status": "healthy",
+  "last_report_time": "2026-05-20T15:30:43.049606+00:00",
+  "last_report_type": "full",
+  "consecutive_failures": 0,
+  "total_reports": 1,
+  "total_failures": 0,
+  "report_success": true,
+  "report_type": "full",
+  "errors": []
+}

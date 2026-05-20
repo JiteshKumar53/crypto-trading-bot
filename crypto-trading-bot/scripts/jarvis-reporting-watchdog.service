@@ -1,0 +1,17 @@
+[Unit]
+Description=Jarvis CEO Reporting Watchdog
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/data/.openclaw/workspace/crypto-trading-bot
+EnvironmentFile=/data/.openclaw/workspace/crypto-trading-bot/.env
+ExecStart=/usr/bin/python3 /data/.openclaw/workspace/crypto-trading-bot/src/reporting_watchdog_service.py
+Restart=always
+RestartSec=5
+StandardOutput=append:/data/.openclaw/workspace/crypto-trading-bot/logs/reporting_watchdog_service.log
+StandardError=append:/data/.openclaw/workspace/crypto-trading-bot/logs/reporting_watchdog_service.log
+
+[Install]
+WantedBy=multi-user.target

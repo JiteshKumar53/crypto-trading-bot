@@ -1,43 +1,28 @@
 {
-  "last_update_time": "2026-05-20T12:08:17.625373+00:00",
-  "next_report_time": "2026-05-20T12:30:00+00:00",
-  "daemon_status": "running",
-  "scheduler_status": "active",
-  "account_equity": 9987.82,
-  "buying_power": 14490.88,
-  "reserve_capital": 7245.44,
+  "last_update_time": "2026-05-20T13:47:06+00:00",
+  "account_equity": 9964.11,
+  "cash": 7977.26,
+  "buying_power": 15954.52,
+  "reserve_capital": 7977.26,
   "open_positions": [
     {
       "symbol": "BTCUSD",
-      "qty": 0.016126083,
-      "entry": 77293.580035745,
-      "current": 77349.69,
-      "unrealized": 0.904834,
-      "unrealized_pct": 0.073
-    },
-    {
-      "symbol": "ETHUSD",
-      "qty": 0.468014032,
-      "entry": 2130.10845351,
-      "current": 2129.8,
-      "unrealized": -0.144361,
-      "unrealized_pct": -0.013999999999999999
+      "qty": 0.012910642,
+      "entry": 77025.93,
+      "current": 77027.10,
+      "unrealized": 0.02,
+      "unrealized_pct": 0.002
     },
     {
       "symbol": "SOLUSD",
-      "qty": 5.873147332,
-      "entry": 84.9116,
-      "current": 84.836,
-      "unrealized": -0.44401,
-      "unrealized_pct": -0.089
+      "qty": 11.752554,
+      "entry": 84.84,
+      "current": 84.44,
+      "unrealized": -4.65,
+      "unrealized_pct": -0.47
     }
   ],
-  "realized_pnl_today": null,
-  "unrealized_pnl": null,
-  "risk_governor_status": "active",
-  "kill_switch_status": "inactive",
-  "last_trade": null,
-  "last_agent_activity": "2026-05-20T12:08:17.625427+00:00",
-  "last_errors": [],
-  "last_successful_report_time": null
+  "daemon_status": "running",
+  "scheduler_status": "active",
+  "last_error": null
 }
