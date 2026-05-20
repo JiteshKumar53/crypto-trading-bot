@@ -100,6 +100,27 @@ class PipelineController:
         # Determine which assets to process
         symbols = [symbol] if symbol else self.assets
 
+        # STAGE 0: PRE-CYCLE MEMORY AND EVOLUTION REVIEW (MANDATORY)
+        # Gene: GENE-009, GENE-010 | Capsule: CAPSULE-005
+        # This MUST run before any trading decision
+        try:
+            from pre_cycle_review import run_pre_cycle_review
+            review = run_pre_cycle_review()
+            results["pre_cycle_review"] = review
+            
+            if not review.get("trading_allowed", True):
+                logger.critical("[STAGE 0] PRE-CYCLE REVIEW BLOCKED TRADING")
+                results["success"] = False
+                results["blocked_reason"] = "Pre-cycle review found critical issues"
+                return results
+            else:
+                logger.info(f"[STAGE 0] Pre-cycle review passed: {review.get('issue_count', 0)} warnings")
+        except Exception as e:
+            logger.critical(f"[STAGE 0] PRE-CYCLE REVIEW FAILED: {e}")
+            results["success"] = False
+            results["blocked_reason"] = f"Pre-cycle review failed: {e}"
+            return results
+        
         for sym in symbols:
             logger.info(f"=== Starting cycle for {sym} ===")
             try:
@@ -253,6 +274,44 @@ class PipelineController:
                 "reason": "use_backtest=False",
             }
 
+        # Stage 3.5: STRATEGY VALIDATION GATE (CRITICAL — prevents unvalidated strategies)
+        # Gene: GENE-001, GENE-002 | Capsule: CAPSULE-001
+        from strategy_validation_gate import validate_strategy_for_pipeline, get_strategy_constraints
+        
+        # Get strategy name from backtest or agent recommendation
+        strategy_name = result["stages"]["backtest"].get("strategy_name", "unknown")
+        if strategy_name == "unknown" and self.use_agents:
+            strategy_name = result["stages"]["agents"].get("recommended_strategy", "unknown")
+        
+        # Validate strategy against leaderboard
+        validation_error = validate_strategy_for_pipeline(strategy_name, symbol)
+        
+        if validation_error:
+            logger.critical(f"[STAGE 3.5] STRATEGY VALIDATION GATE BLOCKED: {validation_error}")
+            result["stages"]["strategy_validation"] = {
+                "status": "blocked",
+                "approved": False,
+                "reason": validation_error,
+                "strategy_name": strategy_name,
+            }
+            result["approved"] = False
+            return result
+        else:
+            constraints = get_strategy_constraints(strategy_name, symbol)
+            logger.info(f"[STAGE 3.5] Strategy validation PASSED: {strategy_name} — constraints: {constraints}")
+            result["stages"]["strategy_validation"] = {
+                "status": "approved",
+                "approved": True,
+                "strategy_name": strategy_name,
+                "constraints": constraints,
+            }
+            
+            # Apply testing-mode constraints
+            if constraints.get("max_position_size"):
+                order_value = min(order_value, constraints["max_position_size"])
+                qty = order_value / current_price
+                logger.info(f"[STAGE 3.5] Testing mode: order size limited to ${order_value:.2f}")
+        
         # Stage 4: Risk Governor check
         if self.use_risk_governor:
             logger.info(f"[Stage 4] Running Risk Governor for {symbol}")

@@ -192,6 +192,54 @@ class PositionMonitorV2:
 
         return states
 
+    def _build_states_from_reconciled_data(self, local_state: Dict) -> List[PositionState]:
+        """Build PositionState objects from reconciled local state data.
+        
+        This is called after broker-first reconciliation to ensure local state
+        always matches the broker (Alpaca) source of truth.
+        Gene: GENE-006 | Capsule: CAPSULE-004
+        """
+        states = []
+        for sym, data in local_state.items():
+            entry_price = data.get("avg_entry_price", 0)
+            current = data.get("current_price", 0)
+            unrealized_pct = (current - entry_price) / entry_price if entry_price else 0
+            
+            state = PositionState(
+                symbol=sym,
+                qty=data.get("qty", 0),
+                avg_entry_price=entry_price,
+                current_price=current,
+                market_value=data.get("market_value", 0),
+                unrealized_pl=data.get("unrealized_pl", 0),
+                unrealized_pl_pct=unrealized_pct,
+                entry_time=data.get("entry_time", datetime.now(timezone.utc).isoformat()),
+                holding_hours=data.get("holding_hours", 0.0),
+                highest_price=data.get("highest_price", current),
+                highest_price_pct=data.get("highest_price_pct", 0),
+                partial_sold=data.get("partial_sold", False),
+                partial_sold_qty=data.get("partial_sold_qty", 0.0),
+                stop_triggered=data.get("stop_triggered", False),
+                take_profit_triggered=data.get("take_profit_triggered", False),
+                trailing_stop_triggered=data.get("trailing_stop_triggered", False),
+                time_exit_triggered=data.get("time_exit_triggered", False),
+                break_even_triggered=data.get("break_even_triggered", False),
+                break_even_price=data.get("break_even_price", entry_price * 1.005),
+                regime_at_entry=data.get("regime_at_entry", "unknown"),
+                strategy_name=data.get("strategy_name", "unknown"),
+            )
+            
+            # Update holding time
+            try:
+                entry_dt = datetime.fromisoformat(state.entry_time.replace("Z", "+00:00"))
+                state.holding_hours = (datetime.now(timezone.utc) - entry_dt).total_seconds() / 3600
+            except:
+                state.holding_hours = 0.0
+            
+            states.append(state)
+        
+        return states
+
     def check_position(self, state: PositionState) -> Optional[Dict]:
         """
         Check a single position against ALL exit rules.
@@ -356,12 +404,65 @@ class PositionMonitorV2:
             return False
 
     def monitor_once(self) -> List[Dict]:
-        """Run one monitoring pass."""
+        """Run one monitoring pass with broker-first reconciliation."""
         actions_taken = []
-        states = self.get_position_states()
-
+        
+        # Step 1: Get broker truth (ALPACA IS SOURCE OF TRUTH)
+        # Gene: GENE-006 | Capsule: CAPSULE-004
+        try:
+            broker_positions = self.client.get_positions()
+        except Exception as e:
+            logger.error(f"[POSITION MONITOR] Failed to fetch broker positions: {e}")
+            broker_positions = []
+        
+        # Step 2: Load local state
+        local_state = self._load_state()
+        
+        # Step 3: RECONCILE broker positions with local state
+        # If broker shows 0 positions but local shows >0 → clear local state
+        # If broker shows positions not in local → add them
+        # If quantities differ → use broker quantities
+        if broker_positions:
+            # Broker has positions — rebuild state from broker
+            reconciled_state = {}
+            for p in broker_positions:
+                sym = p["symbol"]
+                persisted_data = local_state.get(sym, {})
+                reconciled_state[sym] = {
+                    "symbol": sym,
+                    "qty": p["qty"],
+                    "avg_entry_price": p["avg_entry_price"],
+                    "current_price": p["current_price"],
+                    "market_value": p["market_value"],
+                    "unrealized_pl": p["unrealized_pl"],
+                    "entry_time": persisted_data.get("entry_time", datetime.now(timezone.utc).isoformat()),
+                    "partial_sold": persisted_data.get("partial_sold", False),
+                    "partial_sold_qty": persisted_data.get("partial_sold_qty", 0.0),
+                    "stop_triggered": persisted_data.get("stop_triggered", False),
+                    "take_profit_triggered": persisted_data.get("take_profit_triggered", False),
+                    "trailing_stop_triggered": persisted_data.get("trailing_stop_triggered", False),
+                    "break_even_triggered": persisted_data.get("break_even_triggered", False),
+                    "highest_price": max(p["current_price"], persisted_data.get("highest_price", p["current_price"])),
+                }
+            local_state = reconciled_state
+            if len(local_state) != len(broker_positions):
+                logger.warning(f"[RECONCILIATION] State rebuilt from broker: {len(broker_positions)} positions")
+        else:
+            # Broker shows NO positions — clear local state (THE BUG FIX)
+            if local_state:
+                stale_symbols = list(local_state.keys())
+                logger.critical(
+                    f"[RECONCILIATION] Broker shows 0 positions but local state has "
+                    f"{len(stale_symbols)}: {stale_symbols}. CLEARING LOCAL STATE."
+                )
+            local_state = {}
+        
+        # Step 4: Build position states from reconciled data
+        states = self._build_states_from_reconciled_data(local_state)
+        
         if not states:
             logger.info("[POSITION MONITOR] No open positions")
+            self._save_state({})  # CRITICAL: Always save empty state
             return actions_taken
 
         logger.info(f"[POSITION MONITOR] Checking {len(states)} open positions")
