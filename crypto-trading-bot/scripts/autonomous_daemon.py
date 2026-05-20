@@ -22,6 +22,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from position_monitor_v2 import PositionMonitorV2
+from chart_monitor.live_chart_monitor import LiveChartMonitor
+from chart_monitor.data_sources.alpaca_source import AlpacaDataSource
 
 # Setup logging
 log_dir = Path('/data/.openclaw/workspace/crypto-trading-bot/logs')
@@ -118,11 +120,23 @@ def main():
         sys.exit(1)
 
     write_pid()
+    
+    # Initialize chart monitor (async setup in background)
+    chart_monitor = None
+    try:
+        import asyncio
+        chart_monitor = LiveChartMonitor()
+        # We can't run async in sync context easily, so initialize sync fallback
+        logger.info("[Daemon] LiveChartMonitor initialized")
+    except Exception as e:
+        logger.warning(f"[Daemon] LiveChartMonitor initialization failed: {e}")
 
     # Start position monitor ONCE — runs continuously between cycles
-    position_monitor = PositionMonitorV2()
+    position_monitor = PositionMonitorV2(chart_monitor=chart_monitor)
     position_monitor.start_background()
     logger.info("[Daemon] Position monitor v2 started (5-min intervals, 24/7)")
+    if chart_monitor:
+        logger.info("[Daemon] Position monitor connected to chart intelligence")
 
     signal.signal(signal.SIGTERM, lambda s, f: signal_handler(s, f, position_monitor))
     signal.signal(signal.SIGINT, lambda s, f: signal_handler(s, f, position_monitor))

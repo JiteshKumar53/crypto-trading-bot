@@ -28,6 +28,8 @@ from strategy.strategy_engine import Strategy, BuyAndHoldStrategy, SimpleMAStrat
 from risk_governor import RiskGovernor, RiskDecision
 from orchestrator import TradingOrchestrator
 from memory.decision_log import DecisionLog
+from chart_monitor.data_sources.alpaca_source import AlpacaDataSource
+from chart_monitor.live_chart_monitor import LiveChartMonitor, ChartObservationReporter
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +59,11 @@ class PipelineController:
         self.risk_governor = RiskGovernor()
         self.orchestrator = TradingOrchestrator(self.risk_governor)
         self.decision_log = DecisionLog()
-
+        
+        # Initialize Live Chart Monitor (Market Intelligence)
+        self.chart_monitor = LiveChartMonitor()
+        logger.info("[PipelineController] LiveChartMonitor initialized")
+        
         # Load assets from config
         import yaml
         config_path = os.path.join(os.path.dirname(__file__), "..", "config", "assets.yaml")
@@ -132,6 +138,77 @@ class PipelineController:
             "current_price": current_price,
             "status": "success",
         }
+
+        # Stage 1.5: Live Chart Monitor (Market Intelligence)
+        chart_obs = None
+        try:
+            logger.info(f"[Stage 1.5] Running Live Chart Monitor for {symbol}")
+            from chart_monitor.data_sources.base import Candle
+            
+            # Convert DataFrame to Candle objects
+            chart_candles = []
+            for idx, row in data.iterrows():
+                ts = idx[1] if isinstance(idx, tuple) else idx
+                chart_candles.append(Candle(
+                    timestamp=ts,
+                    open=row["open"],
+                    high=row["high"],
+                    low=row["low"],
+                    close=row["close"],
+                    volume=row["volume"],
+                    symbol=symbol,
+                    timeframe="1h",
+                ))
+            
+            # Get current position for context-aware analysis
+            positions = self.alpaca.get_positions()
+            current_pos = next((p for p in positions if p["symbol"] == symbol.replace("/", "")), None)
+            position_context = None
+            if current_pos:
+                position_context = {
+                    "side": "long",
+                    "entry_price": float(current_pos["avg_entry_price"]),
+                    "qty": float(current_pos["qty"]),
+                }
+            
+            # Run chart analysis
+            chart_obs = self.chart_monitor.analyzer.analyze(
+                chart_candles, symbol, "1h", position_context
+            )
+            
+            result["stages"]["chart_monitor"] = {
+                "trend": chart_obs.trend_state.value if chart_obs.trend_state else "unknown",
+                "volatility": chart_obs.volatility_state.value if chart_obs.volatility_state else "unknown",
+                "momentum": chart_obs.momentum_status.value if chart_obs.momentum_status else "unknown",
+                "rsi": round(chart_obs.rsi_value, 1) if chart_obs.rsi_value else None,
+                "support": round(chart_obs.nearest_support, 2) if chart_obs.nearest_support else None,
+                "resistance": round(chart_obs.nearest_resistance, 2) if chart_obs.nearest_resistance else None,
+                "breakout": chart_obs.breakout_detected,
+                "breakdown": chart_obs.breakdown_detected,
+                "reversal": chart_obs.reversal_warning,
+                "reversal_type": chart_obs.reversal_type,
+                "confidence": round(chart_obs.confidence, 2),
+                "recommendation": chart_obs.recommended_review_action,
+                "reason": chart_obs.reason,
+                "risk_warning": chart_obs.risk_warning,
+                "position_affected": chart_obs.open_position_affected,
+                "position_pnl_pct": round(chart_obs.position_pnl_pct, 2) if chart_obs.position_pnl_pct else None,
+                "status": "success",
+            }
+            
+            logger.info(
+                f"[ChartMonitor] {symbol}: trend={chart_obs.trend_state.value}, "
+                f"RSI={chart_obs.rsi_value:.1f if chart_obs.rsi_value else 'N/A'}, "
+                f"action={chart_obs.recommended_review_action}, "
+                f"confidence={chart_obs.confidence:.0%}"
+            )
+            
+        except Exception as e:
+            logger.warning(f"[ChartMonitor] Analysis failed for {symbol}: {e}")
+            result["stages"]["chart_monitor"] = {
+                "status": "failed",
+                "error": str(e),
+            }
 
         # Stage 2: Run agents (if enabled)
         agent_results = None
@@ -237,6 +314,30 @@ class PipelineController:
                 {"agent": "Shield", "warnings": agent_results["risk"].warnings},
                 {"agent": "Compass", "warnings": agent_results["thesis"].warnings},
             ]
+            
+            # Add Live Chart Monitor observation to recommendations
+            if chart_obs:
+                chart_warnings = []
+                if chart_obs.breakout_detected:
+                    chart_warnings.append(f"Breakout detected above ${chart_obs.nearest_resistance:,.2f}")
+                if chart_obs.breakdown_detected:
+                    chart_warnings.append(f"Breakdown detected below ${chart_obs.nearest_support:,.2f}")
+                if chart_obs.reversal_warning:
+                    chart_warnings.append(f"Reversal warning: {chart_obs.reversal_type}")
+                if chart_obs.momentum_status.value in ["strong_bullish", "strong_bearish"]:
+                    chart_warnings.append(f"Momentum: {chart_obs.momentum_status.value} (RSI: {chart_obs.rsi_value:.1f})")
+                if chart_obs.volume_anomaly:
+                    chart_warnings.append(f"Volume anomaly: {chart_obs.volume_vs_avg:.1f}x average")
+                if chart_obs.open_position_affected and chart_obs.position_pnl_pct is not None:
+                    chart_warnings.append(f"Position PnL: {chart_obs.position_pnl_pct:+.2f}%")
+                
+                recommendations.append({
+                    "agent": "LiveChartMonitor",
+                    "warnings": "; ".join(chart_warnings) if chart_warnings else chart_obs.reason,
+                })
+                
+                logger.info(f"[Pipeline] Chart observations added to recommendations for {symbol}")
+            
             # Determine side from agent consensus
             thesis_rec = agent_results["thesis"].recommendation.lower()
             if "sell" in thesis_rec or "exit" in thesis_rec or "short" in thesis_rec:

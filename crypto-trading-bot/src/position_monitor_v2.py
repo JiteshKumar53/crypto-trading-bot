@@ -26,6 +26,8 @@ from pathlib import Path
 
 from broker.alpaca_client import AlpacaPaperClient
 from risk_governor import RiskGovernor
+from chart_monitor.live_chart_monitor import LiveChartMonitor
+from chart_monitor.chart_analyzer import ChartObservation
 
 logger = logging.getLogger(__name__)
 
@@ -91,9 +93,11 @@ class PositionMonitorV2:
         stale_profit_hours: float = DEFAULT_STALE_PROFIT_HOURS,
         stale_loss_hours: float = DEFAULT_STALE_LOSS_HOURS,
         capital_efficiency_days: float = DEFAULT_CAPITAL_EFFICIENCY_DAYS,
+        chart_monitor: Optional[LiveChartMonitor] = None,
     ):
         self.client = AlpacaPaperClient()
         self.risk_governor = RiskGovernor()
+        self.chart_monitor = chart_monitor
         self.stop_loss_pct = stop_loss_pct
         self.take_profit_pct = take_profit_pct
         self.trailing_stop_pct = trailing_stop_pct
@@ -268,7 +272,41 @@ class PositionMonitorV2:
             return self._make_action("SELL_ALL", symbol, state.qty, current,
                                      f"capital_efficiency ({holding:.1f}h, {unrealized_pct:.2%})")
 
-        # 9. Time-based exit (absolute max holding)
+        # 10. Chart intelligence exit: Check chart observations for reversal/breakdown warnings
+        if self.chart_monitor:
+            chart_obs = self.chart_monitor.get_latest_observation(symbol, "1h")
+            if chart_obs and chart_obs.open_position_affected:
+                # Chart warns of reversal while position profitable but fading
+                if (chart_obs.reversal_warning and chart_obs.reversal_type == "bearish" 
+                        and unrealized_pct > 0 and unrealized_pct < self.take_profit_pct):
+                    logger.info(f"[POSITION MONITOR] CHART INTELLIGENCE: Reversal warning for {symbol} "
+                               f"({chart_obs.reason}) — considering early exit")
+                    # Only exit if momentum is weakening AND we're past break-even
+                    if chart_obs.momentum_status.value in ["bearish", "strong_bearish"]:
+                        return self._make_action("SELL_ALL", symbol, state.qty, current,
+                                                f"chart_reversal (RSI: {chart_obs.rsi_value:.1f}, {chart_obs.reason})")
+                
+                # Chart detects breakdown below support on losing position
+                if (chart_obs.breakdown_detected and unrealized_pct < 0 
+                        and not state.stop_triggered):
+                    return self._make_action("SELL_ALL", symbol, state.qty, current,
+                                            f"chart_breakdown (support: ${chart_obs.nearest_support:,.2f}, {chart_obs.reason})")
+                
+                # Chart warns volatility expanding — tighten runner stop
+                if (chart_obs.volatility_state.value == "expanding" and unrealized_pct > DEFAULT_RUNNER_TRIGGER
+                        and highest > entry * (1 + DEFAULT_RUNNER_TRIGGER)):
+                    tighter_trail = highest * (1 - DEFAULT_RUNNER_TRAIL * 0.7)  # 30% tighter
+                    if current <= tighter_trail:
+                        return self._make_action("SELL_ALL", symbol, state.qty, current,
+                                                f"chart_volatility_tighten (expanded, trail tightened to -{DEFAULT_RUNNER_TRAIL*0.7:.1%})")
+                
+                # Chart confirms strong trend continuing — allow runner to continue
+                if (chart_obs.trend_state.value in ["uptrend", "downtrend"] 
+                        and chart_obs.trend_strength > 0.7 and unrealized_pct > DEFAULT_RUNNER_TRIGGER):
+                    logger.info(f"[POSITION MONITOR] CHART INTELLIGENCE: Strong {chart_obs.trend_state.value} "
+                               f"continuing for {symbol} — allowing runner to extend")
+
+        # 11. Time-based exit (absolute max holding)
         if holding >= self.max_holding_hours and not state.time_exit_triggered:
             return self._make_action("SELL_ALL", symbol, state.qty, current,
                                      f"max_holding_time ({holding:.1f}h)")
