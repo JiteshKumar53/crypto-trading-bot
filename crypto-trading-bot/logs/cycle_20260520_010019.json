@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-20T00:58:28.672267Z",
+  "asset": null,
+  "results": {
+    "cycle_start": "2026-05-20T00:58:28.812218Z",
+    "symbol": "None",
+    "stages": "{'BTC/USD': {'symbol': 'BTC/USD', 'approved': False, 'stages': {'data': {'bars': 168, 'current_price': 76690.315, 'status': 'success'}, 'agents': {'all_succeeded': True, 'errors': [], 'status': 'success'}, 'backtest': {'strategy': 'rsi_14_30_70_optimized', 'total_return': np.float64(0.0024496876678858828), 'max_drawdown': np.float64(0.006360528032980416), 'sharpe': np.float64(2.9596554365721013), 'num_trades': 2, 'status': 'success'}, 'risk_governor': {'decision': 'block', 'approved': False, 'checks': [{'name': 'paper_mode_enforced', 'passed': True, 'reason': 'Paper mode active'}, {'name': 'kill_switch', 'passed': True, 'reason': 'No kill switch'}, {'name': 'asset_validation', 'passed': True, 'reason': 'Asset BTC/USD validated'}, {'name': 'min_order_size', 'passed': True, 'reason': 'Order size 499.08 valid'}, {'name': 'max_position_pct', 'passed': False, 'reason': 'Position pct 14.94% exceeds max 10%'}], 'status': 'success'}}}, 'ETH/USD': {'error': 'Failed to get current price for ETH/USD'}, 'SOL/USD': {'error': 'Failed to get current price for SOL/USD'}}",
+    "success": "False",
+    "errors": "['ETH/USD: Failed to get current price for ETH/USD', 'SOL/USD: Failed to get current price for SOL/USD']"
+  }
+}

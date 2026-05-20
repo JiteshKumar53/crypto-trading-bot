@@ -1,0 +1,320 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-20T10:30:09.681Z",
+  "entries": {
+    "memory:memory/2026-05-20.md:358:402": {
+      "key": "memory:memory/2026-05-20.md:358:402",
+      "path": "memory/2026-05-20.md",
+      "startLine": 358,
+      "endLine": 402,
+      "source": "memory",
+      "snippet": "### Current Blockers - **TradingView MCP:** Not available. No blocker — using public sources. - **Strategy implementation:** Need to code RSI Range Trading and Momentum Breakout strategies. ### Jarvis Decision 1. **Daemon restarted** with LiveChartMonitor active. 2. **Continuous task queue** created — no idle teams. 3. **Strategy research** active — 3 strategies ready, backlog documented. 4. **Next autonomous action:** Begin implementing RSI Range Trading strategy (card #001). ### Next Autonomous Action 1. Implement RSI Range Trading strategy in Python 2. Backtest on BTC/ETH/SOL hourly data 3. Add to strategy engine if backtest passes 4. Monitor daemon for chart-enhanced position monitori",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T10:00:28.913Z",
+      "lastRecalledAt": "2026-05-20T10:30:09.628Z",
+      "queryHashes": [
+        "ff38fd2c1b50",
+        "9463dfce1e99"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "btc/eth/sol",
+        "chart-enhanced",
+        "current",
+        "blockers",
+        "tradingview",
+        "mcp",
+        "not",
+        "available"
+      ]
+    },
+    "memory:memory/2026-05-20.md:270:308": {
+      "key": "memory:memory/2026-05-20.md:270:308",
+      "path": "memory/2026-05-20.md",
+      "startLine": 270,
+      "endLine": 308,
+      "source": "memory",
+      "snippet": "- Orchestrator decision recommendations (affects buy/sell logic) - Position exit rules (affects runner stops, reversal exits) - Risk assessment (affects volatility-adjusted stops) ### Risks - Chart observations are **advisory only** — Risk Governor retains final blocking authority - All chart-influenced exits logged with `chart_` prefix for auditability - False signals mitigated by requiring confirmation (e.g., reversal + momentum weakening) ### Jarvis Decision **APPROVED integration.** LiveChartMonitor is now an active participant in the trading pipeline, not an isolated module. It improves exit timing, opportunity detection, and risk management without replacing existing agents or overri",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T10:00:28.913Z",
+      "lastRecalledAt": "2026-05-20T10:30:09.676Z",
+      "queryHashes": [
+        "ff38fd2c1b50",
+        "9931dbf48504"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "buy/sell",
+        "volatility-adjusted",
+        "chart-influenced",
+        "e.g",
+        "orchestrator",
+        "decision",
+        "recommendations",
+        "affects"
+      ]
+    },
+    "memory:memory/2026-05-20.md:416:448": {
+      "key": "memory:memory/2026-05-20.md:416:448",
+      "path": "memory/2026-05-20.md",
+      "startLine": 416,
+      "endLine": 448,
+      "source": "memory",
+      "snippet": "1. **Trade limit reached → Improvement mode:** Agents switch to strategy research, backtesting, exit optimization, missed opportunity review, model tuning, data improvement, dashboard updates. 2. **No idle agents after limit reached:** Team must improve tomorrow's system. 3. **Jarvis decides daily:** Based on win rate, average win/loss, profit factor, daily PnL, max drawdown, valid/rejected/missed signals, market regime, agent latency, Risk Governor blocks. 4. **Safety first:** More trades only when: high-quality signals exist, expected value positive, fees included, risk/reward acceptable, positions actively managed, team can monitor exits, Risk Governor approves. ### Tests **82/82 passing",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T10:00:28.913Z",
+      "lastRecalledAt": "2026-05-20T10:00:28.913Z",
+      "queryHashes": [
+        "ff38fd2c1b50"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "win/loss",
+        "valid/rejected/missed",
+        "high-quality",
+        "risk/reward",
+        "82/82",
+        "trade",
+        "limit",
+        "reached"
+      ]
+    },
+    "memory:memory/2026-05-20.md:185:225": {
+      "key": "memory:memory/2026-05-20.md:185:225",
+      "path": "memory/2026-05-20.md",
+      "startLine": 185,
+      "endLine": 225,
+      "source": "memory",
+      "snippet": "| `src/chart_monitor/chart_analyzer.py` | Technical analysis engine (trend, S/R, breakout, RSI, MACD, ATR, volume) | | `src/chart_monitor/live_chart_monitor.py` | Agent orchestrator + reporter | | `tests/test_chart_monitor.py` | 12 tests for analyzer + reporter | ### Technical Capabilities - **Trend detection:** Uptrend/Downtrend/Ranging/Choppy via SMA slope - **Support/Resistance:** Local minima/maxima with touch counting - **Breakout/Breakdown:** Price crossing S/R with confirmation - **Reversal patterns:** Engulfing candles, doji detection - **Momentum:** RSI(14), MACD(12/26/9) with signal line - **Volatility:** ATR-based with expansion/compression detection - **Volume:** Anomaly detecti",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T10:00:28.913Z",
+      "lastRecalledAt": "2026-05-20T10:00:28.913Z",
+      "queryHashes": [
+        "ff38fd2c1b50"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "s/r",
+        "tests/test-chart-monitor.py",
+        "uptrend/downtrend/ranging/choppy",
+        "support/resistance",
+        "minima/maxima",
+        "breakout/breakdown",
+        "12/26/9",
+        "atr-based"
+      ]
+    },
+    "memory:memory/2026-05-20.md:94:134": {
+      "key": "memory:memory/2026-05-20.md:94:134",
+      "path": "memory/2026-05-20.md",
+      "startLine": 94,
+      "endLine": 134,
+      "source": "memory",
+      "snippet": "| SOL | 5.906 | $84.35 | $84.88 | **+0.63%** | $501.31 | **Partial sold** (was 11.8) | **Realized PnL today:** Partial profit-taking on ETH and SOL at +0.5%–0.6% each. Position monitor actively managing exits. ### BTC Status | Question | Answer | |----------|--------| | BTC blocked before update? | Yes — position limit (3 max) + per-asset 10% limit | | BTC still blocked after? | **Yes** | | Reason still blocked | Per-asset 10% limit: BTC already ~10% of equity | | Can BTC be increased? | Yes, under dynamic sizing (awaiting CEO approval for dynamic model) | ### Safety Verification - ✅ Paper mode verified - ✅ Risk Governor still active - ✅ No live trading - ✅ No deterministic controls disab",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T10:00:28.913Z",
+      "lastRecalledAt": "2026-05-20T10:30:09.628Z",
+      "queryHashes": [
+        "ff38fd2c1b50",
+        "9463dfce1e99"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "5.906",
+        "84.35",
+        "84.88",
+        "0.63",
+        "501.31",
+        "11.8",
+        "profit-taking",
+        "0.5"
+      ]
+    },
+    "memory:memory/2026-05-20.md:324:365": {
+      "key": "memory:memory/2026-05-20.md:324:365",
+      "path": "memory/2026-05-20.md",
+      "startLine": 324,
+      "endLine": 365,
+      "source": "memory",
+      "snippet": "- **Issue:** ETH position qty ~0 (2e-09), position monitor tried to sell partial → Alpaca rejected. - **Fix:** Added minimum qty check (0.00001) before partial profit sell. Skips with logged reason. - **Commit:** `3c16010` #### 5. ETH Dust Position Cleared - **Action:** Momentum reversal rule triggered on ETH dust (peak 1.05%, now 0.73%). - **Result:** Sold 2e-09 ETHUSD. Position fully closed. ### Current Positions | Symbol | Qty | Entry | Current | Unrealized | Status | |--------|-----|-------|---------|------------|--------| | BTCUSD | 0.0129 | $77,087.29 | $77,432.78 | **+0.45%** | Holding, runner approaching | **Account:** $9,997.08 (down $2.92 from $10,000 start) **Invested:** $1,00",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T10:30:09.628Z",
+      "lastRecalledAt": "2026-05-20T10:30:09.676Z",
+      "queryHashes": [
+        "9463dfce1e99",
+        "9931dbf48504"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "2e-09",
+        "0.00001",
+        "1.05",
+        "0.73",
+        "0.0129",
+        "087.29",
+        "432.78",
+        "0.45"
+      ]
+    },
+    "memory:memory/2026-05-20.md:302:329": {
+      "key": "memory:memory/2026-05-20.md:302:329",
+      "path": "memory/2026-05-20.md",
+      "startLine": 302,
+      "endLine": 329,
+      "source": "memory",
+      "snippet": "- **LiveChartMonitor:** Now active in PositionMonitorV2. - **Chart intelligence:** Connected and feeding into position monitoring. #### 2. Continuous Task Queue Created - **File:** `src/strategy/continuous_task_queue.py` - **Policy:** No idle teams. Every team has assigned tasks. - **Teams:** 10 teams, 48 total tasks, 0 idle teams. - **Priority system:** CRITICAL / HIGH / MEDIUM / LOW. - **Recurring tasks:** Yes (hourly, 4-hourly, daily). - **Idle team detection:** Automatic. Escalated to Jarvis if any team idle >1 hour. #### 3. Strategy Research Backlog Created - **File:** `docs/strategy_research_backlog.md` - **TradingView MCP:** Not available (not installed). Investigation complete. - *",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T10:30:09.676Z",
+      "lastRecalledAt": "2026-05-20T10:30:09.676Z",
+      "queryHashes": [
+        "9931dbf48504"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "4-hourly",
+        "livechartmonitor",
+        "now",
+        "active",
+        "positionmonitorv2",
+        "chart",
+        "intelligence",
+        "connected"
+      ]
+    },
+    "memory:memory/2026-05-20.md:396:418": {
+      "key": "memory:memory/2026-05-20.md:396:418",
+      "path": "memory/2026-05-20.md",
+      "startLine": 396,
+      "endLine": 418,
+      "source": "memory",
+      "snippet": "| **NORMAL** | 3–5 | Standard: safety cap during paper validation | | **STRONG** | 7–10 | Good performance: profitable day with multiple trades, positive PnL, low consecutive losses | | **EXCEPTIONAL** | 12–20 | Paper only, requires evidence: backtest proof, positive win rate, profit factor > 1 | ### Implementation **File:** `src/risk_governor.py` - Added `TradeFrequencyPolicy` enum (RISK_OFF, NORMAL, STRONG, EXCEPTIONAL) - `_evaluate_trade_frequency_policy()`: Evaluates conditions, returns policy - `_get_effective_trade_limit()`: Returns effective limit per policy - `get_trade_frequency_report()`: CEO-ready report with all decision metrics - New `RiskDecision.TRADE_LIMIT_REACHED`: Signals",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T10:30:09.676Z",
+      "lastRecalledAt": "2026-05-20T10:30:09.676Z",
+      "queryHashes": [
+        "9931dbf48504"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "src/risk-governor.py",
+        "risk-off",
+        "evaluate-trade-frequency-policy",
+        "get-effective-trade-limit",
+        "get-trade-frequency-report",
+        "ceo-ready",
+        "riskdecision.trade-limit-reached",
+        "normal"
+      ]
+    },
+    "memory:memory/2026-05-20.md:154:191": {
+      "key": "memory:memory/2026-05-20.md:154:191",
+      "path": "memory/2026-05-20.md",
+      "startLine": 154,
+      "endLine": 191,
+      "source": "memory",
+      "snippet": "- Profit protection: alerts when profit + momentum fading ### How It Helps Strategy Research - Regime detection (trending/ranging/choppy) - Strategy backtest results vs live chart observations - Missed opportunity logging - Self-evolution feedback loop ### Integration with Existing Agents Feeds into but does NOT replace: 1. Technical Analysis Agent (Candles) 2. Strategy Engineering Team 3. Risk Assessment Team (Shield) 4. Thesis Synthesis Agent (Compass) 5. Position Monitor (Sentinel) ### Implementation Priority **Now.** Core trading safety is stable (70→82 tests passing). This is the right next step. ### Risks - Over-reliance on chart patterns (mitigated: agent provides observations, no",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T10:30:09.676Z",
+      "lastRecalledAt": "2026-05-20T10:30:09.676Z",
+      "queryHashes": [
+        "9931dbf48504"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "trending/ranging/choppy",
+        "self-evolution",
+        "over-reliance",
+        "profit",
+        "protection",
+        "alerts",
+        "when",
+        "momentum"
+      ]
+    },
+    "memory:memory/2026-05-19.md:1:43": {
+      "key": "memory:memory/2026-05-19.md:1:43",
+      "path": "memory/2026-05-19.md",
+      "startLine": 1,
+      "endLine": 43,
+      "source": "memory",
+      "snippet": "# CEO Update — 2026-05-19 (CEST) ## Autonomous Mode Engaged CEO Jitesh Kumar instructed Jarvis to operate as continuous autonomous system. Autonomous mode: **ACTIVE**. Heartbeat cron: every 30 minutes. ## System Status Dashboard | Component | Status | |-----------|--------| | Tests | 70/70 ✅ | | Daemon | RUNNING (PID 1829) ✅ | | Position Monitor | ACTIVE 24/7 (5-min intervals) ✅ | | Agent Pipeline | COMPLETED first full cycle ✅ | | Alpaca Paper | Connected ($9,995.08) ✅ | | Risk Governor | Active — blocked BTC ✅ | | Backtest Gate | Active — rejected ETH/SOL ✅ | | Dashboard | Updated ✅ | | Memory System | Active ✅ | ## MAJOR MILESTONE: First FULL Autonomous Cycle COMPLETE **Cycle time:**",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T10:30:09.681Z",
+      "lastRecalledAt": "2026-05-20T10:30:09.681Z",
+      "queryHashes": [
+        "8bb6a889e8f5"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "70/70",
+        "24/7",
+        "5-min",
+        "995.08",
+        "eth/sol",
+        "ceo",
+        "update",
+        "cest"
+      ]
+    }
+  }
+}
