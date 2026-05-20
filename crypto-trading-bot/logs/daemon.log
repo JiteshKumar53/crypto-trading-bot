@@ -489,3 +489,35 @@ onitor_v2: [POSITION MONITOR] No open positions
 2026-05-20 23:21:26,102 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
 2026-05-20 23:21:26,103 [INFO] position_monitor_v2:   BTCUSD: qty=0.012815, entry=$77512.00, current=$77600.37, unrealized=0.11%, held=0.3h, high=$77600.37
 2026-05-20 23:21:26,103 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2135.98, unrealized=-0.19%, held=0.3h, high=$2136.42
+2026-05-20 23:26:26,395 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-20 23:26:26,395 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2135.98, unrealized=-0.19%, held=0.4h, high=$2136.42
+2026-05-20 23:31:26,702 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-20 23:31:26,703 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2131.69, unrealized=-0.39%, held=0.5h, high=$2136.42
+2026-05-20 23:36:27,004 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-20 23:36:27,004 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2131.69, unrealized=-0.39%, held=0.6h, high=$2136.42
+2026-05-20 23:41:27,311 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-20 23:41:27,311 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2132.30, unrealized=-0.36%, held=0.7h, high=$2136.42
+2026-05-20 23:46:27,613 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-20 23:46:27,613 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2132.30, unrealized=-0.36%, held=0.8h, high=$2136.42
+2026-05-20 23:51:27,920 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-20 23:51:27,920 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2132.30, unrealized=-0.36%, held=0.8h, high=$2136.42
+2026-05-20 23:56:28,205 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-20 23:56:28,205 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2129.14, unrealized=-0.51%, held=0.9h, high=$2136.42
+2026-05-21 00:01:28,510 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:01:28,510 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2129.14, unrealized=-0.51%, held=1.0h, high=$2136.42
+2026-05-21 00:06:28,815 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:06:28,815 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2129.14, unrealized=-0.51%, held=1.1h, high=$2136.42
+2026-05-21 00:11:29,129 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:11:29,129 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2129.14, unrealized=-0.51%, held=1.2h, high=$2136.42
+2026-05-21 00:16:29,425 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:16:29,425 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2122.61, unrealized=-0.81%, held=1.3h, high=$2136.42
+2026-05-21 00:21:29,718 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:21:29,719 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2115.60, unrealized=-1.14%, held=1.3h, high=$2136.42
+2026-05-21 00:26:30,019 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:26:30,019 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2119.60, unrealized=-0.95%, held=1.4h, high=$2136.42
+2026-05-21 00:31:30,323 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:31:30,324 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2125.24, unrealized=-0.69%, held=1.5h, high=$2136.42
+2026-05-21 00:36:30,616 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:36:30,616 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2122.95, unrealized=-0.80%, held=1.6h, high=$2136.42
+2026-05-21 00:41:30,918 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:41:30,918 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2122.95, unrealized=-0.80%, held=1.7h, high=$2136.42
