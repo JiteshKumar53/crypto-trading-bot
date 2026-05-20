@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-05-20T19:12:04.251862+00:00",
+  "account": {
+    "equity": 9931.89,
+    "cash": 7949.36,
+    "buying_power": 15898.72
+  },
+  "positions": [
+    {
+      "symbol": "BTCUSD",
+      "qty": 0.012814882,
+      "entry_price": 77511.999657336,
+      "current_price": 77413.28,
+      "market_value": 992.042048,
+      "unrealized_pl": -1.265081,
+      "unrealized_pl_pct": -0.1273604832444221
+    },
+    {
+      "symbol": "ETHUSD",
+      "qty": 0.464274405,
+      "entry_price": 2140.02499624,
+      "current_price": 2133.4,
+      "market_value": 990.483016,
+      "unrealized_pl": -3.075816,
+      "unrealized_pl_pct": -0.30957564755737854
+    }
+  ],
+  "status": {
+    "trading_halted": true,
+    "halt_reason": "Daily loss audit in progress",
+    "new_entries_allowed": false,
+    "open_positions_monitored": true
+  }
+}
