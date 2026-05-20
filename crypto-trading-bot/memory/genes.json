@@ -1,0 +1,72 @@
+{
+  "GENE-001": {
+    "name": "Leaderboard Membership Check",
+    "rule": "Before ANY trade approval, verify strategy exists in strategy_leaderboard.json. If missing → BLOCK trade.",
+    "enforcement": "pipeline block",
+    "origin": "EV-20260520-001",
+    "status": "active"
+  },
+  "GENE-002": {
+    "name": "Leaderboard Status Gate",
+    "rule": "Strategy status must be 'active' for full-size trades. 'testing' → experimental size only (max $100). 'rejected' or missing → BLOCK.",
+    "enforcement": "pipeline block + Risk Governor",
+    "origin": "EV-20260520-001",
+    "status": "active"
+  },
+  "GENE-003": {
+    "name": "Deploy Before Declare",
+    "rule": "Code is not 'fixed' until the process is running and health check passes. Manual test ≠ deployed.",
+    "enforcement": "deployment checklist + verification test",
+    "origin": "EV-20260520-002",
+    "status": "active"
+  },
+  "GENE-004": {
+    "name": "Delivery Confirmation Required",
+    "rule": "Generated report ≠ delivered report. Delivery must be confirmed via external channel or CEO acknowledgment.",
+    "enforcement": "delivery status tracking",
+    "origin": "EV-20260520-003",
+    "status": "active"
+  },
+  "GENE-005": {
+    "name": "External Channel Fallback",
+    "rule": "If chat delivery fails, report must be available via dashboard file, email, or Telegram within 5 minutes.",
+    "enforcement": "multi-channel delivery",
+    "origin": "EV-20260520-003",
+    "status": "active"
+  },
+  "GENE-006": {
+    "name": "Broker Truth Override",
+    "rule": "Alpaca API is the source of truth for positions. Local state must be rebuilt from broker data every cycle. Mismatch → alert + auto-correct.",
+    "enforcement": "runtime reconciliation",
+    "origin": "EV-20260520-004",
+    "status": "active"
+  },
+  "GENE-007": {
+    "name": "Exit Idempotency",
+    "rule": "Each exit action (partial sell, full sell, runner) can execute exactly once per position stage. Repeated triggers must be blocked.",
+    "enforcement": "runtime guardrail",
+    "origin": "EV-20260520-005",
+    "status": "active"
+  },
+  "GENE-008": {
+    "name": "Dust Quantity Block",
+    "rule": "No sell order for quantity < 0.00001. Dust positions must be ignored, not sold.",
+    "enforcement": "runtime guardrail",
+    "origin": "EV-20260520-005",
+    "status": "active"
+  },
+  "GENE-009": {
+    "name": "Pre-Cycle Self-Check",
+    "rule": "Every trading cycle must start with self-check: watchdog running? strategies validated? state reconciled? If any fail → cycle blocked.",
+    "enforcement": "pipeline block",
+    "origin": "EV-20260520-006",
+    "status": "active"
+  },
+  "GENE-010": {
+    "name": "Memory Lesson Enforcement",
+    "rule": "Every memory lesson must have a corresponding runtime check, test, or pipeline block. Notes without enforcement are incomplete.",
+    "enforcement": "evolution audit",
+    "origin": "EV-20260520-006",
+    "status": "active"
+  }
+}
