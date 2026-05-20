@@ -67,7 +67,7 @@ class TradingOrchestrator:
         Returns:
             Dict with decision, reason, and execution details
         """
-        decision_id = f"dec-{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}-{symbol.replace('/', '')}"
+        decision_id = f"dec-{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}-{datetime.now(timezone.utc).microsecond:06d}-{symbol.replace('/', '')}"
         timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
         logger.info(f"[Pipeline Start] {decision_id} for {side} {qty} {symbol}")
