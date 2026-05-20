@@ -196,9 +196,10 @@ class PipelineController:
                 "status": "success",
             }
             
+            rsi_str = f"{chart_obs.rsi_value:.1f}" if chart_obs.rsi_value else 'N/A'
             logger.info(
                 f"[ChartMonitor] {symbol}: trend={chart_obs.trend_state.value}, "
-                f"RSI={chart_obs.rsi_value:.1f if chart_obs.rsi_value else 'N/A'}, "
+                f"RSI={rsi_str}, "
                 f"action={chart_obs.recommended_review_action}, "
                 f"confidence={chart_obs.confidence:.0%}"
             )

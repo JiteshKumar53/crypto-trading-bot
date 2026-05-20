@@ -11,7 +11,10 @@ from typing import Optional, Dict, List
 from datetime import datetime, timedelta
 import pandas as pd
 
-from broker.alpaca_client import AlpacaPaperClient
+try:
+    from ..broker.alpaca_client import AlpacaPaperClient
+except ImportError:
+    from broker.alpaca_client import AlpacaPaperClient
 
 logger = logging.getLogger(__name__)
 

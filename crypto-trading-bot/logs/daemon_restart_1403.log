@@ -1,0 +1,20 @@
+2026-05-20 14:03:14,589 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-20 14:03:14,590 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-20 14:03:14,590 [INFO] __main__: [Daemon] LiveChartMonitor initialized
+2026-05-20 14:03:14,960 [INFO] position_monitor_v2: [POSITION MONITOR v2] Started (interval: 300s)
+2026-05-20 14:03:14,961 [INFO] __main__: [Daemon] Position monitor v2 started (5-min intervals, 24/7)
+2026-05-20 14:03:14,961 [INFO] __main__: [Daemon] Position monitor connected to chart intelligence
+2026-05-20 14:03:14,961 [INFO] __main__: ============================================================
+2026-05-20 14:03:14,961 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-20 14:03:14,961 [INFO] __main__: Interval: 4 hours
+2026-05-20 14:03:14,961 [INFO] __main__: PID: 4246
+2026-05-20 14:03:14,961 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-20 14:03:14,961 [INFO] __main__: ============================================================
+2026-05-20 14:03:14,961 [INFO] __main__: ============================================================
+2026-05-20 14:03:14,961 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-20 14:03:14,961 [INFO] __main__: ============================================================
+2026-05-20 14:03:15,274 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-20 14:03:15,274 [INFO] position_monitor_v2:   BTCUSD: qty=0.009687, entry=$77196.72, current=$77349.69, unrealized=0.20%, held=20.3h, high=$77602.95
+2026-05-20 14:03:15,274 [INFO] position_monitor_v2: [POSITION MONITOR] Momentum drop detected for BTCUSD but profit 0.20% < fee breakeven 0.50% — HOLDING
+2026-05-20 14:03:15,274 [INFO] position_monitor_v2:   ETHUSD: qty=0.234069, entry=$2129.93, current=$2126.93, unrealized=-0.14%, held=16.3h, high=$2136.00
+2026-05-20 14:03:15,274 [INFO] position_monitor_v2:   SOLUSD: qty=5.873147, entry=$84.91, current=$84.78, unrealized=-0.16%, held=3.0h, high=$85.24

@@ -1,0 +1,15 @@
+2026-05-20 14:02:41,945 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-20 14:02:41,945 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-20 14:02:41,945 [INFO] __main__: [Daemon] LiveChartMonitor initialized
+Traceback (most recent call last):
+  File "/data/.openclaw/workspace/crypto-trading-bot/scripts/autonomous_daemon.py", line 163, in <module>
+    main()
+    ~~~~^^
+  File "/data/.openclaw/workspace/crypto-trading-bot/scripts/autonomous_daemon.py", line 135, in main
+    position_monitor = PositionMonitorV2(chart_monitor=chart_monitor)
+  File "/data/.openclaw/workspace/crypto-trading-bot/src/position_monitor_v2.py", line 98, in __init__
+    self.client = AlpacaPaperClient()
+                  ~~~~~~~~~~~~~~~~~^^
+  File "/data/.openclaw/workspace/crypto-trading-bot/src/broker/alpaca_client.py", line 48, in __init__
+    raise ValueError("ALPACA_API_KEY and ALPACA_SECRET_KEY must be set")
+ValueError: ALPACA_API_KEY and ALPACA_SECRET_KEY must be set
