@@ -334,5 +334,110 @@ class TestEvolutionEnforcement:
             "Gene must be active to prevent recurrence"
 
 
+# ───────────────────────────────────────────────────────────────
+# GATE 9: Evolver Runtime Capsule Enforcement
+# ───────────────────────────────────────────────────────────────
+
+
+class TestEvolverRuntime:
+    """Prove Evolver Runtime enforces capsules at runtime."""
+
+    def test_evolver_initializes_capsules(self):
+        """EvolverRuntime must initialize all 5 capsules on creation."""
+        from evolver_runtime import EvolverRuntime
+        evolver = EvolverRuntime()
+        status = evolver.get_capsule_status()
+        assert len(status) == 5, f"Expected 5 capsules, got {len(status)}"
+        assert "CAPSULE-001" in status
+        assert "CAPSULE-002" in status
+        assert "CAPSULE-003" in status
+        assert "CAPSULE-004" in status
+        assert "CAPSULE-005" in status
+
+    def test_capsule_001_blocks_unvalidated_strategy(self):
+        """CAPSULE-001 must block strategy not in leaderboard."""
+        from evolver_runtime import EvolverRuntime
+        evolver = EvolverRuntime()
+        result = evolver.enforce("CAPSULE-001", {
+            "strategy_name": "unknown_strategy",
+            "asset": "BTCUSD",
+        })
+        assert result["passed"] is False
+        assert result["blocked"] is True
+        assert "CAPSULE-001" in result.get("capsule", "")
+        assert "GENE-001" in result.get("gene", "")
+
+    def test_capsule_001_allows_testing_strategy(self):
+        """CAPSULE-001 must allow testing strategy with limits."""
+        from evolver_runtime import EvolverRuntime
+        evolver = EvolverRuntime()
+        result = evolver.enforce("CAPSULE-001", {
+            "strategy_name": "bb_20_2.0_optimized",
+            "asset": "ETHUSD",
+        })
+        assert result["passed"] is True
+        assert result.get("status") == "testing"
+
+    def test_capsule_002_detects_stale_positions(self):
+        """CAPSULE-002 must detect stale local positions."""
+        from evolver_runtime import EvolverRuntime
+        evolver = EvolverRuntime()
+        result = evolver.enforce("CAPSULE-002", {
+            "broker_positions": [],
+            "local_positions": {"ETHUSD": {"qty": 0.5}},
+        })
+        assert result["passed"] is False
+        assert result.get("action") == "clear_stale"
+        assert "CAPSULE-002" in result.get("capsule", "")
+
+    def test_capsule_003_blocks_undeployed_feature(self):
+        """CAPSULE-003 must block feature that is not deployed."""
+        from evolver_runtime import EvolverRuntime
+        evolver = EvolverRuntime()
+        result = evolver.enforce("CAPSULE-003", {
+            "feature_name": "new_watchdog",
+            "deployed": False,
+            "verified": False,
+            "tests_passing": True,
+        })
+        assert result["passed"] is False
+        assert result["blocked"] is True
+        assert "not fully operational" in result["reason"]
+
+    def test_capsule_003_allows_deployed_feature(self):
+        """CAPSULE-003 must allow fully deployed feature."""
+        from evolver_runtime import EvolverRuntime
+        evolver = EvolverRuntime()
+        result = evolver.enforce("CAPSULE-003", {
+            "feature_name": "strategy_gate",
+            "deployed": True,
+            "verified": True,
+            "tests_passing": True,
+        })
+        assert result["passed"] is True
+
+    def test_capsule_005_blocks_duplicate_exit(self):
+        """CAPSULE-005 must block duplicate partial sell."""
+        from evolver_runtime import EvolverRuntime
+        evolver = EvolverRuntime()
+        result = evolver.enforce("CAPSULE-005", {
+            "position_state": {"partial_sold": True},
+            "action": "SELL_PARTIAL",
+        })
+        assert result["passed"] is False
+        assert result["blocked"] is True
+        assert "already executed" in result["reason"]
+
+    def test_capsule_005_allows_first_exit(self):
+        """CAPSULE-005 must allow first exit attempt."""
+        from evolver_runtime import EvolverRuntime
+        evolver = EvolverRuntime()
+        result = evolver.enforce("CAPSULE-005", {
+            "position_state": {"partial_sold": False},
+            "action": "SELL_PARTIAL",
+        })
+        assert result["passed"] is True
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

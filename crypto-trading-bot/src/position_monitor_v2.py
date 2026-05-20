@@ -381,10 +381,41 @@ class PositionMonitorV2:
         }
 
     def execute_exit(self, action: Dict) -> bool:
-        """Execute a sell order for position exit."""
+        """Execute a sell order for position exit with idempotency check via Evolver Runtime."""
         symbol = action["symbol"]
         qty = action["qty"]
         reason = action["reason"]
+
+        # CAPSULE-005: Exit Idempotency Check via Evolver Runtime
+        # Prevent duplicate sell actions on the same position
+        try:
+            from evolver_runtime import check_exit_idempotency
+            states = self.get_position_states()
+            position_state = None
+            for s in states:
+                if s.symbol == symbol:
+                    position_state = {
+                        "partial_sold": s.partial_sold,
+                        "stop_triggered": s.stop_triggered,
+                        "take_profit_triggered": s.take_profit_triggered,
+                        "trailing_stop_triggered": s.trailing_stop_triggered,
+                    }
+                    break
+
+            if position_state:
+                idempotency = check_exit_idempotency(position_state, action["action"])
+                if not idempotency.get("passed", True):
+                    logger.critical(
+                        f"[POSITION MONITOR] EXIT BLOCKED by EVOLVER CAPSULE-005: "
+                        f"{idempotency.get('reason')} — {symbol} {action['action']}"
+                    )
+                    return False
+                logger.info(
+                    f"[POSITION MONITOR] Exit idempotency PASSED via EVOLVER: "
+                    f"capsule={idempotency.get('capsule')}, gene={idempotency.get('gene')}"
+                )
+        except Exception as e:
+            logger.warning(f"[POSITION MONITOR] Exit idempotency check error: {e} — proceeding with caution")
 
         try:
             result = self.client.submit_order(
