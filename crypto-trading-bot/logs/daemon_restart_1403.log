@@ -18,3 +18,39 @@
 2026-05-20 14:03:15,274 [INFO] position_monitor_v2: [POSITION MONITOR] Momentum drop detected for BTCUSD but profit 0.20% < fee breakeven 0.50% — HOLDING
 2026-05-20 14:03:15,274 [INFO] position_monitor_v2:   ETHUSD: qty=0.234069, entry=$2129.93, current=$2126.93, unrealized=-0.14%, held=16.3h, high=$2136.00
 2026-05-20 14:03:15,274 [INFO] position_monitor_v2:   SOLUSD: qty=5.873147, entry=$84.91, current=$84.78, unrealized=-0.16%, held=3.0h, high=$85.24
+2026-05-20 14:08:15,562 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-20 14:08:15,562 [INFO] position_monitor_v2:   BTCUSD: qty=0.016126, entry=$77293.58, current=$77349.69, unrealized=0.07%, held=20.4h, high=$77602.95
+2026-05-20 14:08:15,562 [INFO] position_monitor_v2: [POSITION MONITOR] Momentum drop detected for BTCUSD but profit 0.07% < fee breakeven 0.50% — HOLDING
+2026-05-20 14:08:15,562 [INFO] position_monitor_v2:   ETHUSD: qty=0.468014, entry=$2130.11, current=$2129.80, unrealized=-0.01%, held=16.4h, high=$2136.00
+2026-05-20 14:08:15,562 [INFO] position_monitor_v2:   SOLUSD: qty=5.873147, entry=$84.91, current=$84.84, unrealized=-0.09%, held=3.1h, high=$85.24
+2026-05-20 14:10:44,348 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-20 14:10:44,348 [INFO] __main__: Next cycle at: 2026-05-20 16:10:44 UTC (position monitor keeps running)
+2026-05-20 14:13:15,846 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-20 14:13:15,846 [INFO] position_monitor_v2:   BTCUSD: qty=0.016126, entry=$77293.58, current=$77347.00, unrealized=0.07%, held=20.4h, high=$77602.95
+2026-05-20 14:13:15,846 [INFO] position_monitor_v2: [POSITION MONITOR] Momentum drop detected for BTCUSD but profit 0.07% < fee breakeven 0.50% — HOLDING
+2026-05-20 14:13:15,846 [INFO] position_monitor_v2:   ETHUSD: qty=0.468014, entry=$2130.11, current=$2127.46, unrealized=-0.12%, held=16.5h, high=$2136.00
+2026-05-20 14:13:15,846 [INFO] position_monitor_v2:   SOLUSD: qty=11.752554, entry=$84.84, current=$84.84, unrealized=0.00%, held=3.1h, high=$85.24
+2026-05-20 14:13:15,846 [INFO] position_monitor_v2: [POSITION MONITOR] Momentum drop detected for SOLUSD but profit 0.00% < fee breakeven 0.50% — HOLDING
+2026-05-20 14:18:16,158 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-20 14:18:16,158 [INFO] position_monitor_v2:   BTCUSD: qty=0.016126, entry=$77293.58, current=$77409.60, unrealized=0.15%, held=20.5h, high=$77602.95
+2026-05-20 14:18:16,158 [INFO] position_monitor_v2:   ETHUSD: qty=0.468014, entry=$2130.11, current=$2127.46, unrealized=-0.12%, held=16.6h, high=$2136.00
+2026-05-20 14:18:16,158 [INFO] position_monitor_v2:   SOLUSD: qty=11.752554, entry=$84.84, current=$84.84, unrealized=0.00%, held=3.2h, high=$85.24
+2026-05-20 14:18:16,158 [INFO] position_monitor_v2: [POSITION MONITOR] Momentum drop detected for SOLUSD but profit 0.00% < fee breakeven 0.50% — HOLDING
+2026-05-20 14:23:16,458 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-20 14:23:16,459 [INFO] position_monitor_v2:   BTCUSD: qty=0.016126, entry=$77293.58, current=$77409.60, unrealized=0.15%, held=20.6h, high=$77602.95
+2026-05-20 14:23:16,459 [INFO] position_monitor_v2:   ETHUSD: qty=0.468014, entry=$2130.11, current=$2127.46, unrealized=-0.12%, held=16.6h, high=$2136.00
+2026-05-20 14:23:16,459 [INFO] position_monitor_v2:   SOLUSD: qty=11.752554, entry=$84.84, current=$84.84, unrealized=0.00%, held=3.3h, high=$85.24
+2026-05-20 14:23:16,459 [INFO] position_monitor_v2: [POSITION MONITOR] Momentum drop detected for SOLUSD but profit 0.00% < fee breakeven 0.50% — HOLDING
+2026-05-20 14:28:16,769 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-20 14:28:16,769 [INFO] position_monitor_v2:   BTCUSD: qty=0.016126, entry=$77293.58, current=$77409.60, unrealized=0.15%, held=20.7h, high=$77602.95
+2026-05-20 14:28:16,769 [INFO] position_monitor_v2:   ETHUSD: qty=0.468014, entry=$2130.11, current=$2126.90, unrealized=-0.15%, held=16.7h, high=$2136.00
+2026-05-20 14:28:16,769 [INFO] position_monitor_v2:   SOLUSD: qty=11.752554, entry=$84.84, current=$84.84, unrealized=0.00%, held=3.4h, high=$85.24
+2026-05-20 14:28:16,769 [INFO] position_monitor_v2: [POSITION MONITOR] Momentum drop detected for SOLUSD but profit 0.00% < fee breakeven 0.50% — HOLDING
+2026-05-20 14:33:17,077 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-20 14:33:17,077 [INFO] position_monitor_v2:   BTCUSD: qty=0.016126, entry=$77293.58, current=$77463.34, unrealized=0.22%, held=20.8h, high=$77602.95
+2026-05-20 14:33:17,077 [INFO] position_monitor_v2:   ETHUSD: qty=0.468014, entry=$2130.11, current=$2128.40, unrealized=-0.08%, held=16.8h, high=$2136.00
+2026-05-20 14:33:17,077 [INFO] position_monitor_v2:   SOLUSD: qty=11.752554, entry=$84.84, current=$84.97, unrealized=0.16%, held=3.5h, high=$85.24
+2026-05-20 14:33:17,077 [INFO] position_monitor_v2: [POSITION MONITOR] Momentum drop detected for SOLUSD but profit 0.16% < fee breakeven 0.50% — HOLDING
+2026-05-20 14:34:47,076 [INFO] __main__: Received signal 15, shutting down...
+2026-05-20 14:34:52,076 [INFO] position_monitor_v2: [POSITION MONITOR v2] Stopped
+2026-05-20 14:34:52,077 [INFO] __main__: [Daemon] Position monitor stopped on shutdown

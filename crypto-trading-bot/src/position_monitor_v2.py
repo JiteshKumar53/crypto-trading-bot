@@ -34,21 +34,21 @@ logger = logging.getLogger(__name__)
 MONITOR_INTERVAL_SECONDS = 300  # 5 minutes
 
 # Exit thresholds
-DEFAULT_STOP_LOSS_PCT = 0.03          # -3% hard stop
-DEFAULT_TAKE_PROFIT_PCT = 0.06      # +6% take profit
-DEFAULT_TRAILING_STOP_PCT = 0.02    # -2% from highest
-DEFAULT_MAX_HOLDING_HOURS = 72      # 72h max
-DEFAULT_BREAK_EVEN_TRIGGER = 0.015   # Move SL to breakeven after +1.5%
-DEFAULT_STALE_PROFIT_HOURS = 48      # Exit if unprofitable after 48h
-DEFAULT_STALE_LOSS_HOURS = 24        # Exit if losing after 24h
-DEFAULT_CAPITAL_EFFICIENCY_DAYS = 5  # Exit if no profit after 5 days
+DEFAULT_STOP_LOSS_PCT = 0.015          # -1.5% hard stop (tighter for crypto)
+DEFAULT_TAKE_PROFIT_PCT = 0.06         # +6% take profit
+DEFAULT_TRAILING_STOP_PCT = 0.01       # -1% from highest (tighter)
+DEFAULT_MAX_HOLDING_HOURS = 8          # 8h max (was 72h — way too long)
+DEFAULT_BREAK_EVEN_TRIGGER = 0.005     # Move SL to breakeven after +0.5%
+DEFAULT_STALE_PROFIT_HOURS = 4         # Exit if small profit after 4h (was 48h)
+DEFAULT_STALE_LOSS_HOURS = 6           # Exit if losing after 6h (was 24h)
+DEFAULT_CAPITAL_EFFICIENCY_DAYS = 2    # Exit if no profit after 2 days (was 5)
 
-PARTIAL_PROFIT_LEVEL_1 = 0.005     # Sell 50% at +0.5% (covers fees, locks in profit)
-MOMENTUM_REVERSAL_DROP = 0.003     # Exit if profit drops 0.3% from peak
-MINIMUM_PROFIT_EXIT = 0.005        # Don't exit if profit < 0.5% (fee breakeven)
+PARTIAL_PROFIT_LEVEL_1 = 0.005         # Sell 50% at +0.5%
+MOMENTUM_REVERSAL_DROP = 0.003         # Exit if profit drops 0.3% from peak
+MINIMUM_PROFIT_EXIT = 0.002            # Don't exit if profit < 0.2% (low fees on Alpaca crypto)
 
-DEFAULT_RUNNER_TRIGGER = 0.010      # Activate runner trailing stop after +1.0%
-DEFAULT_RUNNER_TRAIL = 0.010         # Runner trails at -1.0% from highest
+DEFAULT_RUNNER_TRIGGER = 0.008         # Activate runner trailing stop after +0.8%
+DEFAULT_RUNNER_TRAIL = 0.008           # Runner trails at -0.8% from highest
 STATE_FILE = Path("/data/.openclaw/workspace/crypto-trading-bot/logs/position_monitor_state.json")
 REJECTED_SIGNALS_FILE = Path("/data/.openclaw/workspace/crypto-trading-bot/logs/rejected_signals.jsonl")
 
@@ -203,6 +203,10 @@ class PositionMonitorV2:
         entry = state.avg_entry_price
         highest = state.highest_price
         holding = state.holding_hours
+
+        # Guard: if qty is zero or negligible, nothing to do
+        if state.qty < 0.00001:
+            return self._make_action("HOLD", symbol, 0, current, "zero_qty")
 
         # 1. Stop-loss check (hard)
         if unrealized_pct <= -self.stop_loss_pct and not state.stop_triggered:
@@ -374,6 +378,19 @@ class PositionMonitorV2:
                 success = self.execute_exit(action)
                 if success:
                     actions_taken.append(action)
+                    # Update state flags after successful execution
+                    if action["action"] == "SELL_PARTIAL":
+                        state.partial_sold = True
+                        state.partial_sold_qty = action["qty"]
+                        logger.info(f"[POSITION MONITOR] {state.symbol}: partial_sold flag SET, qty_sold={action['qty']:.8f}")
+                    elif action["action"] == "SELL_ALL":
+                        # Mark all exit flags to prevent re-triggering on stale data
+                        state.stop_triggered = True
+                        state.take_profit_triggered = True
+                        logger.info(f"[POSITION MONITOR] {state.symbol}: fully exited")
+                    elif action["action"] == "SELL_RUNNER":
+                        state.trailing_stop_triggered = True
+                        logger.info(f"[POSITION MONITOR] {state.symbol}: runner exited")
 
         # Persist state
         state_dict = {s.symbol: asdict(s) for s in states}
