@@ -10956,3 +10956,60 @@
 2026-05-20 20:01:54,476 [INFO] __main__:   BTC/USD: APPROVED
 2026-05-20 20:01:54,476 [INFO] __main__:   ETH/USD: APPROVED
 2026-05-20 20:01:54,476 [INFO] __main__:   SOL/USD: APPROVED
+2026-05-20 23:01:24,992 [INFO] __main__: === AUTONOMOUS CYCLE START: 2026-05-20T21:01:24.991982Z ===
+2026-05-20 23:01:25,117 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-20 23:01:25,118 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-20 23:01:25,118 [INFO] pipeline_controller: [PipelineController] LiveChartMonitor initialized
+2026-05-20 23:01:25,119 [INFO] pipeline_controller: PipelineController initialized
+2026-05-20 23:01:25,119 [INFO] pipeline_controller: Assets: ['BTC/USD', 'ETH/USD', 'SOL/USD']
+2026-05-20 23:01:25,119 [INFO] pipeline_controller: Use agents: True
+2026-05-20 23:01:25,119 [INFO] pipeline_controller: Use backtest: True
+2026-05-20 23:01:25,119 [INFO] pipeline_controller: Use risk governor: True
+2026-05-20 23:01:25,119 [INFO] pipeline_controller: Paper only: True
+2026-05-20 23:01:25,119 [INFO] pre_cycle_review: [PRE-CYCLE REVIEW] Starting mandatory memory and evolution review...
+2026-05-20 23:01:25,119 [INFO] pre_cycle_review: [PRE-CYCLE] 10 active genes
+2026-05-20 23:01:25,119 [INFO] pre_cycle_review:   - GENE-001: Leaderboard Membership Check
+2026-05-20 23:01:25,119 [INFO] pre_cycle_review:   - GENE-002: Leaderboard Status Gate
+2026-05-20 23:01:25,119 [INFO] pre_cycle_review:   - GENE-003: Deploy Before Declare
+2026-05-20 23:01:25,119 [INFO] pre_cycle_review:   - GENE-004: Delivery Confirmation Required
+2026-05-20 23:01:25,119 [INFO] pre_cycle_review:   - GENE-005: External Channel Fallback
+2026-05-20 23:01:25,119 [INFO] pre_cycle_review:   - GENE-006: Broker Truth Override
+2026-05-20 23:01:25,119 [INFO] pre_cycle_review:   - GENE-007: Exit Idempotency
+2026-05-20 23:01:25,120 [INFO] pre_cycle_review:   - GENE-008: Dust Quantity Block
+2026-05-20 23:01:25,120 [INFO] pre_cycle_review:   - GENE-009: Pre-Cycle Self-Check
+2026-05-20 23:01:25,120 [INFO] pre_cycle_review:   - GENE-010: Memory Lesson Enforcement
+2026-05-20 23:01:25,120 [INFO] pre_cycle_review: [PRE-CYCLE] Strategies: 0 active, 2 testing, 5 rejected
+2026-05-20 23:01:25,120 [WARNING] pre_cycle_review: [PRE-CYCLE] Rejected strategy: ma_crossover_20::BTCUSD::1h
+2026-05-20 23:01:25,120 [WARNING] pre_cycle_review: [PRE-CYCLE] Rejected strategy: ma_crossover_20::ETHUSD::1h
+2026-05-20 23:01:25,120 [WARNING] pre_cycle_review: [PRE-CYCLE] Rejected strategy: bb_20_2.0::BTCUSD::1h
+2026-05-20 23:01:25,120 [WARNING] pre_cycle_review: [PRE-CYCLE] Rejected strategy: rsi_14_30_70::ETHUSD::1h
+2026-05-20 23:01:25,120 [WARNING] pre_cycle_review: [PRE-CYCLE] Rejected strategy: rsi_14_30_70::SOLUSD::1h
+2026-05-20 23:01:25,120 [INFO] pre_cycle_review: [PRE-CYCLE] Risk status review: manual check required
+2026-05-20 23:01:25,121 [INFO] pre_cycle_review: [PRE-CYCLE] Strategy Validation Gate: ACTIVE
+2026-05-20 23:01:25,121 [INFO] pre_cycle_review: [PRE-CYCLE REVIEW] PASSED: 0 warnings, trading allowed
+2026-05-20 23:01:25,121 [INFO] pipeline_controller: [STAGE 0] Pre-cycle review passed: 0 warnings
+2026-05-20 23:01:25,121 [INFO] pipeline_controller: === Starting cycle for BTC/USD ===
+2026-05-20 23:01:25,121 [INFO] pipeline_controller: [Stage 1] Fetching market data for BTC/USD
+2026-05-20 23:01:25,121 [INFO] data.data_fetcher: Fetching 168 hourly bars for BTC/USD
+2026-05-20 23:01:25,484 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-20 23:01:25,484 [INFO] data.data_fetcher: Fetched 168 bars for BTC/USD
+2026-05-20 23:01:25,484 [INFO] pipeline_controller: Current price for BTC/USD: $77,616.25
+2026-05-20 23:01:25,484 [INFO] pipeline_controller: [Stage 1.5] Running Live Chart Monitor for BTC/USD
+2026-05-20 23:01:25,777 [INFO] pipeline_controller: [ChartMonitor] BTC/USD: trend=uptrend, RSI=60.2, action=none, confidence=30%
+2026-05-20 23:01:25,777 [INFO] pipeline_controller: [Stage 2] Running agent recommendations for BTC/USD
+2026-05-20 23:01:25,777 [INFO] agents.agent_runner: [AgentRunner] Starting sequential pipeline for BTC/USD
+2026-05-20 23:01:25,777 [INFO] agents.agent_runner: [AgentRunner] Running Technical Analysis (Candles)...
+2026-05-20 23:01:25,777 [INFO] agents.base_agent: [Candles] Running for BTC/USD
+2026-05-20 23:01:25,777 [INFO] agents.base_agent: [Candles] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-20 23:01:44,755 [INFO] agents.base_agent: [Candles] Ollama responded in 19.0s
+2026-05-20 23:01:44,755 [INFO] agents.base_agent: [Candles] Cached response (TTL: 300s)
+2026-05-20 23:01:44,755 [INFO] agents.base_agent: [Candles] Completed in 19.0s (LIVE)
+2026-05-20 23:01:44,756 [INFO] agents.agent_runner: [AgentRunner] Running Fundamental Analysis (Ledger)...
+2026-05-20 23:01:44,756 [INFO] agents.base_agent: [Ledger] Running for BTC/USD
+2026-05-20 23:01:44,756 [INFO] agents.base_agent: [Ledger] Calling Ollama (deepseek-v4-pro:cloud, timeout=120s)...
+2026-05-20 23:02:41,549 [INFO] agents.base_agent: [Ledger] Ollama responded in 56.8s
+2026-05-20 23:02:41,549 [INFO] agents.base_agent: [Ledger] Cached response (TTL: 300s)
+2026-05-20 23:02:41,550 [INFO] agents.base_agent: [Ledger] Completed in 56.8s (LIVE)
+2026-05-20 23:02:41,550 [INFO] agents.agent_runner: [AgentRunner] Running Sentiment Analysis (Pulse)...
+2026-05-20 23:02:41,550 [INFO] agents.base_agent: [Pulse] Running for BTC/USD
+2026-05-20 23:02:41,550 [INFO] agents.base_agent: [Pulse] Calling Ollama (qwen3.5:cloud, timeout=90s)...

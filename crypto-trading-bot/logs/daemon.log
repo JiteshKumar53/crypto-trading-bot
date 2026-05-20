@@ -264,10 +264,10 @@
 2026-05-20 22:56:30,383 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
 2026-05-20 22:56:30,383 [INFO] position_monitor_v2:   BTCUSD: qty=0.012815, entry=$77512.00, current=$77600.37, unrealized=0.11%, held=0.1h, high=$77600.37
 2026-05-20 22:56:30,383 [INFO] position_monitor_v2:   ETHUSD: qty=0.464274, entry=$2140.02, current=$2133.50, unrealized=-0.30%, held=0.0h, high=$2133.50
- MONITOR] No open positions
-2026-05-20 19:02:08,342 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
-2026-05-20 19:02:08,342 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
-2026-05-20 19:06:16,400 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-20 23:01:22,136 [INFO] __main__: Received signal 15, shutting down...
+2026-05-20 23:01:27,136 [INFO] position_monitor_v2: [POSITION MONITOR v2] Stopped
+2026-05-20 23:01:27,137 [INFO] __main__: [Daemon] Position monitor stopped on shutdown
+onitor_v2: [POSITION MONITOR] No open positions
 2026-05-20 19:07:08,646 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
 2026-05-20 19:07:08,646 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
 2026-05-20 19:11:16,689 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
@@ -454,3 +454,24 @@
 2026-05-20 22:56:30,383 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
 2026-05-20 22:56:30,383 [INFO] position_monitor_v2:   BTCUSD: qty=0.012815, entry=$77512.00, current=$77600.37, unrealized=0.11%, held=0.1h, high=$77600.37
 2026-05-20 22:56:30,383 [INFO] position_monitor_v2:   ETHUSD: qty=0.464274, entry=$2140.02, current=$2133.50, unrealized=-0.30%, held=0.0h, high=$2133.50
+2026-05-20 23:01:22,136 [INFO] __main__: Received signal 15, shutting down...
+2026-05-20 23:01:24,259 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-20 23:01:24,260 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-20 23:01:24,260 [INFO] __main__: [Daemon] LiveChartMonitor initialized
+2026-05-20 23:01:24,627 [INFO] position_monitor_v2: [POSITION MONITOR v2] Started (interval: 300s)
+2026-05-20 23:01:24,627 [INFO] __main__: [Daemon] Position monitor v2 started (5-min intervals, 24/7)
+2026-05-20 23:01:24,627 [INFO] __main__: [Daemon] Position monitor connected to chart intelligence
+2026-05-20 23:01:24,627 [INFO] __main__: ============================================================
+2026-05-20 23:01:24,627 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-20 23:01:24,627 [INFO] __main__: Interval: 4 hours
+2026-05-20 23:01:24,627 [INFO] __main__: PID: 5914
+2026-05-20 23:01:24,627 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-20 23:01:24,627 [INFO] __main__: ============================================================
+2026-05-20 23:01:24,627 [INFO] __main__: ============================================================
+2026-05-20 23:01:24,627 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-20 23:01:24,627 [INFO] __main__: ============================================================
+2026-05-20 23:01:24,941 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-20 23:01:24,941 [INFO] position_monitor_v2:   BTCUSD: qty=0.012815, entry=$77512.00, current=$77600.37, unrealized=0.11%, held=0.0h, high=$77600.37
+2026-05-20 23:01:24,941 [INFO] position_monitor_v2:   ETHUSD: qty=0.464274, entry=$2140.02, current=$2132.30, unrealized=-0.36%, held=0.0h, high=$2132.30
+2026-05-20 23:01:27,136 [INFO] position_monitor_v2: [POSITION MONITOR v2] Stopped
+2026-05-20 23:01:27,137 [INFO] __main__: [Daemon] Position monitor stopped on shutdown
