@@ -24,3 +24,6 @@
 2026-05-20 23:11:25,513 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
 2026-05-20 23:11:25,513 [INFO] position_monitor_v2:   BTCUSD: qty=0.012815, entry=$77512.00, current=$77600.37, unrealized=0.11%, held=0.2h, high=$77600.37
 2026-05-20 23:11:25,513 [INFO] position_monitor_v2:   ETHUSD: qty=0.464274, entry=$2140.02, current=$2136.20, unrealized=-0.18%, held=0.2h, high=$2136.20
+2026-05-20 23:16:25,801 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-20 23:16:25,802 [INFO] position_monitor_v2:   BTCUSD: qty=0.012815, entry=$77512.00, current=$77600.37, unrealized=0.11%, held=0.3h, high=$77600.37
+2026-05-20 23:16:25,802 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2136.42, unrealized=-0.17%, held=0.3h, high=$2136.42
