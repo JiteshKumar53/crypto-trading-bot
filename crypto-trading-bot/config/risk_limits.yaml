@@ -1,36 +1,84 @@
 # Deterministic Risk Governor Configuration
 # Paper Trading Only — Live Trading Requires CEO Approval
 
-version: "1.1.0"
+version: "1.2.0"
 mode: paper
 
 # Account-level limits
+# Dynamic Trade Frequency Policy
+# Safety cap: 5 trades/day during paper trading validation
+# Jarvis may adjust based on evidence, market regime, and performance
+trade_frequency:
+  safety_cap: 5                    # Hard cap during validation
+  risk_off_max: 2                   # 0-2 trades/day: dangerous conditions
+  normal_max: 5                     # 3-7 trades/day: standard conditions
+  strong_max: 10                    # 7-12 trades/day: good performance
+  exceptional_max: 20              # >12 trades/day: paper only, evidence required
+  
+  # Conditions for policy change
+  risk_off_triggers:
+    - consecutive_losses_near_limit
+    - daily_drawdown_50pct_of_limit
+    - kill_switch_active
+    - weak_signals
+  strong_triggers:
+    - profitable_day_with_multiple_trades
+    - positive_daily_pnl
+    - low_consecutive_losses
+    - good_win_rate
+  exceptional_triggers:
+    - backtest_evidence_positive
+    - paper_trading_evidence_positive
+    - win_rate_above_threshold
+    - profit_factor_positive
+
 account:
-  max_allocation_per_asset: 0.10        # 10% max per asset
+  max_allocation_per_asset: 0.20       # 20% absolute max per asset (exceptional setup hard cap)
   max_total_crypto_exposure: 0.50       # 50% max total crypto exposure (50/50 capital rule)
   max_investable_capital_pct: 0.50      # 50% of equity may be invested
   required_reserve_capital_pct: 0.50   # 50% of equity must remain in reserve
   max_daily_loss_pct: 0.02              # 2% max daily loss
   max_strategy_drawdown_pct: 0.05       # 5% max drawdown before pause
-  max_open_positions: 5                 # UPDATED: max 5 open positions (was 3)
-  max_daily_trades: 5                   # Max 5 trades per day
+  max_open_positions: 5                 # UPDATED: max 5 open positions
+  max_daily_trades: 5                   # Safety cap (see trade_frequency policy above)
   max_consecutive_losses: 3             # Stop after 3 consecutive losing trades
   cooldown_hours_after_kill_switch: 24
   no_leverage: true
 
-# Per-asset limits
+# Dynamic position sizing bands
+# Allocation as % of account equity per confidence level
+sizing_bands:
+  risk_off: 0.00                       # No trade
+  low_confidence: 0.03                 # 3% — weak signal, high uncertainty
+  normal_confidence: 0.07             # 7% — decent signal, normal conditions
+  high_confidence: 0.12               # 12% — strong signal, favorable regime
+  exceptional_confidence: 0.20        # 20% — rare, requires multi-agent consensus + favorable regime
+
+# Dynamic sizing formula parameters
+sizing_formula:
+  base_size_pct: 0.05                  # 5% base allocation
+  signal_confidence_multiplier_range: [0.6, 2.0]   # Scale base by confidence
+  risk_reward_multiplier_range: [0.5, 1.5]
+  regime_multiplier_range: [0.5, 1.2]
+  volatility_adjustment_range: [0.3, 1.0]
+  correlation_adjustment_range: [0.5, 1.0]
+  drawdown_adjustment_range: [0.0, 1.0]
+  max_per_asset_hard_cap: 0.20        # Never exceed 20% in any single asset
+  min_per_asset_floor: 0.01            # Never below 1%
+
+# Per-asset limits (legacy — now overridden by dynamic sizing)
 per_asset:
   btc:
     max_position_size_usd: 10000
-    max_position_pct_of_portfolio: 0.10
+    max_position_pct_of_portfolio: 0.20
     min_order_size_usd: 1
   eth:
     max_position_size_usd: 10000
-    max_position_pct_of_portfolio: 0.10
+    max_position_pct_of_portfolio: 0.20
     min_order_size_usd: 1
   sol:
     max_position_size_usd: 10000
-    max_position_pct_of_portfolio: 0.10
+    max_position_pct_of_portfolio: 0.20
     min_order_size_usd: 1
 
 # Order checks
@@ -40,7 +88,7 @@ order:
   require_signal_validation: true
   require_recommendation_review: true
   require_risk_governor_approval: true
-  max_slippage_pct: 0.5                 # 0.5% max slippage
+  max_slippage_pct: 0.5
 
 # Kill switch conditions
 kill_switch:
@@ -49,7 +97,7 @@ kill_switch:
   consecutive_losses_triggered: true
   manual_override: true
 
-# CEO-reserved gates (these require explicit CEO approval to change)
+# CEO-reserved gates
 ceo_reserved:
   - disable_paper_mode
   - increase_live_trading_risk_limits

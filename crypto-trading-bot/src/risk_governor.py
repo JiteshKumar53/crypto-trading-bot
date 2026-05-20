@@ -18,11 +18,20 @@ from typing import Dict, List, Optional, Tuple
 from enum import Enum
 
 
+class TradeFrequencyPolicy(Enum):
+    """Dynamic trade frequency policies based on market conditions and performance."""
+    RISK_OFF = "risk_off"        # 0-2 trades/day - dangerous conditions
+    NORMAL = "normal"            # 3-7 trades/day - standard conditions
+    STRONG = "strong"            # 7-12 trades/day - good performance
+    EXCEPTIONAL = "exceptional"  # >12 trades/day - requires evidence
+
+
 class RiskDecision(Enum):
     ALLOW = "allow"
     BLOCK = "block"
     KILL_SWITCH = "kill_switch"
     COOLDOWN = "cooldown"
+    TRADE_LIMIT_REACHED = "trade_limit_reached"
 
 
 @dataclass
@@ -33,11 +42,15 @@ class RiskCheck:
 
 
 @dataclass
+@dataclass
 class RiskResult:
     decision: RiskDecision
     checks: List[RiskCheck]
     timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     requires_ceo_approval: bool = False
+    trade_limit_reached: bool = False
+    recommended_policy: Optional[str] = None
+    improvement_mode: bool = False
 
     @property
     def approved(self) -> bool:
@@ -272,24 +285,36 @@ class RiskGovernor:
             )
         )
 
-        # 8a. Daily trade limit check
+        # 8a. Dynamic daily trade limit check
         self._reset_daily_counters()
         max_daily_trades = self.config["account"].get("max_daily_trades", 7)
-        if self.state["daily_trades"] >= max_daily_trades:
+        current_trades = self.state["daily_trades"]
+        
+        # Determine current policy based on performance and conditions
+        policy = self._evaluate_trade_frequency_policy(portfolio_value)
+        effective_limit = self._get_effective_trade_limit(policy)
+        
+        if current_trades >= effective_limit:
             checks.append(
                 RiskCheck(
                     name="max_daily_trades",
                     passed=False,
-                    reason=f"Daily trade limit ({max_daily_trades}) reached",
+                    reason=f"Daily trade limit ({current_trades}/{effective_limit}) reached. Policy: {policy.value}. Team switches to IMPROVEMENT MODE.",
                 )
             )
-            return RiskResult(decision=RiskDecision.BLOCK, checks=checks)
+            return RiskResult(
+                decision=RiskDecision.TRADE_LIMIT_REACHED,
+                checks=checks,
+                trade_limit_reached=True,
+                recommended_policy=policy.value,
+                improvement_mode=True,
+            )
 
         checks.append(
             RiskCheck(
                 name="max_daily_trades",
                 passed=True,
-                reason=f"Daily trades {self.state['daily_trades']}/{max_daily_trades}",
+                reason=f"Daily trades {current_trades}/{effective_limit}. Policy: {policy.value}",
             )
         )
 
@@ -372,6 +397,117 @@ class RiskGovernor:
         self.state["kill_switch_active"] = False
         self.state["kill_switch_time"] = None
         self.state["consecutive_losses"] = 0
+
+    # ── Dynamic Trade Frequency Evaluation ──
+
+    def _evaluate_trade_frequency_policy(self, portfolio_value: float) -> TradeFrequencyPolicy:
+        """
+        Evaluate current market and performance conditions to determine
+        appropriate trade frequency policy.
+        
+        Returns:
+            TradeFrequencyPolicy enum value
+        """
+        # Get baseline from config (safety cap)
+        base_limit = self.config["account"].get("max_daily_trades", 7)
+        
+        # Check risk-off conditions first
+        if self.state.get("kill_switch_active", False):
+            return TradeFrequencyPolicy.RISK_OFF
+        
+        # Check consecutive losses
+        consecutive = self.state.get("consecutive_losses", 0)
+        max_consecutive = self.config["account"].get("max_consecutive_losses", 3)
+        if consecutive >= max_consecutive - 1:  # Close to limit
+            return TradeFrequencyPolicy.RISK_OFF
+        
+        # Check daily drawdown
+        daily_pnl = self.state.get("daily_pnl", 0)
+        max_daily_loss_pct = self.config["account"].get("max_daily_loss_pct", 0.02)
+        max_daily_loss_usd = portfolio_value * max_daily_loss_pct
+        if daily_pnl <= -max_daily_loss_usd * 0.5:  # 50% of daily loss limit
+            return TradeFrequencyPolicy.RISK_OFF
+        
+        # Check daily PnL for exceptional conditions
+        if daily_pnl > 0 and self.state.get("daily_trades", 0) >= 3:
+            # Profitable day with multiple trades = strong opportunity
+            return TradeFrequencyPolicy.STRONG
+        
+        # Normal conditions (default)
+        return TradeFrequencyPolicy.NORMAL
+
+    def _get_effective_trade_limit(self, policy: TradeFrequencyPolicy) -> int:
+        """
+        Get effective daily trade limit based on policy.
+        
+        Args:
+            policy: TradeFrequencyPolicy enum value
+            
+        Returns:
+            Effective daily trade limit
+        """
+        # Safety cap from config (never exceed this without explicit evidence)
+        base_limit = self.config["account"].get("max_daily_trades", 7)
+        
+        limits = {
+            TradeFrequencyPolicy.RISK_OFF: min(2, base_limit),
+            TradeFrequencyPolicy.NORMAL: base_limit,
+            TradeFrequencyPolicy.STRONG: min(12, base_limit + 5),
+            TradeFrequencyPolicy.EXCEPTIONAL: 20,  # Only for paper with evidence
+        }
+        
+        return limits.get(policy, base_limit)
+
+    def get_trade_frequency_report(self, portfolio_value: float) -> Dict:
+        """
+        Generate a comprehensive trade frequency report for CEO review.
+        
+        Returns dict with all metrics needed for trade limit decision.
+        """
+        policy = self._evaluate_trade_frequency_policy(portfolio_value)
+        effective_limit = self._get_effective_trade_limit(policy)
+        current_trades = self.state.get("daily_trades", 0)
+        
+        # Calculate key metrics
+        daily_pnl = self.state.get("daily_pnl", 0)
+        consecutive = self.state.get("consecutive_losses", 0)
+        max_consecutive = self.config["account"].get("max_consecutive_losses", 3)
+        
+        # Determine recommendation
+        base_limit = self.config["account"].get("max_daily_trades", 7)
+        should_increase = policy == TradeFrequencyPolicy.STRONG and current_trades >= 3
+        should_decrease = policy == TradeFrequencyPolicy.RISK_OFF
+        should_stay = not should_increase and not should_decrease
+        
+        new_limit = effective_limit if should_increase or should_decrease else base_limit
+        
+        return {
+            "timezone": "Europe/Stockholm",
+            "current_daily_trade_limit": base_limit,
+            "effective_daily_limit": effective_limit,
+            "trades_used_today": current_trades,
+            "daily_pnl": daily_pnl,
+            "win_rate": self.state.get("win_rate", 0.5),  # Placeholder until tracked
+            "consecutive_losses": consecutive,
+            "max_consecutive_allowed": max_consecutive,
+            "market_regime": self.state.get("market_regime", "unknown"),
+            "risk_governor_status": "active",
+            "policy": policy.value,
+            "should_limit_stay_at_default": should_stay,
+            "should_limit_increase": should_increase,
+            "should_limit_decrease": should_decrease,
+            "new_trade_limit": new_limit,
+            "reason": f"Policy: {policy.value}. Consecutive losses: {consecutive}/{max_consecutive}. Daily PnL: ${daily_pnl:.2f}",
+            "improvement_mode": current_trades >= effective_limit,
+            "what_agents_will_do": (
+                "Switch to improvement mode: strategy research, backtesting, exit optimization, "
+                "missed opportunity review, model tuning, data improvement, dashboard updates."
+                if current_trades >= effective_limit
+                else "Continue trading mode. Monitor for high-quality signals."
+            ),
+            "ceo_approval_required": False,
+            "ceo_informed": True,
+        }
 
     def get_state(self) -> Dict:
         return self.state.copy()
