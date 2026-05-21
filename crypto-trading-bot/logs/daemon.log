@@ -357,3 +357,9 @@ _main__: Received signal 15, shutting down...
 2026-05-21 19:29:41,466 [INFO] __main__: ============================================================
 2026-05-21 19:29:41,773 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
 2026-05-21 19:29:41,773 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77852.10, unrealized=0.76%, held=1.6h, high=$77852.10
+2026-05-21 19:34:42,061 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:34:42,061 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77799.20, unrealized=0.69%, held=1.7h, high=$77852.10
+2026-05-21 19:38:38,283 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-21 19:38:38,283 [INFO] __main__: Next cycle at: 2026-05-21 21:38:38 UTC (position monitor keeps running)
+2026-05-21 19:39:42,372 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:39:42,372 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77952.40, unrealized=0.89%, held=1.8h, high=$77952.40
