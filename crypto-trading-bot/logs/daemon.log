@@ -71,4 +71,8 @@
 2026-05-21 13:00:47,207 [INFO] position_monitor_v2:   BTCUSD: qty=0.001286, entry=$77598.92, current=$77019.52, unrealized=-0.75%, held=0.8h, high=$77610.60
 2026-05-21 13:05:47,497 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
 2026-05-21 13:05:47,497 [INFO] position_monitor_v2:   BTCUSD: qty=0.001286, entry=$77598.92, current=$77242.60, unrealized=-0.46%, held=0.9h, high=$77610.60
-2026-05-21 13:05:47,497 [INFO] position_monitor_v2:   BTCUSD: qty=0.001286, entry=$77598.92, current=$77242.60, unrealized=-0.46%, held=0.9h, high=$77610.60
+2026-05-21 13:10:47,799 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 13:10:47,799 [INFO] position_monitor_v2:   BTCUSD: qty=0.001286, entry=$77598.92, current=$77147.19, unrealized=-0.58%, held=1.0h, high=$77610.60
+2026-05-21 13:15:48,083 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 13:15:48,083 [INFO] position_monitor_v2:   BTCUSD: qty=0.006453, entry=$77321.93, current=$77147.19, unrealized=-0.23%, held=1.1h, high=$77610.60
+2026-05-21 13:15:48,083 [INFO] position_monitor_v2:   BTCUSD: qty=0.006453, entry=$77321.93, current=$77147.19, unrealized=-0.23%, held=1.1h, high=$77610.60

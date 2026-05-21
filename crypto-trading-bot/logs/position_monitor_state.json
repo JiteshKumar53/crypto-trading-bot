@@ -1,14 +1,14 @@
 {
   "BTCUSD": {
     "symbol": "BTCUSD",
-    "qty": 0.001285777,
-    "avg_entry_price": 77598.918,
-    "current_price": 77242.599,
-    "market_value": 99.316757,
-    "unrealized_pl": -0.458147,
-    "unrealized_pl_pct": -0.004591803715613704,
+    "qty": 0.006452827,
+    "avg_entry_price": 77321.925197519,
+    "current_price": 77147.19,
+    "market_value": 497.817471,
+    "unrealized_pl": -1.127536,
+    "unrealized_pl_pct": -0.0022598402338358035,
     "entry_time": "2026-05-21T10:10:44.210395+00:00",
-    "holding_hours": 0.9175798397222222,
+    "holding_hours": 1.08440921,
     "highest_price": 77610.6,
     "highest_price_pct": 0,
     "partial_sold": false,
@@ -18,7 +18,7 @@
     "trailing_stop_triggered": false,
     "time_exit_triggered": false,
     "break_even_triggered": false,
-    "break_even_price": 77986.91258999999,
+    "break_even_price": 77708.53482350659,
     "regime_at_entry": "unknown",
     "strategy_name": "unknown"
   }
