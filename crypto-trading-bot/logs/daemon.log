@@ -292,5 +292,46 @@
 2026-05-21 18:21:07,467 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
 2026-05-21 18:21:07,467 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77150.00, unrealized=-0.15%, held=0.5h, high=$77274.02
 2026-05-21 18:21:07,467 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2130.60, unrealized=0.76%, held=4.6h, high=$2134.70
-rrent=$77150.00, unrealized=-0.15%, held=0.5h, high=$77274.02
-2026-05-21 18:21:07,467 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2130.60, unrealized=0.76%, held=4.6h, high=$2134.70
+2026-05-21 18:26:07,767 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 18:26:07,767 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77150.00, unrealized=-0.15%, held=0.6h, high=$77274.02
+2026-05-21 18:26:07,767 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2130.60, unrealized=0.76%, held=4.7h, high=$2134.70
+2026-05-21 18:31:08,060 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 18:31:08,060 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77150.00, unrealized=-0.15%, held=0.7h, high=$77274.02
+2026-05-21 18:31:08,060 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2127.90, unrealized=0.63%, held=4.8h, high=$2134.70
+2026-05-21 18:36:08,359 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 18:36:08,359 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77212.66, unrealized=-0.07%, held=0.8h, high=$77274.02
+2026-05-21 18:36:08,359 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2127.90, unrealized=0.63%, held=4.8h, high=$2134.70
+2026-05-21 18:41:08,646 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 18:41:08,646 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$76946.60, unrealized=-0.41%, held=0.8h, high=$77274.02
+2026-05-21 18:41:08,646 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2122.95, unrealized=0.40%, held=4.9h, high=$2134.70
+2026-05-21 18:41:08,646 [WARNING] position_monitor_v2: [POSITION MONITOR] SELL_ALL TRIGGERED for ETHUSD: break_even_stop ($2122.95 <= $2125.11)
+2026-05-21 18:41:08,747 [INFO] position_monitor_v2: [POSITION MONITOR] Exit idempotency PASSED via EVOLVER: capsule=CAPSULE-005, gene=GENE-006
+2026-05-21 18:41:08,845 [INFO] broker.alpaca_client: Paper order submitted: sell 0.02359287 ETHUSD order_id=95823272-8244-476c-b713-c69270348848
+2026-05-21 18:41:08,845 [INFO] position_monitor_v2: [POSITION MONITOR] EXIT EXECUTED: SELL_ALL 0.02359287 ETHUSD reason=break_even_stop ($2122.95 <= $2125.11) order_id=95823272-8244-476c-b713-c69270348848
+2026-05-21 18:41:08,845 [INFO] position_monitor_v2: [POSITION MONITOR] ETHUSD: fully exited
+2026-05-21 18:46:09,147 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 18:46:09,147 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77020.70, unrealized=-0.31%, held=0.9h, high=$77274.02
+2026-05-21 18:51:09,438 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 18:51:09,438 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77004.87, unrealized=-0.33%, held=1.0h, high=$77274.02
+2026-05-21 18:56:09,746 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 18:56:09,746 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$76987.71, unrealized=-0.36%, held=1.1h, high=$77274.02
+2026-05-21 19:01:10,032 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:01:10,032 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77239.55, unrealized=-0.03%, held=1.2h, high=$77274.02
+2026-05-21 19:06:10,317 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:06:10,317 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77239.55, unrealized=-0.03%, held=1.3h, high=$77274.02
+2026-05-21 19:11:10,619 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:11:10,619 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77239.55, unrealized=-0.03%, held=1.3h, high=$77274.02
+2026-05-21 19:16:10,919 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:16:10,919 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77578.40, unrealized=0.41%, held=1.4h, high=$77578.40
+2026-05-21 19:21:11,225 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:21:11,226 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77627.50, unrealized=0.47%, held=1.5h, high=$77627.50
+2026-05-21 19:26:11,515 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:26:11,515 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77732.17, unrealized=0.61%, held=1.6h, high=$77732.17
+2026-05-21 19:26:11,515 [INFO] position_monitor_v2: [POSITION MONITOR] BREAK-EVEN ACTIVATED for BTCUSD: SL moved to $77649.92 (entry: $77263.60)
+2026-05-21 19:26:11,515 [WARNING] position_monitor_v2: [POSITION MONITOR] SELL_PARTIAL TRIGGERED for BTCUSD: partial_profit_1 (+0.61%)
+2026-05-21 19:26:11,612 [INFO] position_monitor_v2: [POSITION MONITOR] Exit idempotency PASSED via EVOLVER: capsule=CAPSULE-005, gene=GENE-006
+2026-05-21 19:26:11,711 [INFO] broker.alpaca_client: Paper order submitted: sell 0.00129276 BTCUSD order_id=add5c09b-2e09-41f9-a749-8ad8b533a6c4
+2026-05-21 19:26:11,711 [INFO] position_monitor_v2: [POSITION MONITOR] EXIT EXECUTED: SELL_PARTIAL 0.00129276 BTCUSD reason=partial_profit_1 (+0.61%) order_id=add5c09b-2e09-41f9-a749-8ad8b533a6c4
+2026-05-21 19:26:11,711 [INFO] position_monitor_v2: [POSITION MONITOR] BTCUSD: partial_sold flag SET, qty_sold=0.00129276
+129276 BTCUSD reason=partial_profit_1 (+0.61%) order_id=add5c09b-2e09-41f9-a749-8ad8b533a6c4
+2026-05-21 19:26:11,711 [INFO] position_monitor_v2: [POSITION MONITOR] BTCUSD: partial_sold flag SET, qty_sold=0.00129276

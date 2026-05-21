@@ -136,7 +136,9 @@ class EACoreEngine:
                     'reason': self.halt_reason,
                 }
                 result['approved'] = False
+                result['status'] = 'blocked'
                 logger.warning(f"[EA CORE] Trading halted: {self.halt_reason}")
+                return result
                 return result
             
             result['stages']['halt_check'] = {'status': 'ok'}
@@ -147,7 +149,7 @@ class EACoreEngine:
             
             # Stage 6: Fetch market data
             try:
-                data = self.data_fetcher.get_hourly_data(symbol.replace('/', ''), limit=200)
+                data = self.data_fetcher.fetch_hourly_bars(symbol.replace('/', ''), limit=200)
                 result['stages']['market_data'] = {
                     'status': 'success',
                     'bars': len(data) if hasattr(data, '__len__') else 'unknown',
@@ -166,21 +168,36 @@ class EACoreEngine:
             
             # Stage 8: Validate strategy permission
             strategy_name = 'grid_trading_v1'
-            gate_result = self.strategy_gate.validate_strategy(strategy_name, symbol.replace('/', ''))
             
-            if not gate_result.approved:
+            # Handle both object-style and dict-style gate results
+            raw_gate_result = self.strategy_gate(strategy_name, symbol.replace('/', ''))
+            
+            if isinstance(raw_gate_result, dict):
+                # Dict-style (from evolver_runtime)
+                gate_approved = raw_gate_result.get('approved', raw_gate_result.get('passed', False))
+                gate_reason = raw_gate_result.get('reason', 'Unknown')
+                gate_status = raw_gate_result.get('status', 'unknown')
+                gate_max_size = raw_gate_result.get('max_position_size', 500.0)
+            else:
+                # Object-style (from strategy_validation_gate)
+                gate_approved = getattr(raw_gate_result, 'approved', False)
+                gate_reason = getattr(raw_gate_result, 'reason', 'Unknown')
+                gate_status = getattr(raw_gate_result, 'strategy_status', 'unknown')
+                gate_max_size = getattr(raw_gate_result, 'max_position_size', 500.0)
+            
+            if not gate_approved:
                 result['stages']['strategy_validation'] = {
                     'status': 'blocked',
-                    'reason': gate_result.reason,
+                    'reason': gate_reason,
                 }
                 result['approved'] = False
-                logger.warning(f"[EA CORE] Strategy blocked: {gate_result.reason}")
+                logger.warning(f"[EA CORE] Strategy blocked: {gate_reason}")
                 return result
             
             result['stages']['strategy_validation'] = {
                 'status': 'approved',
                 'strategy': strategy_name,
-                'status': gate_result.strategy_status,
+                'status': gate_status,
             }
             
             # Stage 9: Check open positions and orders
@@ -194,23 +211,51 @@ class EACoreEngine:
             }
             
             # Stage 10: Run Risk Governor
-            risk_result = self.risk_governor.evaluate_trade(
-                symbol=symbol,
-                side='buy',
-                qty=0.0026,  # Approx $200 at $77k
-                current_price=77000,
-                portfolio_value=broker_account['equity'],
-                current_position_value=self.position_manager.get_position_value(symbol.replace('/', '')),
-            )
-            
-            result['stages']['risk_governor'] = {
-                'status': risk_result['status'],
-                'reason': risk_result.get('reason', ''),
-            }
-            
-            if risk_result['status'] != 'ALLOWED':
+            try:
+                risk_result = self.risk_governor.check_order(
+                    symbol=symbol,
+                    side='buy',
+                    qty=0.0026,
+                    price=77000,
+                    portfolio_value=broker_account['equity'],
+                    current_position_value=self.position_manager.get_position_value(symbol.replace('/', '')),
+                )
+                
+                # Handle RiskResult object
+                if hasattr(risk_result, 'approved'):
+                    risk_status = 'ALLOWED' if risk_result.approved else 'BLOCKED'
+                    # Get reason from first failed check or decision
+                    if hasattr(risk_result, 'checks') and risk_result.checks:
+                        failed = [c for c in risk_result.checks if not c.passed]
+                        if failed:
+                            risk_reason = failed[0].reason
+                        else:
+                            risk_reason = 'All checks passed'
+                    else:
+                        risk_reason = getattr(risk_result, 'decision', 'Unknown')
+                else:
+                    # Dict-style fallback
+                    risk_status = risk_result.get('status', 'BLOCKED')
+                    risk_reason = risk_result.get('reason', 'No reason')
+                
+                result['stages']['risk_governor'] = {
+                    'status': risk_status,
+                    'reason': risk_reason,
+                }
+                
+                if risk_status != 'ALLOWED':
+                    result['approved'] = False
+                    result['status'] = 'blocked'
+                    logger.warning(f"[EA CORE] Risk Governor blocked: {risk_status}")
+                    return result
+            except Exception as e:
+                logger.error(f"[EA CORE] Risk Governor check failed: {e}")
+                result['stages']['risk_governor'] = {
+                    'status': 'error',
+                    'error': str(e),
+                }
                 result['approved'] = False
-                logger.warning(f"[EA CORE] Risk Governor blocked: {risk_result['status']}")
+                result['status'] = 'error'
                 return result
             
             # Stage 11: Block duplicate orders

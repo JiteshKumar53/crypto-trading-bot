@@ -221,6 +221,14 @@ class PositionMonitor:
         reason = action["reason"]
 
         try:
+            # NOTE: Position Monitor performs reduce-only exits.
+            # In full EA Core mode, these should be routed through EA Core.
+            # For now, we log a warning but allow reduce-only exits.
+            if self.ea_core and self.ea_core.ea_core_active:
+                logger.info("[POSITION MONITOR] Reduce-only exit via Position Monitor (EA Core available)")
+            else:
+                logger.warning("[POSITION MONITOR] Reduce-only exit WITHOUT EA Core — should be integrated")
+            
             result = self.client.submit_order(
                 symbol=symbol,
                 side="sell",

@@ -31,13 +31,25 @@ from memory.decision_log import DecisionLog
 from chart_monitor.data_sources.alpaca_source import AlpacaDataSource
 from chart_monitor.live_chart_monitor import LiveChartMonitor, ChartObservationReporter
 
+# EA Core Engine — MANDATORY for all order execution
+# If EA Core is not active, NO orders may be placed
+from core.ea_core_engine import EACoreEngine
+from core.position_manager import PositionManager
+from broker.broker_first_reconciliation import BrokerFirstReconciliation
+from strategy_validation_gate import validate_strategy as validate_strategy_gate
+from evolver_runtime import check_strategy
+
 logger = logging.getLogger(__name__)
 
 
 class PipelineController:
     """
     End-to-end trading pipeline controller.
-    Coordinates all modules for a single trading decision cycle.
+    
+    CRITICAL: All order execution MUST flow through EA Core Engine.
+    Direct submit_order bypass is STRICTLY PROHIBITED.
+    
+    If EA Core is not initialized or fails, ALL new entries are BLOCKED.
     """
 
     def __init__(
@@ -64,6 +76,36 @@ class PipelineController:
         self.orchestrator = TradingOrchestrator(self.risk_governor)
         self.decision_log = DecisionLog()
         
+        # EA Core Engine — CRITICAL: All orders MUST flow through here
+        # If EA Core fails to initialize, trading is BLOCKED
+        try:
+            from core.ea_core_engine import EACoreEngine
+            from core.position_manager import PositionManager
+            from broker.broker_first_reconciliation import BrokerFirstReconciliation
+            from evolver_runtime import check_strategy
+            
+            self.position_manager = PositionManager(self.alpaca)
+            self.broker_recon = BrokerFirstReconciliation(self.alpaca)
+            
+            self.ea_core = EACoreEngine(
+                alpaca_client=self.alpaca,
+                data_fetcher=self.data_fetcher,
+                risk_governor=self.risk_governor,
+                strategy_validation_gate=check_strategy,
+                position_manager=self.position_manager,
+                broker_reconciliation=self.broker_recon,
+                order_idempotency_guard=self,  # PipelineController has cooldown logic
+            )
+            logger.info("[PipelineController] EA Core Engine INITIALIZED — all orders will flow through EA Core")
+            self.ea_core_active = True
+        except Exception as e:
+            logger.critical(f"[PipelineController] EA Core Engine FAILED to initialize: {e}")
+            logger.critical("[PipelineController] ALL NEW ENTRIES BLOCKED — EA Core is required")
+            self.ea_core = None
+            self.ea_core_active = False
+            self.position_manager = None
+            self.broker_recon = None
+        
         # Initialize Live Chart Monitor (Market Intelligence)
         self.chart_monitor = LiveChartMonitor()
         logger.info("[PipelineController] LiveChartMonitor initialized")
@@ -86,12 +128,41 @@ class PipelineController:
         """
         Run a complete trading decision cycle.
 
+        CRITICAL SAFETY CHECK: If EA Core is not active, ALL new entries are BLOCKED.
+        This prevents the old PipelineController from bypassing EA Core safety systems.
+        
         Args:
             symbol: Specific symbol to trade, or None to cycle through all assets
 
         Returns:
             Dict with full cycle results
         """
+        # HARD SAFETY BLOCK: EA Core must be active
+        if not getattr(self, 'ea_core_active', False):
+            logger.critical("[HARD BLOCK] EA Core is NOT ACTIVE. Trading is BLOCKED.")
+            logger.critical("[HARD BLOCK] This is a CRITICAL_EA_CORE_BYPASS prevention.")
+            
+            # Create evolution event
+            try:
+                from evolver_runtime import log_evolution_event
+                log_evolution_event({
+                    'event_type': 'CRITICAL_EA_CORE_BYPASS',
+                    'severity': 'CRITICAL',
+                    'reason': 'PipelineController attempted to run cycle without EA Core active',
+                    'action': 'BLOCKED_ALL_ENTRIES',
+                    'timestamp': datetime.now(timezone.utc).isoformat(),
+                })
+            except Exception:
+                pass
+            
+            return {
+                'cycle_start': datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+                'success': False,
+                'blocked_reason': 'CRITICAL_EA_CORE_BYPASS: EA Core not active. All new entries blocked.',
+                'ea_core_active': False,
+                'stages': {'hard_block': {'status': 'blocked', 'reason': 'EA Core not active'}},
+            }
+        
         cycle_start = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         results = {
             "cycle_start": cycle_start,
@@ -469,11 +540,12 @@ class PipelineController:
             logger.warning(f"Orchestrator REJECTED order for {symbol}")
             return result
 
-        # Stage 6: Execute paper order
+        # Stage 6: Execute paper order via EA Core ONLY
+        # CRITICAL: Direct submit_order is PROHIBITED. All orders MUST flow through EA Core.
         if self.paper_only and not self.alpaca.is_paper():
             raise ValueError("Paper mode required but not in paper mode!")
 
-        # Order cooldown check
+        # Order cooldown check (part of Order Idempotency Guard)
         import time
         now = time.time()
         last_time = self.last_order_time.get(symbol, 0)
@@ -493,33 +565,64 @@ class PipelineController:
         
         self.last_order_time[symbol] = now
         
-        logger.info(f"[Stage 6] Executing paper order for {symbol}: {side} {qty:.6f}")
+        # ROUTE THROUGH EA CORE ENGINE — MANDATORY
+        logger.info(f"[Stage 6] Routing order through EA Core Engine for {symbol}: {side} {qty:.6f}")
         
-        # Get strategy limit for position guard
-        strategy_limit = None
-        if gate_status == "active":
-            strategy_limit = gate_result.get("max_position_size", 500.0)
-        elif gate_status == "testing":
-            strategy_limit = 100.0
-        
-        order_result = self.alpaca.submit_order(
-            symbol=symbol,
-            side=side,
-            qty=round(qty, 6),
-            strategy_limit=strategy_limit,
-        )
+        try:
+            ea_result = self.ea_core.run_cycle(symbol)
+            
+            result["stages"]["ea_core"] = {
+                "status": ea_result.get("status", "unknown"),
+                "approved": ea_result.get("approved", False),
+                "stages": ea_result.get("stages", {}),
+            }
+            
+            if ea_result.get("approved"):
+                # EA Core approved — now execute through broker with full guards
+                strategy_limit = None
+                if gate_status == "active":
+                    strategy_limit = gate_result.get("max_position_size", 500.0)
+                elif gate_status == "testing":
+                    strategy_limit = 100.0
+                
+                logger.info(f"[Stage 6] EA Core APPROVED. Executing paper order for {symbol}: {side} {qty:.6f}")
+                order_result = self.alpaca.submit_order(
+                    symbol=symbol,
+                    side=side,
+                    qty=round(qty, 6),
+                    strategy_limit=strategy_limit,
+                )
 
-        result["stages"]["execution"] = {
-            "status": "success" if order_result.success else "failed",
-            "order_id": order_result.order_id,
-            "error": order_result.error,
-        }
+                result["stages"]["execution"] = {
+                    "status": "success" if order_result.success else "failed",
+                    "order_id": order_result.order_id,
+                    "error": order_result.error,
+                    "ea_core_routed": True,
+                }
 
-        if order_result.success:
-            result["approved"] = True
-            logger.info(f"Paper order executed: {order_result.order_id}")
-        else:
-            logger.error(f"Order execution failed: {order_result.error}")
+                if order_result.success:
+                    result["approved"] = True
+                    logger.info(f"Paper order executed via EA Core: {order_result.order_id}")
+                else:
+                    logger.error(f"Order execution failed: {order_result.error}")
+            else:
+                # EA Core blocked the order
+                result["stages"]["execution"] = {
+                    "status": "blocked_by_ea_core",
+                    "reason": ea_result.get("stages", {}).get("strategy_validation", {}).get("reason", 
+                             ea_result.get("stages", {}).get("risk_governor", {}).get("reason", 
+                             "EA Core blocked order")),
+                    "ea_core_routed": True,
+                }
+                logger.warning(f"[Stage 6] EA Core BLOCKED order for {symbol}")
+                
+        except Exception as e:
+            logger.error(f"[Stage 6] EA Core execution failed: {e}")
+            result["stages"]["execution"] = {
+                "status": "ea_core_error",
+                "error": str(e),
+                "ea_core_routed": True,
+            }
 
         return result
 
