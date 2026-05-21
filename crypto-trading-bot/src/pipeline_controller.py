@@ -494,10 +494,19 @@ class PipelineController:
         self.last_order_time[symbol] = now
         
         logger.info(f"[Stage 6] Executing paper order for {symbol}: {side} {qty:.6f}")
+        
+        # Get strategy limit for position guard
+        strategy_limit = None
+        if gate_status == "active":
+            strategy_limit = gate_result.get("max_position_size", 500.0)
+        elif gate_status == "testing":
+            strategy_limit = 100.0
+        
         order_result = self.alpaca.submit_order(
             symbol=symbol,
             side=side,
-            qty=round(qty, 6),  # Round to reasonable precision
+            qty=round(qty, 6),
+            strategy_limit=strategy_limit,
         )
 
         result["stages"]["execution"] = {

@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-05-21T11:30:56Z",
+  "type": "heartbeat_status",
+  "account": {
+    "equity": 9928.52,
+    "cash": 9430.52,
+    "buying_power": 18861.04,
+    "portfolio_value": 9928.52
+  },
+  "positions": [
+    {
+      "symbol": "BTCUSD",
+      "qty": 0.006452827,
+      "avg_entry": 77321.925197519,
+      "current": 77175.72,
+      "market_value": 498.00157,
+      "unrealized_pl": -0.943437,
+      "unrealized_plpc": -0.00189
+    }
+  ],
+  "strategies": {
+    "active": [
+      "grid_trading_v1::BTCUSD::1h"
+    ],
+    "testing": [
+      "grid_trading_v1::ETHUSD::1h",
+      "grid_trading_v1::SOLUSD::1h"
+    ]
+  },
+  "status": "operational"
+}

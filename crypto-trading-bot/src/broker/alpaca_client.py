@@ -135,10 +135,17 @@ class AlpacaPaperClient:
         qty: float,
         order_type: str = "market",
         time_in_force: str = "gtc",
+        strategy_limit: Optional[float] = None,
+        idempotency_key: Optional[str] = None,
     ) -> OrderResult:
         """
         Submit a paper order.
         Requires paper mode confirmation.
+        
+        Args:
+            strategy_limit: Max position value allowed for this strategy. If set,
+                           rejects orders that would exceed limit (reduce-only allowed).
+            idempotency_key: Optional key to prevent duplicate orders.
         """
         # Validate paper mode
         if not self.is_paper():
@@ -166,6 +173,51 @@ class AlpacaPaperClient:
                 paper_mode=True,
                 error="Alpaca client not initialized",
             )
+
+        # Position limit enforcement: reject if it would exceed strategy limit
+        if strategy_limit is not None and side.lower() == "buy":
+            try:
+                positions = self.get_positions()
+                open_orders = self.get_open_orders()
+                
+                current_value = 0.0
+                for p in positions:
+                    if p["symbol"] == symbol.replace("/", ""):
+                        current_value = float(p["market_value"])
+                        break
+                
+                pending_value = 0.0
+                for o in open_orders:
+                    if o["symbol"] == symbol.replace("/", "") and o["side"].lower() == "buy":
+                        # Approximate: qty * current price (we don't have order price for market orders)
+                        pending_value = current_value * 0.5  # Conservative estimate
+                
+                # Get current price for proposed order value
+                current_price = current_value / (float(p["qty"]) if positions and p["symbol"] == symbol.replace("/", "") else 1.0)
+                if current_price <= 0:
+                    current_price = 77000  # Fallback for BTC
+                proposed_value = qty * current_price
+                
+                total_exposure = current_value + pending_value + proposed_value
+                
+                if total_exposure > strategy_limit * 1.05:  # 5% tolerance
+                    return OrderResult(
+                        symbol=symbol,
+                        side=side,
+                        qty=qty,
+                        order_id=None,
+                        status="rejected",
+                        filled_avg_price=None,
+                        timestamp=datetime.now(timezone.utc),
+                        paper_mode=True,
+                        error=(
+                            f"Position limit exceeded: ${total_exposure:.2f} > ${strategy_limit:.2f} "
+                            f"(current=${current_value:.2f}, pending=${pending_value:.2f}, proposed=${proposed_value:.2f}). "
+                            f"Reduce-only orders allowed."
+                        ),
+                    )
+            except Exception as e:
+                logger.warning(f"Position limit check failed, proceeding anyway: {e}")
 
         # Map crypto symbols to Alpaca format
         # Alpaca uses BTCUSD, ETHUSD, SOLUSD (no slash)
