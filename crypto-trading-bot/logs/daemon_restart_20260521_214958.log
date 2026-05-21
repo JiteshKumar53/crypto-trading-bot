@@ -21,3 +21,24 @@
 2026-05-21 21:49:59,602 [INFO] __main__: Next cycle at: 2026-05-21 23:49:59 UTC (position monitor keeps running)
 2026-05-21 21:54:59,717 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
 2026-05-21 22:00:00,005 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:05:00,295 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:10:00,603 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:15:00,908 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:20:01,202 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:25:01,489 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:30:01,806 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:35:02,103 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:40:02,398 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:45:02,699 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:50:02,998 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:55:03,300 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:00:03,608 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:05:03,908 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:10:04,202 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:15:04,501 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:20:04,804 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:25:05,109 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:30:05,394 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:35:05,679 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:40:05,979 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:45:06,280 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions

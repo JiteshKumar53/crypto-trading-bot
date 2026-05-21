@@ -1,0 +1,138 @@
+2026-05-21 23:46:24,607 [INFO] core.ea_core_engine: [EA CORE] Engine initialized
+2026-05-21 23:46:24,607 [INFO] pipeline_controller: [PipelineController] EA Core Engine INITIALIZED
+2026-05-21 23:46:24,607 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-21 23:46:24,607 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-21 23:46:24,607 [INFO] pipeline_controller: [PipelineController] LiveChartMonitor initialized
+2026-05-21 23:46:24,608 [INFO] pipeline_controller: PipelineController initialized
+2026-05-21 23:46:25,009 [INFO] pipeline_controller: === Starting cycle for BTC/USD ===
+2026-05-21 23:46:25,009 [INFO] pipeline_controller: [Stage 1] Fetching market data for BTC/USD
+2026-05-21 23:46:25,009 [INFO] data.data_fetcher: Fetching 168 hourly bars for BTC/USD
+2026-05-21 23:46:25,373 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-21 23:46:25,373 [INFO] data.data_fetcher: Fetched 168 bars for BTC/USD
+2026-05-21 23:46:25,373 [INFO] pipeline_controller: [Stage 2] EA Core: Primary decision check for BTC/USD
+2026-05-21 23:46:25,373 [INFO] core.ea_core_engine: [EA CORE] cycle_20260521_214625: Starting cycle for BTC/USD
+2026-05-21 23:46:25,929 [INFO] data.data_fetcher: Fetching 200 hourly bars for BTCUSD
+2026-05-21 23:46:26,025 [ERROR] data.data_fetcher: Failed to fetch data for BTCUSD: {"message":"invalid symbol: BTCUSD does not match ^[A-Z]+x?/[A-Z]+$"}
+
+2026-05-21 23:46:26,025 [INFO] evolver_runtime: [EVOLVER] Loaded 11 genes (11 active)
+2026-05-21 23:46:26,025 [INFO] evolver_runtime: [EVOLVER] Initialized 5 capsules
+2026-05-21 23:46:26,026 [INFO] strategy_validation_gate: [STRATEGY GATE] APPROVED: grid_trading_v1 on BTCUSD is ACTIVE — full size with Risk Governor approval, limit $200
+2026-05-21 23:46:26,117 [INFO] core.ea_core_engine: [EA CORE] Cycle cycle_20260521_214625 completed in 0.74s
+2026-05-21 23:46:26,117 [INFO] pipeline_controller: [Stage 2] EA Core APPROVED order for BTC/USD
+2026-05-21 23:46:26,118 [INFO] pipeline_controller: [Stage 4] Running orchestrator for BTC/USD
+2026-05-21 23:46:26,308 [INFO] orchestrator: [Pipeline Start] dec-20260521-214626-308622-BTCUSD for buy 0.006393123667634919 BTC/USD
+2026-05-21 23:46:26,308 [WARNING] pipeline_controller: Orchestrator REJECTED order for BTC/USD
+2026-05-21 23:46:26,309 [INFO] pipeline_controller: === Starting cycle for ETH/USD ===
+2026-05-21 23:46:26,309 [INFO] pipeline_controller: [Stage 1] Fetching market data for ETH/USD
+2026-05-21 23:46:26,309 [INFO] data.data_fetcher: Fetching 168 hourly bars for ETH/USD
+2026-05-21 23:46:26,449 [INFO] data.data_fetcher: Data validation passed for ETH/USD
+2026-05-21 23:46:26,449 [INFO] data.data_fetcher: Fetched 168 bars for ETH/USD
+2026-05-21 23:46:26,449 [INFO] pipeline_controller: [Stage 2] EA Core: Primary decision check for ETH/USD
+2026-05-21 23:46:26,449 [INFO] core.ea_core_engine: [EA CORE] cycle_20260521_214626: Starting cycle for ETH/USD
+2026-05-21 23:46:26,819 [INFO] data.data_fetcher: Fetching 200 hourly bars for ETHUSD
+2026-05-21 23:46:26,915 [ERROR] data.data_fetcher: Failed to fetch data for ETHUSD: {"message":"invalid symbol: ETHUSD does not match ^[A-Z]+x?/[A-Z]+$"}
+
+2026-05-21 23:46:26,916 [INFO] strategy_validation_gate: [STRATEGY GATE] LIMITED: grid_trading_v1 on ETHUSD is TESTING — experimental size only ($100 max, 1 position)
+2026-05-21 23:46:27,008 [INFO] core.ea_core_engine: [EA CORE] Cycle cycle_20260521_214626 completed in 0.56s
+2026-05-21 23:46:27,008 [INFO] pipeline_controller: [Stage 2] EA Core APPROVED order for ETH/USD
+2026-05-21 23:46:27,008 [INFO] pipeline_controller: [Stage 4] Running orchestrator for ETH/USD
+2026-05-21 23:46:27,193 [INFO] pipeline_controller: [Stage 4] TESTING limit: $100.00
+2026-05-21 23:46:27,193 [INFO] orchestrator: [Pipeline Start] dec-20260521-214627-193155-ETHUSD for buy 0.0468559647643145 ETH/USD
+2026-05-21 23:46:27,193 [WARNING] pipeline_controller: Orchestrator REJECTED order for ETH/USD
+2026-05-21 23:46:27,193 [INFO] pipeline_controller: === Starting cycle for SOL/USD ===
+2026-05-21 23:46:27,193 [INFO] pipeline_controller: [Stage 1] Fetching market data for SOL/USD
+2026-05-21 23:46:27,193 [INFO] data.data_fetcher: Fetching 168 hourly bars for SOL/USD
+2026-05-21 23:46:27,336 [INFO] data.data_fetcher: Data validation passed for SOL/USD
+2026-05-21 23:46:27,336 [INFO] data.data_fetcher: Fetched 168 bars for SOL/USD
+2026-05-21 23:46:27,336 [INFO] pipeline_controller: [Stage 2] EA Core: Primary decision check for SOL/USD
+2026-05-21 23:46:27,336 [INFO] core.ea_core_engine: [EA CORE] cycle_20260521_214627: Starting cycle for SOL/USD
+2026-05-21 23:46:27,708 [INFO] data.data_fetcher: Fetching 200 hourly bars for SOLUSD
+2026-05-21 23:46:27,805 [ERROR] data.data_fetcher: Failed to fetch data for SOLUSD: {"message":"invalid symbol: SOLUSD does not match ^[A-Z]+x?/[A-Z]+$"}
+
+2026-05-21 23:46:27,805 [INFO] strategy_validation_gate: [STRATEGY GATE] LIMITED: grid_trading_v1 on SOLUSD is TESTING — experimental size only ($100 max, 1 position)
+2026-05-21 23:46:27,897 [INFO] core.ea_core_engine: [EA CORE] Cycle cycle_20260521_214627 completed in 0.56s
+2026-05-21 23:46:27,898 [INFO] pipeline_controller: [Stage 2] EA Core APPROVED order for SOL/USD
+2026-05-21 23:46:27,898 [INFO] pipeline_controller: [Stage 4] Running orchestrator for SOL/USD
+2026-05-21 23:46:28,082 [INFO] pipeline_controller: [Stage 4] TESTING limit: $100.00
+2026-05-21 23:46:28,082 [INFO] orchestrator: [Pipeline Start] dec-20260521-214628-082704-SOLUSD for buy 1.1452221902832478 SOL/USD
+2026-05-21 23:46:28,082 [WARNING] pipeline_controller: Orchestrator REJECTED order for SOL/USD
+================================================================================
+CEO LIVE PROOF — EA Core Full Integration
+Timestamp: 2026-05-21T21:46:24.124270+00:00
+ENTRY_LOCK: ACTIVE (not removed)
+Safety: paper_only=True, direct PipelineController call
+================================================================================
+
+1. IMPORTING LIVE PIPELINECONTROLLER
+   Module: pipeline_controller
+   File path verified: src/pipeline_controller.py (v2)
+
+2. INITIALIZING CONTROLLER
+   EA Core active: True
+   EA Core instance: True
+   Broker Recon: True
+   Position Manager: True
+   Paper only: True
+
+3. ARCHITECTURE VERIFICATION
+   EA Core at Stage 2: True
+   Old gates at Stage 3+: True
+   Hard block if EA Core inactive: True
+
+4. BROKER STATE CHECK
+   Account equity: $9,925.04
+   Cash: $9,925.04
+   Positions: 0
+
+5. RUNNING FULL EA CORE CYCLE
+   Testing assets: BTC/USD, ETH/USD, SOL/USD
+
+   --- BTC/USD ---
+   EA Core called: YES
+   EA Core status: completed
+   EA Core approved: True
+   EA Core routed: True
+   ✅ Broker-First Reconciliation: success
+   ✅ Strategy Validation Gate: active
+   ✅ Risk Governor: ALLOWED
+   ✅ Duplicate Order Prevention: ok
+   Overall success: False
+
+   --- ETH/USD ---
+   EA Core called: YES
+   EA Core status: completed
+   EA Core approved: True
+   EA Core routed: True
+   ✅ Broker-First Reconciliation: success
+   ⚠️ Strategy Validation Gate: testing
+   ✅ Risk Governor: ALLOWED
+   ✅ Duplicate Order Prevention: ok
+   Overall success: False
+
+   --- SOL/USD ---
+   EA Core called: YES
+   EA Core status: completed
+   EA Core approved: True
+   EA Core routed: True
+   ✅ Broker-First Reconciliation: success
+   ⚠️ Strategy Validation Gate: testing
+   ✅ Risk Governor: ALLOWED
+   ✅ Duplicate Order Prevention: ok
+   Overall success: False
+
+6. SUMMARY
+   Assets tested: 3
+   EA Core called on: 3/3
+   All cycles blocked: True
+
+7. CRITICAL VERIFICATIONS
+   ✅ PipelineController v2 is live (EA Core at Stage 2)
+   ✅ BrokerFirstReconciliation uses PositionRecord
+   ✅ All safety gates present in EA Core
+   ✅ ENTRY_LOCK still active (not removed)
+   ✅ No real orders placed (paper_only=True)
+   ✅ Account still 100% cash
+
+================================================================================
+PROOF COMPLETE
+================================================================================
