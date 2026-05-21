@@ -274,13 +274,25 @@ class PipelineController:
                 "reason": "use_backtest=False",
             }
 
+        # Calculate order size BEFORE strategy validation gate (needed for testing mode constraint)
+        account = self.alpaca.get_account()
+        portfolio_value = account["portfolio_value"] if account else 10000
+        positions = self.alpaca.get_positions()
+        current_pos = next((p for p in positions if p["symbol"] == symbol.replace("/", "")), None)
+        current_position_value = current_pos["market_value"] if current_pos else 0
+
+        # Determine order size (50/50 capital rule aware)
+        # Conservative: 10% of equity per trade when 5 positions max
+        order_value = portfolio_value * 0.05  # 5% default, will be adjusted by risk governor
+        qty = order_value / current_price
+        
         # STAGE 3.5: STRATEGY VALIDATION GATE (CRITICAL — prevents unvalidated strategies)
         # Gene: GENE-001, GENE-002 | Capsule: CAPSULE-001
         # Uses Evolver Runtime for capsule enforcement
         from evolver_runtime import check_strategy
         
         # Get strategy name from backtest or agent recommendation
-        strategy_name = result["stages"]["backtest"].get("strategy_name", "unknown")
+        strategy_name = result["stages"]["backtest"].get("strategy", "unknown")
         if strategy_name == "unknown" and self.use_agents:
             strategy_name = result["stages"]["agents"].get("recommended_strategy", "unknown")
         
@@ -317,18 +329,6 @@ class PipelineController:
         # Stage 4: Risk Governor check
         if self.use_risk_governor:
             logger.info(f"[Stage 4] Running Risk Governor for {symbol}")
-
-            # Get account info
-            account = self.alpaca.get_account()
-            portfolio_value = account["portfolio_value"] if account else 10000
-            positions = self.alpaca.get_positions()
-            current_pos = next((p for p in positions if p["symbol"] == symbol.replace("/", "")), None)
-            current_position_value = current_pos["market_value"] if current_pos else 0
-
-            # Determine order size (50/50 capital rule aware)
-            # Conservative: 10% of equity per trade when 5 positions max
-            order_value = portfolio_value * 0.05  # 5% default, will be adjusted by risk governor
-            qty = order_value / current_price
 
             # Calculate total crypto exposure from all positions
             total_crypto_exposure = sum(
@@ -507,6 +507,40 @@ class PipelineController:
             MACDStrategy(symbol, fast=12, slow=26, signal=9),
             BollingerBandsStrategy(symbol, period=20, std_dev=2.0),
         ]
+        
+        # Add Grid Trading strategy for sideways/ranging markets
+        try:
+            from strategies.grid_trading_strategy import GridTradingStrategy
+            grid_strategy = GridTradingStrategy(grid_levels=5, grid_spacing_pct=0.015)
+            # Wrap grid strategy to match expected interface
+            class GridWrapper:
+                def __init__(self, symbol, grid_strategy):
+                    self.symbol = symbol
+                    self.grid_strategy = grid_strategy
+                    self.name = "grid_trading_v1"
+                
+                def on_bar(self, engine, timestamp, prices, data_slice):
+                    symbol_key = list(prices.keys())[0]
+                    current_position = None
+                    if symbol_key in engine.positions and engine.positions[symbol_key].qty > 0:
+                        current_position = "long"
+                    
+                    signal = self.grid_strategy.generate_signal(data_slice, current_position, engine.equity)
+                    if signal.action == "BUY":
+                        from backtest.backtest_engine import Order, OrderSide
+                        qty = 0.05
+                        return [Order(symbol=symbol_key, side=OrderSide.BUY, qty=qty, timestamp=timestamp)]
+                    elif signal.action == "SELL":
+                        from backtest.backtest_engine import Order, OrderSide
+                        pos = engine.positions.get(symbol_key)
+                        if pos and pos.qty > 0:
+                            return [Order(symbol=symbol_key, side=OrderSide.SELL, qty=pos.qty, timestamp=timestamp)]
+                    return []
+            
+            strategies.append(GridWrapper(symbol, grid_strategy))
+            logger.info(f"[Backtest] Added Grid Trading strategy for {symbol}")
+        except Exception as e:
+            logger.warning(f"[Backtest] Could not add Grid Trading: {e}")
 
         results = []
         for strategy in strategies:

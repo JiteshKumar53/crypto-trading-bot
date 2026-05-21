@@ -65,21 +65,28 @@ def validate_strategy(strategy_name: str, asset: str) -> ValidationResult:
         )
     
     # Check 2: Strategy exists in leaderboard
+    # Handle both "BTC/USD" and "BTCUSD" asset formats
+    asset_normalized = asset.replace("/", "")
+    
     # Handle both base name and optimized variants
     # Strategy name might already contain "_optimized" or not
     key_forms = [
         f"{strategy_name}::{asset}::1h",
+        f"{strategy_name}::{asset_normalized}::1h",
     ]
     
     # If strategy_name doesn't already have _optimized, try that form too
     if not strategy_name.endswith("_optimized"):
         key_forms.append(f"{strategy_name}_optimized::{asset}::1h")
+        key_forms.append(f"{strategy_name}_optimized::{asset_normalized}::1h")
     
     # Also try without _optimized if it has it
     if strategy_name.endswith("_optimized"):
         base_name = strategy_name[:-10]  # Remove "_optimized"
         key_forms.append(f"{base_name}::{asset}::1h")
+        key_forms.append(f"{base_name}::{asset_normalized}::1h")
         key_forms.append(f"{base_name}_optimized::{asset}::1h")
+        key_forms.append(f"{base_name}_optimized::{asset_normalized}::1h")
     
     strategy_data = None
     matching_key = None
@@ -93,7 +100,7 @@ def validate_strategy(strategy_name: str, asset: str) -> ValidationResult:
     # Also try partial matching for fallback
     if strategy_data is None:
         for key, data in leaderboard.items():
-            if strategy_name in key and asset in key:
+            if strategy_name in key and (asset in key or asset_normalized in key):
                 strategy_data = data
                 matching_key = key
                 break
