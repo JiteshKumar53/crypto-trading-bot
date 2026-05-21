@@ -178,5 +178,119 @@
 2026-05-21 15:30:56,150 [INFO] position_monitor_v2:   BTCUSD: qty=0.002589, entry=$77292.84, current=$77230.55, unrealized=-0.08%, held=3.3h, high=$77610.60
 2026-05-21 15:30:56,150 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2116.36, unrealized=0.09%, held=1.8h, high=$2116.36
 2026-05-21 15:30:56,150 [INFO] position_monitor_v2:   SOLUSD: qty=1.163703, entry=$85.70, current=$86.00, unrealized=0.35%, held=1.8h, high=$86.00
-=$2116.36
-2026-05-21 15:30:56,150 [INFO] position_monitor_v2:   SOLUSD: qty=1.163703, entry=$85.70, current=$86.00, unrealized=0.35%, held=1.8h, high=$86.00
+2026-05-21 15:35:56,461 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-21 15:35:56,461 [INFO] position_monitor_v2:   BTCUSD: qty=0.002589, entry=$77292.84, current=$77142.50, unrealized=-0.19%, held=3.4h, high=$77610.60
+2026-05-21 15:35:56,461 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2112.66, unrealized=-0.09%, held=1.8h, high=$2116.36
+2026-05-21 15:35:56,461 [INFO] position_monitor_v2:   SOLUSD: qty=1.163703, entry=$85.70, current=$85.89, unrealized=0.22%, held=1.8h, high=$86.00
+2026-05-21 15:40:56,771 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 3 open positions
+2026-05-21 15:40:56,771 [INFO] position_monitor_v2:   BTCUSD: qty=0.002589, entry=$77292.84, current=$76723.25, unrealized=-0.74%, held=3.5h, high=$77610.60
+2026-05-21 15:40:56,771 [WARNING] position_monitor_v2: [POSITION MONITOR] SELL_ALL TRIGGERED for BTCUSD: trailing_stop (high: 77610.60, trail: 76834.49)
+2026-05-21 15:40:56,902 [INFO] evolver_runtime: [EVOLVER] Loaded 11 genes (11 active)
+2026-05-21 15:40:56,902 [INFO] evolver_runtime: [EVOLVER] Initialized 5 capsules
+2026-05-21 15:40:56,902 [INFO] position_monitor_v2: [POSITION MONITOR] Exit idempotency PASSED via EVOLVER: capsule=CAPSULE-005, gene=GENE-006
+2026-05-21 15:40:57,025 [INFO] broker.alpaca_client: Paper order submitted: sell 0.002589352 BTCUSD order_id=a494a5d3-782f-4aaa-b907-995a1df82d54
+2026-05-21 15:40:57,025 [INFO] position_monitor_v2: [POSITION MONITOR] EXIT EXECUTED: SELL_ALL 0.002589352 BTCUSD reason=trailing_stop (high: 77610.60, trail: 76834.49) order_id=a494a5d3-782f-4aaa-b907-995a1df82d54
+2026-05-21 15:40:57,026 [INFO] position_monitor_v2: [POSITION MONITOR] BTCUSD: fully exited
+2026-05-21 15:40:57,026 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2106.91, unrealized=-0.36%, held=1.9h, high=$2116.36
+2026-05-21 15:40:57,026 [INFO] position_monitor_v2:   SOLUSD: qty=1.163703, entry=$85.70, current=$85.86, unrealized=0.18%, held=1.9h, high=$86.00
+2026-05-21 15:45:57,330 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 15:45:57,330 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2105.32, unrealized=-0.44%, held=2.0h, high=$2116.36
+2026-05-21 15:45:57,330 [INFO] position_monitor_v2:   SOLUSD: qty=1.163703, entry=$85.70, current=$85.38, unrealized=-0.37%, held=2.0h, high=$86.00
+2026-05-21 15:50:57,624 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 15:50:57,624 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2110.74, unrealized=-0.18%, held=2.1h, high=$2116.36
+2026-05-21 15:50:57,624 [INFO] position_monitor_v2:   SOLUSD: qty=1.163703, entry=$85.70, current=$85.27, unrealized=-0.51%, held=2.1h, high=$86.00
+2026-05-21 15:55:57,929 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 15:55:57,929 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2116.92, unrealized=0.11%, held=2.2h, high=$2116.92
+2026-05-21 15:55:57,929 [INFO] position_monitor_v2:   SOLUSD: qty=1.163703, entry=$85.70, current=$85.88, unrealized=0.21%, held=2.2h, high=$86.00
+2026-05-21 16:00:58,248 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 16:00:58,248 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2116.54, unrealized=0.09%, held=2.3h, high=$2116.92
+2026-05-21 16:00:58,248 [INFO] position_monitor_v2:   SOLUSD: qty=1.163703, entry=$85.70, current=$86.15, unrealized=0.52%, held=2.3h, high=$86.15
+2026-05-21 16:00:58,248 [INFO] position_monitor_v2: [POSITION MONITOR] BREAK-EVEN ACTIVATED for SOLUSD: SL moved to $86.13 (entry: $85.70)
+2026-05-21 16:00:58,248 [WARNING] position_monitor_v2: [POSITION MONITOR] SELL_PARTIAL TRIGGERED for SOLUSD: partial_profit_1 (+0.52%)
+2026-05-21 16:00:58,351 [INFO] position_monitor_v2: [POSITION MONITOR] Exit idempotency PASSED via EVOLVER: capsule=CAPSULE-005, gene=GENE-006
+2026-05-21 16:00:58,459 [INFO] broker.alpaca_client: Paper order submitted: sell 0.581851725 SOLUSD order_id=f6d24af6-afda-4276-b0a6-0ed8b89b447c
+2026-05-21 16:00:58,459 [INFO] position_monitor_v2: [POSITION MONITOR] EXIT EXECUTED: SELL_PARTIAL 0.581851725 SOLUSD reason=partial_profit_1 (+0.52%) order_id=f6d24af6-afda-4276-b0a6-0ed8b89b447c
+2026-05-21 16:00:58,459 [INFO] position_monitor_v2: [POSITION MONITOR] SOLUSD: partial_sold flag SET, qty_sold=0.58185173
+2026-05-21 16:05:58,755 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 16:05:58,755 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2120.58, unrealized=0.29%, held=2.3h, high=$2120.58
+2026-05-21 16:05:58,755 [INFO] position_monitor_v2:   SOLUSD: qty=0.581852, entry=$85.70, current=$86.15, unrealized=0.52%, held=2.3h, high=$86.15
+2026-05-21 16:10:59,049 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 16:10:59,049 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2120.58, unrealized=0.29%, held=2.4h, high=$2120.58
+2026-05-21 16:10:59,049 [INFO] position_monitor_v2:   SOLUSD: qty=0.581852, entry=$85.70, current=$86.10, unrealized=0.46%, held=2.4h, high=$86.15
+2026-05-21 16:10:59,049 [WARNING] position_monitor_v2: [POSITION MONITOR] SELL_ALL TRIGGERED for SOLUSD: break_even_stop ($86.10 <= $86.13)
+2026-05-21 16:10:59,152 [INFO] position_monitor_v2: [POSITION MONITOR] Exit idempotency PASSED via EVOLVER: capsule=CAPSULE-005, gene=GENE-006
+2026-05-21 16:10:59,264 [INFO] broker.alpaca_client: Paper order submitted: sell 0.581851725 SOLUSD order_id=8b314559-4a77-43a8-8c86-1d261908f408
+2026-05-21 16:10:59,264 [INFO] position_monitor_v2: [POSITION MONITOR] EXIT EXECUTED: SELL_ALL 0.581851725 SOLUSD reason=break_even_stop ($86.10 <= $86.13) order_id=8b314559-4a77-43a8-8c86-1d261908f408
+2026-05-21 16:10:59,264 [INFO] position_monitor_v2: [POSITION MONITOR] SOLUSD: fully exited
+2026-05-21 16:15:59,608 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 16:15:59,608 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2118.87, unrealized=0.20%, held=2.5h, high=$2120.58
+2026-05-21 16:20:59,908 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 16:20:59,908 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2112.05, unrealized=-0.12%, held=2.6h, high=$2120.58
+2026-05-21 16:26:00,214 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 16:26:00,215 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2112.05, unrealized=-0.12%, held=2.7h, high=$2120.58
+2026-05-21 16:31:00,527 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 16:31:00,527 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2116.50, unrealized=0.09%, held=2.8h, high=$2120.58
+2026-05-21 16:36:00,840 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 16:36:00,841 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2116.50, unrealized=0.09%, held=2.8h, high=$2120.58
+2026-05-21 16:41:01,134 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 16:41:01,135 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2123.44, unrealized=0.42%, held=2.9h, high=$2123.44
+2026-05-21 16:46:01,426 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 16:46:01,427 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2116.50, unrealized=0.09%, held=3.0h, high=$2123.44
+2026-05-21 16:51:01,729 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 16:51:01,729 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2115.90, unrealized=0.06%, held=3.1h, high=$2123.44
+2026-05-21 16:56:02,057 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 16:56:02,058 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2115.90, unrealized=0.06%, held=3.2h, high=$2123.44
+2026-05-21 17:01:02,370 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 17:01:02,370 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2120.27, unrealized=0.27%, held=3.3h, high=$2123.44
+2026-05-21 17:06:02,672 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 17:06:02,672 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2121.85, unrealized=0.35%, held=3.3h, high=$2123.44
+2026-05-21 17:11:03,048 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 17:11:03,048 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2121.34, unrealized=0.32%, held=3.4h, high=$2123.44
+2026-05-21 17:16:03,335 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 17:16:03,335 [INFO] position_monitor_v2:   ETHUSD: qty=0.047186, entry=$2114.54, current=$2128.00, unrealized=0.64%, held=3.5h, high=$2128.00
+2026-05-21 17:16:03,335 [INFO] position_monitor_v2: [POSITION MONITOR] BREAK-EVEN ACTIVATED for ETHUSD: SL moved to $2125.11 (entry: $2114.54)
+2026-05-21 17:16:03,335 [WARNING] position_monitor_v2: [POSITION MONITOR] SELL_PARTIAL TRIGGERED for ETHUSD: partial_profit_1 (+0.64%)
+2026-05-21 17:16:03,430 [INFO] position_monitor_v2: [POSITION MONITOR] Exit idempotency PASSED via EVOLVER: capsule=CAPSULE-005, gene=GENE-006
+2026-05-21 17:16:03,532 [INFO] broker.alpaca_client: Paper order submitted: sell 0.02359287 ETHUSD order_id=5b75d9e4-7dfb-4946-8a1e-be1a96a91c64
+2026-05-21 17:16:03,532 [INFO] position_monitor_v2: [POSITION MONITOR] EXIT EXECUTED: SELL_PARTIAL 0.02359287 ETHUSD reason=partial_profit_1 (+0.64%) order_id=5b75d9e4-7dfb-4946-8a1e-be1a96a91c64
+2026-05-21 17:16:03,532 [INFO] position_monitor_v2: [POSITION MONITOR] ETHUSD: partial_sold flag SET, qty_sold=0.02359287
+2026-05-21 17:21:03,826 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 17:21:03,826 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2132.81, unrealized=0.86%, held=3.6h, high=$2132.81
+2026-05-21 17:26:04,145 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 17:26:04,145 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2132.09, unrealized=0.83%, held=3.7h, high=$2132.81
+2026-05-21 17:31:04,440 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 17:31:04,441 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2133.00, unrealized=0.87%, held=3.8h, high=$2133.00
+2026-05-21 17:36:04,746 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 17:36:04,746 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2133.00, unrealized=0.87%, held=3.8h, high=$2133.00
+2026-05-21 17:41:05,058 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 17:41:05,058 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2133.00, unrealized=0.87%, held=3.9h, high=$2133.00
+2026-05-21 17:44:54,938 [INFO] __main__: ============================================================
+2026-05-21 17:44:54,938 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-21 17:44:54,938 [INFO] __main__: ============================================================
+2026-05-21 17:46:05,360 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 17:46:05,360 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2133.00, unrealized=0.87%, held=4.0h, high=$2133.00
+2026-05-21 17:51:05,656 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 17:51:05,656 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77274.02, unrealized=0.01%, held=0.0h, high=$77274.02
+2026-05-21 17:51:05,656 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2133.00, unrealized=0.87%, held=4.1h, high=$2133.00
+2026-05-21 17:53:34,278 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-21 17:53:34,278 [INFO] __main__: Next cycle at: 2026-05-21 19:53:34 UTC (position monitor keeps running)
+2026-05-21 17:56:05,954 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 17:56:05,954 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77052.91, unrealized=-0.27%, held=0.1h, high=$77274.02
+2026-05-21 17:56:05,954 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2128.77, unrealized=0.67%, held=4.2h, high=$2133.00
+2026-05-21 18:01:06,247 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 18:01:06,247 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77199.84, unrealized=-0.08%, held=0.2h, high=$77274.02
+2026-05-21 18:01:06,247 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2134.70, unrealized=0.95%, held=4.3h, high=$2134.70
+2026-05-21 18:06:06,542 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 18:06:06,542 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77148.20, unrealized=-0.15%, held=0.3h, high=$77274.02
+2026-05-21 18:06:06,542 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2134.70, unrealized=0.95%, held=4.3h, high=$2134.70
+2026-05-21 18:11:06,841 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 18:11:06,842 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77258.87, unrealized=-0.01%, held=0.3h, high=$77274.02
+2026-05-21 18:11:06,842 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2132.80, unrealized=0.86%, held=4.4h, high=$2134.70
+2026-05-21 18:16:07,154 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 18:16:07,154 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77223.60, unrealized=-0.05%, held=0.4h, high=$77274.02
+2026-05-21 18:16:07,154 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2129.51, unrealized=0.71%, held=4.5h, high=$2134.70
+2026-05-21 18:21:07,467 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 2 open positions
+2026-05-21 18:21:07,467 [INFO] position_monitor_v2:   BTCUSD: qty=0.002586, entry=$77263.60, current=$77150.00, unrealized=-0.15%, held=0.5h, high=$77274.02
+2026-05-21 18:21:07,467 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2130.60, unrealized=0.76%, held=4.6h, high=$2134.70
+rrent=$77150.00, unrealized=-0.15%, held=0.5h, high=$77274.02
+2026-05-21 18:21:07,467 [INFO] position_monitor_v2:   ETHUSD: qty=0.023593, entry=$2114.54, current=$2130.60, unrealized=0.76%, held=4.6h, high=$2134.70

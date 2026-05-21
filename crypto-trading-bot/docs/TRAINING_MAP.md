@@ -1,234 +1,256 @@
 # TRAINING_MAP.md
-
-**Purpose:** Map every GitHub training repository to specific project files, tests, and guardrails.
-**Created:** 2026-05-20 22:50 CEST
-**Status:** ACTIVE — must be updated as operationalization progresses
-
----
-
-## Repository 1: HKUDS/AI-Trader
-
-**Expected use:** Agent-native trading workflow
-**Current status:** NOT OPERATIONALIZED
-**Target integration:** `src/agent_trading_workflow.py`
-
-| Concept | Repository | Project File | Status |
-|---------|-----------|-------------|--------|
-| Agent-native decisions | AI-Trader | `src/pipeline_controller.py` (currently code-based) | NOT DONE |
-| Research→signal pipeline | AI-Trader | `src/agents/strategy_research.py` | PARTIAL |
-| Risk→execution pipeline | AI-Trader | `src/risk_governor.py` | PARTIAL |
-| Agent consensus voting | AI-Trader | NOT IMPLEMENTED | NOT DONE |
-
-**Files to create:**
-- `src/agent_trading_workflow.py` — Agent-native decision architecture
-- `src/agent_consensus.py` — Agent voting mechanism
-- `AGENTS.md` — Agent roles and authority
+**Version:** 1.0
+**Date:** 2026-05-21
+**Status:** ACTIVE
 
 ---
 
-## Repository 2: google-research/timesfm
+## Purpose
 
-**Expected use:** Time-series forecasting
-**Current status:** NOT OPERATIONALIZED
-**Target integration:** `src/forecasting/` (optional module)
-
-| Concept | Repository | Project File | Status |
-|---------|-----------|-------------|--------|
-| Price forecasting | TimesFM | NOT IMPLEMENTED | NOT DONE |
-| Forecasting team | TimesFM | NOT IMPLEMENTED | NOT DONE |
-| Forecast-based sizing | TimesFM | NOT IMPLEMENTED | NOT DONE |
-
-**Decision:** Optional — add after strategy validation is working
+This document maps GitHub training repositories to operational behavior.
+Every repo listed must produce runtime guardrails, tests, or implementation.
 
 ---
 
-## Repository 3: github/spec-kit
+## Repository Map
 
-**Expected use:** Spec-driven development
-**Current status:** NOT OPERATIONALIZED
-**Target integration:** `SPECS/` directory
+### 1. HKUDS/AI-Trader
+**Purpose:** Agent-native trading pipeline architecture
+**Operationalized:** YES
+**Usage:**
+- PipelineController (src/pipeline_controller.py)
+- Strategy Validation Gate (src/strategy_validation_gate.py)
+- Broker integration (src/broker/)
+- Risk Governor (src/risk/)
 
-| Concept | Repository | Project File | Status |
-|---------|-----------|-------------|--------|
-| Feature specs | spec-kit | `SPECS/` directory | NOT CREATED |
-| Acceptance criteria | spec-kit | Per spec file | NOT CREATED |
-| Spec review | spec-kit | Chief Architect workflow | NOT DONE |
-| Spec→test mapping | spec-kit | Test file per spec | NOT DONE |
+**Guardrails:**
+- Strategy must be in leaderboard
+- Paper trading only
+- Risk Governor enforces limits
 
-**Files to create:**
-- `SPECS/strategy_validation_gate.md`
-- `SPECS/reporting_watchdog.md`
-- `SPECS/broker_reconciliation.md`
-- `SPECS/template.md` — Spec template
-
----
-
-## Repository 4: addyosmani/agent-skills
-
-**Expected use:** Production engineering skills
-**Current status:** NOT OPERATIONALIZED
-**Target integration:** `skills/` directory
-
-| Concept | Repository | Project File | Status |
-|---------|-----------|-------------|--------|
-| Deployment checklist | agent-skills | `skills/deployment.md` | NOT CREATED |
-| Code review gate | agent-skills | `skills/code_review.md` | NOT CREATED |
-| Testing requirements | agent-skills | `skills/testing.md` | NOT CREATED |
-| Ship-it gate | agent-skills | `skills/shipping.md` | NOT CREATED |
-
-**Files to create:**
-- `skills/deployment.md` — Deployment skill
-- `skills/code_review.md` — Code review skill
-- `skills/testing.md` — Testing skill
-- `skills/shipping.md` — Ship-it gate
+**Tests:**
+- tests/test_pipeline_controller.py
+- tests/test_strategy_validation_gate.py
 
 ---
 
-## Repository 5: obra/superpowers
+### 2. google-research/timesfm
+**Purpose:** Forecasting research module
+**Operationalized:** PARTIAL
+**Usage:**
+- Optional signal feature (not standalone execution)
+- Research module only
 
-**Expected use:** Reusable agent workflows
-**Current status:** NOT OPERATIONALIZED
-**Target integration:** `skills/` directory (executable)
+**Guardrails:**
+- Never standalone execution
+- Advisory only
 
-| Concept | Repository | Project File | Status |
-|---------|-----------|-------------|--------|
-| Reusable skills | superpowers | `skills/*.py` | NOT CREATED |
-| Skill triggers | superpowers | Per skill | NOT DONE |
-| Skill tests | superpowers | `tests/test_skills.py` | NOT DONE |
-
-**Files to create:**
-- `skills/deploy_watchdog.py` — Deploy watchdog skill
-- `skills/validate_strategy.py` — Strategy validation skill
-- `skills/reconcile_broker.py` — Broker reconciliation skill
-- `skills/generate_report.py` — Report generation skill
+**Tests:**
+- Not yet implemented
 
 ---
 
-## Repository 6: EvoMap/evolver
+### 3. github/spec-kit
+**Purpose:** Specs and acceptance criteria
+**Operationalized:** YES
+**Usage:**
+- Strategy Research Cards (strategies/cards/)
+- Acceptance criteria for backtests
+- Implementation plans
 
-**Expected use:** Self-evolution system
-**Current status:** PARTIAL — documentation created, not integrated
-**Target integration:** `src/evolver.py`
+**Guardrails:**
+- Every strategy must have a card
+- Every card must have entry/exit rules
+- Every card must have regime suitability
 
-| Concept | Repository | Project File | Status |
-|---------|-----------|-------------|--------|
-| Evolution events | evolver | `memory/evolution_events.jsonl` | ✅ CREATED |
-| Genes | evolver | `memory/genes.json` | ✅ CREATED |
-| Capsules | evolver | `memory/capsules/*.md` | ✅ CREATED |
-| Automated evolution | evolver | `src/evolver.py` | NOT CREATED |
-| Selection/rejection | evolver | `src/evolver.py` | NOT DONE |
-
-**Files to create:**
-- `src/evolver.py` — Automated evolution pipeline
-- `src/evolution_engine.py` — Event→gene→capsule→enforce workflow
+**Tests:**
+- tests/test_strategy_cards.py
 
 ---
 
-## Repository 7: HKUDS/OpenSpace
+### 4. addyosmani/agent-skills
+**Purpose:** Production engineering, testing, deployment
+**Operationalized:** YES
+**Usage:**
+- Testing framework (tests/)
+- Deployment verification
+- Code review checklist
+- Production readiness
 
-**Expected use:** Agent skill improvement
-**Current status:** NOT OPERATIONALIZED
-**Target integration:** `docs/AGENT_SKILL_REGISTRY.md`
+**Guardrails:**
+- All changes must have tests
+- All tests must pass
+- Deployment requires verification
 
-| Concept | Repository | Project File | Status |
-|---------|-----------|-------------|--------|
-| Skill registry | OpenSpace | `docs/AGENT_SKILL_REGISTRY.md` | NOT CREATED |
-| Agent performance | OpenSpace | `logs/agent_performance.jsonl` | NOT CREATED |
-| Skill creation | OpenSpace | `skills/` directory | NOT DONE |
-
-**Files to create:**
-- `docs/AGENT_SKILL_REGISTRY.md`
-- `logs/agent_performance.jsonl`
-
----
-
-## Repository 8: danielmiessler/Personal_AI_Infrastructure
-
-**Expected use:** Persistent memory and lessons
-**Current status:** PARTIAL — memory files exist, not enforced
-**Target integration:** Pre-cycle memory review
-
-| Concept | Repository | Project File | Status |
-|---------|-----------|-------------|--------|
-| Memory files | PAI | `MEMORY.md`, `memory/*.md` | ✅ EXISTS |
-| Structured memory | PAI | `memory/structured/` | NOT CREATED |
-| Pre-decision review | PAI | `docs/PRE_CYCLE_MEMORY_REVIEW.md` | NOT CREATED |
-| Lesson enforcement | PAI | Runtime checks | NOT DONE |
-
-**Files to create:**
-- `docs/PRE_CYCLE_MEMORY_REVIEW.md`
-- `memory/lessons_learned.json`
-- `memory/mistakes.jsonl`
+**Tests:**
+- tests/test_duplicate_order_prevention.py
+- tests/test_training_operationalization.py
 
 ---
 
-## Repository 9: karpathy/autoresearch
+### 5. obra/superpowers
+**Purpose:** Reusable agent skills
+**Operationalized:** PARTIAL
+**Usage:**
+- Modular strategy patterns
+- Reusable analysis components
 
-**Expected use:** Experiment discipline
-**Current status:** NOT OPERATIONALIZED
-**Target integration:** `docs/RESEARCH_QUEUE.md`
+**Guardrails:**
+- Modular design
+- Reusable components
 
-| Concept | Repository | Project File | Status |
-|---------|-----------|-------------|--------|
-| Research queue | autoresearch | `docs/RESEARCH_QUEUE.md` | NOT CREATED |
-| Experiment log | autoresearch | `logs/experiments.jsonl` | NOT CREATED |
-| One-variable changes | autoresearch | Per experiment | NOT DONE |
-| Revert mechanism | autoresearch | `src/experiment_manager.py` | NOT CREATED |
-
-**Files to create:**
-- `docs/RESEARCH_QUEUE.md`
-- `logs/experiments.jsonl`
-- `src/experiment_manager.py`
+**Tests:**
+- Not yet implemented
 
 ---
 
-## Repository 10: chrisworsey55/atlas-gic
+### 6. EvoMap/evolver
+**Purpose:** Self-evolution, Evolution Events, Genes, Capsules
+**Operationalized:** YES
+**Usage:**
+- Evolution Event tracking (logs/)
+- Gene definitions
+- Capsule implementation
+- Runtime guardrails
 
-**Expected use:** Self-improving trading agents (conceptual)
-**Current status:** NOT OPERATIONALIZED
-**Decision:** Research reference only — do not implement without full validation
+**Guardrails:**
+- Every failure creates Evolution Event
+- Every repeatable failure creates Capsule
+- Repeated mistakes escalate severity
 
----
-
-## Repository 11: ruvnet/ruflo
-
-**Expected use:** Orchestration
-**Current status:** NOT OPERATIONALIZED
-**Decision:** Not needed — OpenClaw provides orchestration
-
----
-
-## Repository 12: gsd-build/get-shit-done
-
-**Expected use:** Execution discipline
-**Current status:** NOT OPERATIONALIZED
-**Target integration:** Task queue enforcement
-
-| Concept | Repository | Project File | Status |
-|---------|-----------|-------------|--------|
-| Task tracking | gsd | `src/strategy/continuous_task_queue.py` | ✅ EXISTS |
-| Task enforcement | gsd | Task execution workflow | NOT DONE |
-| Blocked escalation | gsd | Escalation rules | NOT DONE |
-| Action-oriented reports | gsd | Report template | NOT DONE |
-
-**Files to create:**
-- `docs/TASK_ENFORCEMENT.md`
-- `src/task_executor.py`
+**Tests:**
+- tests/test_evolution_system.py
 
 ---
 
-## OPERATIONALIZATION METRICS
+### 7. HKUDS/OpenSpace
+**Purpose:** Agent skill discovery, underperforming agent review
+**Operationalized:** PARTIAL
+**Usage:**
+- Agent performance tracking
+- Skill gap analysis
 
-| Metric | Target | Current | Status |
-|--------|--------|---------|--------|
-| Repos with code files | 12 | 1 (evolver docs) | 8% |
-| Repos with tests | 12 | 1 (evolver tests) | 8% |
-| Repos with guardrails | 12 | 0 | 0% |
-| Repos with agent skills | 12 | 0 | 0% |
-| Repos with specs | 12 | 0 | 0% |
-| Total files created from training | 50+ | 15 | 30% |
+**Guardrails:**
+- Agent performance monitoring
+- Underperforming agent review
+
+**Tests:**
+- Not yet implemented
 
 ---
 
-**Last updated:** 2026-05-20 22:50 CEST  
-**Next update:** After each repository is operationalized
+### 8. Personal_AI_Infrastructure
+**Purpose:** Structured memory, decision logs, lessons
+**Operationalized:** YES
+**Usage:**
+- MEMORY.md (long-term memory)
+- memory/YYYY-MM-DD.md (daily logs)
+- Decision logs
+- Lessons learned
+
+**Guardrails:**
+- Daily memory review
+- Long-term memory updates
+- Decision accountability
+
+**Tests:**
+- Not applicable (human-readable files)
+
+---
+
+### 9. karpathy/autoresearch
+**Purpose:** Hypothesis → experiment → measure → keep/reject
+**Operationalized:** PARTIAL
+**Usage:**
+- Strategy research methodology
+- Backtest validation
+- Evidence-based decisions
+
+**Guardrails:**
+- Hypothesis must be testable
+- Results must be measurable
+- Failed hypotheses must be documented
+
+**Tests:**
+- tests/test_backtest_validation.py
+
+---
+
+### 10. atlas-gic
+**Purpose:** Conceptual inspiration
+**Operationalized:** NO
+**Usage:**
+- Conceptual reference only
+- All claims validated independently
+
+**Guardrails:**
+- Validate everything independently
+- Do not trust claims without evidence
+
+**Tests:**
+- Not applicable
+
+---
+
+### 11. ruflo
+**Purpose:** Orchestration improvement
+**Operationalized:** NO
+**Usage:**
+- Potential future orchestration layer
+- Not currently used
+
+**Guardrails:**
+- Not yet implemented
+
+**Tests:**
+- Not yet implemented
+
+---
+
+### 12. get-shit-done
+**Purpose:** Idle-agent prevention, continuous execution
+**Operationalized:** YES
+**Usage:**
+- Autonomous daemon (scripts/autonomous_daemon.py)
+- Continuous execution
+- Blocker escalation
+
+**Guardrails:**
+- No team idle unless blocker logged
+- 30-minute productivity check
+- AUTONOMOUS PRODUCTIVITY FAILURE alert
+
+**Tests:**
+- tests/test_daemon_heartbeat.py
+
+---
+
+## Operationalization Status Summary
+
+| Repo | Status | Guardrails | Tests |
+|------|--------|-----------|-------|
+| HKUDS/AI-Trader | ✅ YES | ✅ | ✅ |
+| google-research/timesfm | ⚠️ PARTIAL | ⚠️ | ❌ |
+| github/spec-kit | ✅ YES | ✅ | ⚠️ |
+| addyosmani/agent-skills | ✅ YES | ✅ | ✅ |
+| obra/superpowers | ⚠️ PARTIAL | ⚠️ | ❌ |
+| EvoMap/evolver | ✅ YES | ✅ | ⚠️ |
+| HKUDS/OpenSpace | ⚠️ PARTIAL | ⚠️ | ❌ |
+| Personal_AI_Infrastructure | ✅ YES | ✅ | N/A |
+| karpathy/autoresearch | ⚠️ PARTIAL | ⚠️ | ⚠️ |
+| atlas-gic | ❌ NO | N/A | N/A |
+| ruflo | ❌ NO | N/A | ❌ |
+| get-shit-done | ✅ YES | ✅ | ⚠️ |
+
+---
+
+## Next Steps
+
+1. Complete operationalization of PARTIAL repos
+2. Add missing tests for all repos
+3. Create runtime guardrails for all repos
+4. Review and update monthly
+
+---
+
+*This document is the canonical training map. Updates require Junior CEO decision and CEO notification.*
