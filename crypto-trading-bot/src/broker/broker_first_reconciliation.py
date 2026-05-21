@@ -13,6 +13,9 @@ from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
+# Import PositionRecord for type-safe position storage
+from core.position_manager import PositionRecord
+
 logger = logging.getLogger(__name__)
 
 
@@ -64,6 +67,21 @@ class BrokerFirstReconciliation:
         for symbol, broker_pos in broker_by_symbol.items():
             local_pos = local_positions.get(symbol)
             
+            # Create PositionRecord from broker data
+            broker_record = PositionRecord(
+                symbol=symbol,
+                qty=float(broker_pos['qty']),
+                avg_entry_price=float(broker_pos.get('avg_entry_price', broker_pos.get('current_price', 0))),
+                current_price=float(broker_pos['current_price']),
+                market_value=float(broker_pos['market_value']),
+                unrealized_pl=float(broker_pos.get('unrealized_pl', 0)),
+                unrealized_plpc=float(broker_pos.get('unrealized_plpc', 0)),
+                strategy_id='unknown',  # Will be populated later
+                entry_timestamp=datetime.now(timezone.utc).isoformat(),
+                last_updated=datetime.now(timezone.utc).isoformat(),
+                exit_rules={},
+            )
+            
             if local_pos is None:
                 # Broker has position, local does not -> create local
                 result = ReconciliationResult(
@@ -76,36 +94,40 @@ class BrokerFirstReconciliation:
                     action="create_local",
                     reason=f"Broker has {broker_pos['qty']} {symbol}, local missing. Creating local record."
                 )
-                corrected[symbol] = broker_pos
+                corrected[symbol] = broker_record
             else:
                 # Both have position -> compare
-                qty_diff = abs(float(broker_pos['qty']) - float(local_pos.get('qty', 0)))
-                value_diff = abs(float(broker_pos['market_value']) - float(local_pos.get('market_value', 0)))
+                # local_pos might be PositionRecord or dict
+                local_qty = float(getattr(local_pos, 'qty', local_pos.get('qty', 0)))
+                local_value = float(getattr(local_pos, 'market_value', local_pos.get('market_value', 0)))
+                
+                qty_diff = abs(float(broker_pos['qty']) - local_qty)
+                value_diff = abs(float(broker_pos['market_value']) - local_value)
                 
                 if qty_diff > 0.0001 or value_diff > 1.0:
                     result = ReconciliationResult(
                         symbol=symbol,
                         broker_qty=float(broker_pos['qty']),
-                        local_qty=float(local_pos.get('qty', 0)),
+                        local_qty=local_qty,
                         broker_value=float(broker_pos['market_value']),
-                        local_value=float(local_pos.get('market_value', 0)),
+                        local_value=local_value,
                         mismatch=True,
                         action="update_local",
-                        reason=f"Mismatch: broker qty={broker_pos['qty']} vs local qty={local_pos.get('qty', 0)}. Updating local to match broker."
+                        reason=f"Mismatch: broker qty={broker_pos['qty']} vs local qty={local_qty}. Updating local to match broker."
                     )
-                    corrected[symbol] = broker_pos
+                    corrected[symbol] = broker_record
                 else:
                     result = ReconciliationResult(
                         symbol=symbol,
                         broker_qty=float(broker_pos['qty']),
-                        local_qty=float(local_pos.get('qty', 0)),
+                        local_qty=local_qty,
                         broker_value=float(broker_pos['market_value']),
-                        local_value=float(local_pos.get('market_value', 0)),
+                        local_value=local_value,
                         mismatch=False,
                         action="ok",
                         reason="Positions match within tolerance."
                     )
-                    corrected[symbol] = local_pos
+                    corrected[symbol] = local_pos if isinstance(local_pos, PositionRecord) else broker_record
             
             results.append(result)
             self._log_reconciliation(result)
@@ -113,15 +135,18 @@ class BrokerFirstReconciliation:
         # Check for stale local positions (local has, broker doesn't)
         for symbol, local_pos in local_positions.items():
             if symbol not in broker_by_symbol:
+                local_qty = float(getattr(local_pos, 'qty', local_pos.get('qty', 0)))
+                local_value = float(getattr(local_pos, 'market_value', local_pos.get('market_value', 0)))
+                
                 result = ReconciliationResult(
                     symbol=symbol,
                     broker_qty=0.0,
-                    local_qty=float(local_pos.get('qty', 0)),
+                    local_qty=local_qty,
                     broker_value=0.0,
-                    local_value=float(local_pos.get('market_value', 0)),
+                    local_value=local_value,
                     mismatch=True,
                     action="remove_local",
-                    reason=f"Local position {symbol} ({local_pos.get('qty', 0)}) not found in broker. Removing stale local record."
+                    reason=f"Local position {symbol} ({local_qty}) not found in broker. Removing stale local record."
                 )
                 results.append(result)
                 self._log_reconciliation(result)

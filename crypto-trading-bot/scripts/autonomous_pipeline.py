@@ -18,11 +18,19 @@ import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 
-from pipeline_controller import PipelineController
+from pipeline_controller_v2 import PipelineController
 from agents.agent_runner import AgentRunner
 from data.data_fetcher import DataFetcher
 from broker.alpaca_client import AlpacaPaperClient
 from dashboard import dashboard_generator as dg
+
+# ENTRY LOCK: Check if new entries are halted
+ENTRY_LOCK_PATH = Path('/data/.openclaw/workspace/crypto-trading-bot/ENTRY_LOCK')
+if ENTRY_LOCK_PATH.exists():
+    print("[ENTRY LOCK] NEW ENTRIES ARE HALTED. ENTRY_LOCK file exists.")
+    print("[ENTRY LOCK] Cannot run pipeline until ENTRY_LOCK is removed.")
+    print("[ENTRY LOCK] EA Core integration not yet complete.")
+    exit(1)
 
 # Setup logging
 log_dir = Path('/data/.openclaw/workspace/crypto-trading-bot/logs')

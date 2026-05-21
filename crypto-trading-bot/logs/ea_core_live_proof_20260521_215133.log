@@ -1,0 +1,90 @@
+2026-05-21 21:51:34,488 [INFO] core.ea_core_engine: [EA CORE] Engine initialized
+2026-05-21 21:51:34,488 [INFO] pipeline_controller: [PipelineController] EA Core Engine INITIALIZED
+2026-05-21 21:51:34,488 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-21 21:51:34,488 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-21 21:51:34,488 [INFO] pipeline_controller: [PipelineController] LiveChartMonitor initialized
+2026-05-21 21:51:34,489 [INFO] pipeline_controller: PipelineController initialized
+2026-05-21 21:51:34,490 [INFO] pipeline_controller: === Starting cycle for BTC/USD ===
+2026-05-21 21:51:34,490 [INFO] pipeline_controller: [Stage 1] Fetching market data for BTC/USD
+2026-05-21 21:51:34,490 [INFO] data.data_fetcher: Fetching 168 hourly bars for BTC/USD
+2026-05-21 21:51:34,861 [INFO] data.data_fetcher: Data validation passed for BTC/USD
+2026-05-21 21:51:34,861 [INFO] data.data_fetcher: Fetched 168 bars for BTC/USD
+2026-05-21 21:51:34,862 [INFO] pipeline_controller: [Stage 2] EA Core: Primary decision check for BTC/USD
+2026-05-21 21:51:34,862 [INFO] core.ea_core_engine: [EA CORE] cycle_20260521_195134: Starting cycle for BTC/USD
+2026-05-21 21:51:35,505 [INFO] data.data_fetcher: Fetching 200 hourly bars for BTCUSD
+2026-05-21 21:51:35,604 [ERROR] data.data_fetcher: Failed to fetch data for BTCUSD: {"message":"invalid symbol: BTCUSD does not match ^[A-Z]+x?/[A-Z]+$"}
+
+2026-05-21 21:51:35,605 [INFO] evolver_runtime: [EVOLVER] Loaded 11 genes (11 active)
+2026-05-21 21:51:35,605 [INFO] evolver_runtime: [EVOLVER] Initialized 5 capsules
+2026-05-21 21:51:35,605 [INFO] strategy_validation_gate: [STRATEGY GATE] APPROVED: grid_trading_v1 on BTCUSD is ACTIVE — full size with Risk Governor approval, limit $200
+2026-05-21 21:51:35,705 [INFO] core.ea_core_engine: [EA CORE] Cycle cycle_20260521_195134 completed in 0.84s
+2026-05-21 21:51:35,705 [INFO] pipeline_controller: [Stage 2] EA Core APPROVED order for BTC/USD
+2026-05-21 21:51:35,705 [INFO] pipeline_controller: [Stage 4] Running orchestrator for BTC/USD
+2026-05-21 21:51:36,153 [INFO] orchestrator: [Pipeline Start] dec-20260521-195136-153500-BTCUSD for buy 0.006393463220712317 BTC/USD
+2026-05-21 21:51:36,153 [WARNING] pipeline_controller: Orchestrator REJECTED order for BTC/USD
+================================================================================
+CEO EA CORE LIVE PROOF
+Timestamp: 2026-05-21T19:51:33.969643+00:00
+================================================================================
+
+1. IMPORT CHECK
+   PipelineController imported from: pipeline_controller (v2)
+   File: pipeline_controller
+
+2. INITIALIZING PIPELINE CONTROLLER...
+   EA Core active: True
+   Broker Recon: True
+   Position Manager: True
+
+3. HARD BLOCK CHECK
+   ✅ EA Core is ACTIVE — hard block NOT triggered
+
+4. RUNNING ONE CYCLE...
+
+5. CYCLE RESULT ANALYSIS
+   Result keys: ['cycle_start', 'symbol', 'stages', 'success', 'errors']
+   Success: False
+
+6. STAGE-BY-STAGE VERIFICATION
+   data: success
+   ea_core: completed
+   backtest: skipped
+   orchestrator: REJECTED
+
+7. EA CORE VERIFICATION
+   ✅ EA Core WAS CALLED (Stage 2)
+   Approved: True
+   Status: completed
+   EA Core routed: True
+   EA Core internal stages:
+     load_state: success
+     broker_fetch: success
+     reconciliation: ok
+     halt_check: ok
+     leaderboard: ok
+     market_data: success
+     signal_generation: success
+     strategy_validation: active
+     position_check: ok
+     risk_governor: ALLOWED
+     duplicate_check: ok
+     execution: ready
+     exit_management: no_exits
+
+8. SAFETY GATE VERIFICATION
+   ✅ Broker-First Reconciliation: success
+   ✅ Strategy Validation Gate: active
+   ✅ Risk Governor: ALLOWED
+   ✅ Duplicate Order Prevention: ok
+
+9. EXECUTION VERIFICATION
+   Execution status: ready
+   ℹ️  Execution data: {'status': 'ready', 'note': 'Order validated and ready for submission'}
+
+10. PAPER MODE VERIFICATION
+   Paper only: True
+   Alpaca paper: True
+
+================================================================================
+END OF PROOF
+================================================================================

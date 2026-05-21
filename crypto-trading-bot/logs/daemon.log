@@ -363,3 +363,66 @@ _main__: Received signal 15, shutting down...
 2026-05-21 19:38:38,283 [INFO] __main__: Next cycle at: 2026-05-21 21:38:38 UTC (position monitor keeps running)
 2026-05-21 19:39:42,372 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
 2026-05-21 19:39:42,372 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77952.40, unrealized=0.89%, held=1.8h, high=$77952.40
+2026-05-21 19:44:42,670 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:44:42,670 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77806.40, unrealized=0.70%, held=1.9h, high=$77952.40
+2026-05-21 19:49:42,957 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:49:42,957 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77729.38, unrealized=0.60%, held=2.0h, high=$77952.40
+2026-05-21 19:54:43,246 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:54:43,246 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77729.38, unrealized=0.60%, held=2.1h, high=$77952.40
+2026-05-21 19:59:43,538 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:59:43,538 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77820.98, unrealized=0.72%, held=2.1h, high=$77952.40
+2026-05-21 20:04:43,864 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 20:04:43,864 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77669.64, unrealized=0.53%, held=2.2h, high=$77952.40
+2026-05-21 20:09:44,173 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 20:09:44,173 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77669.64, unrealized=0.53%, held=2.3h, high=$77952.40
+2026-05-21 20:14:44,480 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 20:14:44,480 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77638.90, unrealized=0.49%, held=2.4h, high=$77952.40
+2026-05-21 20:14:44,481 [WARNING] position_monitor_v2: [POSITION MONITOR] SELL_ALL TRIGGERED for BTCUSD: break_even_stop ($77638.90 <= $77649.92)
+2026-05-21 20:14:44,583 [INFO] evolver_runtime: [EVOLVER] Loaded 11 genes (11 active)
+2026-05-21 20:14:44,583 [INFO] evolver_runtime: [EVOLVER] Initialized 5 capsules
+2026-05-21 20:14:44,583 [INFO] position_monitor_v2: [POSITION MONITOR] Exit idempotency PASSED via EVOLVER: capsule=CAPSULE-005, gene=GENE-006
+2026-05-21 20:14:44,689 [INFO] broker.alpaca_client: Paper order submitted: sell 0.00129276 BTCUSD order_id=f3b92b8d-a410-4e34-a840-7ea7b7c0063a
+2026-05-21 20:14:44,689 [INFO] position_monitor_v2: [POSITION MONITOR] EXIT EXECUTED: SELL_ALL 0.00129276 BTCUSD reason=break_even_stop ($77638.90 <= $77649.92) order_id=f3b92b8d-a410-4e34-a840-7ea7b7c0063a
+2026-05-21 20:14:44,689 [INFO] position_monitor_v2: [POSITION MONITOR] BTCUSD: fully exited
+2026-05-21 20:19:44,991 [CRITICAL] position_monitor_v2: [RECONCILIATION] Broker shows 0 positions but local state has 1: ['BTCUSD']. CLEARING LOCAL STATE.
+2026-05-21 20:19:44,991 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 20:24:45,293 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 20:29:45,583 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 20:34:45,872 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 20:39:46,164 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 20:44:46,456 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 20:49:46,748 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 20:54:47,049 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 20:59:47,348 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:04:47,658 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:09:47,953 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:14:48,247 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:19:48,534 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:24:48,840 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:29:49,138 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:34:49,448 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:39:49,733 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:44:50,027 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:49:58,737 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-21 21:49:58,737 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-21 21:49:58,738 [INFO] __main__: [Daemon] LiveChartMonitor initialized
+2026-05-21 21:49:59,127 [INFO] position_monitor_v2: [POSITION MONITOR v2] Started (interval: 300s)
+2026-05-21 21:49:59,127 [INFO] __main__: [Daemon] Position monitor v2 started (5-min intervals, 24/7)
+2026-05-21 21:49:59,127 [INFO] __main__: [Daemon] Position monitor connected to chart intelligence
+2026-05-21 21:49:59,127 [INFO] __main__: ============================================================
+2026-05-21 21:49:59,127 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-21 21:49:59,127 [INFO] __main__: Interval: 4 hours
+2026-05-21 21:49:59,127 [INFO] __main__: PID: 6898
+2026-05-21 21:49:59,127 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-21 21:49:59,127 [INFO] __main__: ============================================================
+2026-05-21 21:49:59,127 [INFO] __main__: ============================================================
+2026-05-21 21:49:59,128 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-21 21:49:59,128 [INFO] __main__: ============================================================
+2026-05-21 21:49:59,426 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 21:49:59,602 [ERROR] __main__: Pipeline cycle failed: 
+2026-05-21 21:49:59,602 [INFO] __main__: [pipeline] [ENTRY LOCK] NEW ENTRIES ARE HALTED. ENTRY_LOCK file exists.
+2026-05-21 21:49:59,602 [INFO] __main__: [pipeline] [ENTRY LOCK] Cannot run pipeline until ENTRY_LOCK is removed.
+2026-05-21 21:49:59,602 [INFO] __main__: [pipeline] [ENTRY LOCK] EA Core integration not yet complete.
+2026-05-21 21:49:59,602 [INFO] __main__: Next cycle at: 2026-05-21 23:49:59 UTC (position monitor keeps running)
+2026-05-21 21:54:59,717 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 22:00:00,005 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
