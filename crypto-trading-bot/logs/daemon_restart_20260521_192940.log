@@ -1,0 +1,17 @@
+2026-05-21 19:29:41,075 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-21 19:29:41,075 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-21 19:29:41,075 [INFO] __main__: [Daemon] LiveChartMonitor initialized
+2026-05-21 19:29:41,464 [INFO] position_monitor_v2: [POSITION MONITOR v2] Started (interval: 300s)
+2026-05-21 19:29:41,465 [INFO] __main__: [Daemon] Position monitor v2 started (5-min intervals, 24/7)
+2026-05-21 19:29:41,465 [INFO] __main__: [Daemon] Position monitor connected to chart intelligence
+2026-05-21 19:29:41,465 [INFO] __main__: ============================================================
+2026-05-21 19:29:41,465 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-21 19:29:41,465 [INFO] __main__: Interval: 4 hours
+2026-05-21 19:29:41,465 [INFO] __main__: PID: 6692
+2026-05-21 19:29:41,466 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-21 19:29:41,466 [INFO] __main__: ============================================================
+2026-05-21 19:29:41,466 [INFO] __main__: ============================================================
+2026-05-21 19:29:41,466 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-21 19:29:41,466 [INFO] __main__: ============================================================
+2026-05-21 19:29:41,773 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:29:41,773 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77852.10, unrealized=0.76%, held=1.6h, high=$77852.10

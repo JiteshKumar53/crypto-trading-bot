@@ -333,5 +333,27 @@
 2026-05-21 19:26:11,711 [INFO] broker.alpaca_client: Paper order submitted: sell 0.00129276 BTCUSD order_id=add5c09b-2e09-41f9-a749-8ad8b533a6c4
 2026-05-21 19:26:11,711 [INFO] position_monitor_v2: [POSITION MONITOR] EXIT EXECUTED: SELL_PARTIAL 0.00129276 BTCUSD reason=partial_profit_1 (+0.61%) order_id=add5c09b-2e09-41f9-a749-8ad8b533a6c4
 2026-05-21 19:26:11,711 [INFO] position_monitor_v2: [POSITION MONITOR] BTCUSD: partial_sold flag SET, qty_sold=0.00129276
-129276 BTCUSD reason=partial_profit_1 (+0.61%) order_id=add5c09b-2e09-41f9-a749-8ad8b533a6c4
-2026-05-21 19:26:11,711 [INFO] position_monitor_v2: [POSITION MONITOR] BTCUSD: partial_sold flag SET, qty_sold=0.00129276
+2026-05-21 19:29:28,676 [INFO] __main__: Received signal 15, shutting down...
+2026-05-21 19:29:33,678 [INFO] position_monitor_v2: [POSITION MONITOR v2] Stopped
+2026-05-21 19:29:33,678 [INFO] __main__: [Daemon] Position monitor stopped on shutdown
+_main__: Received signal 15, shutting down...
+2026-05-21 19:29:30,804 [ERROR] __main__: Daemon already running. Exiting.
+2026-05-21 19:29:33,678 [INFO] position_monitor_v2: [POSITION MONITOR v2] Stopped
+2026-05-21 19:29:33,678 [INFO] __main__: [Daemon] Position monitor stopped on shutdown
+2026-05-21 19:29:41,075 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-21 19:29:41,075 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-21 19:29:41,075 [INFO] __main__: [Daemon] LiveChartMonitor initialized
+2026-05-21 19:29:41,464 [INFO] position_monitor_v2: [POSITION MONITOR v2] Started (interval: 300s)
+2026-05-21 19:29:41,465 [INFO] __main__: [Daemon] Position monitor v2 started (5-min intervals, 24/7)
+2026-05-21 19:29:41,465 [INFO] __main__: [Daemon] Position monitor connected to chart intelligence
+2026-05-21 19:29:41,465 [INFO] __main__: ============================================================
+2026-05-21 19:29:41,465 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-21 19:29:41,465 [INFO] __main__: Interval: 4 hours
+2026-05-21 19:29:41,465 [INFO] __main__: PID: 6692
+2026-05-21 19:29:41,466 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-21 19:29:41,466 [INFO] __main__: ============================================================
+2026-05-21 19:29:41,466 [INFO] __main__: ============================================================
+2026-05-21 19:29:41,466 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-21 19:29:41,466 [INFO] __main__: ============================================================
+2026-05-21 19:29:41,773 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 19:29:41,773 [INFO] position_monitor_v2:   BTCUSD: qty=0.001293, entry=$77263.60, current=$77852.10, unrealized=0.76%, held=1.6h, high=$77852.10
