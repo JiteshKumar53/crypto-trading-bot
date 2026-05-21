@@ -51,6 +51,10 @@ class PipelineController:
         self.use_backtest = use_backtest
         self.use_risk_governor = use_risk_governor
         self.paper_only = paper_only
+        
+        # Order cooldown: prevent multiple orders for same asset within interval
+        self.order_cooldown_seconds = 3600  # 1 hour between orders for same asset
+        self.last_order_time: Dict[str, float] = {}  # symbol -> timestamp
 
         # Initialize components
         self.alpaca = AlpacaPaperClient()
@@ -469,6 +473,26 @@ class PipelineController:
         if self.paper_only and not self.alpaca.is_paper():
             raise ValueError("Paper mode required but not in paper mode!")
 
+        # Order cooldown check
+        import time
+        now = time.time()
+        last_time = self.last_order_time.get(symbol, 0)
+        time_since_last = now - last_time
+        if time_since_last < self.order_cooldown_seconds:
+            cooldown_remaining = self.order_cooldown_seconds - time_since_last
+            logger.warning(
+                f"[Stage 6] ORDER COOLDOWN ACTIVE for {symbol}: "
+                f"{cooldown_remaining:.0f}s remaining. Last order: {time_since_last:.0f}s ago."
+            )
+            result["stages"]["execution"] = {
+                "status": "cooldown",
+                "reason": f"Order cooldown active: {cooldown_remaining:.0f}s remaining",
+                "last_order_seconds_ago": time_since_last,
+            }
+            return result
+        
+        self.last_order_time[symbol] = now
+        
         logger.info(f"[Stage 6] Executing paper order for {symbol}: {side} {qty:.6f}")
         order_result = self.alpaca.submit_order(
             symbol=symbol,

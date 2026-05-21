@@ -124,24 +124,11 @@ class GridTradingStrategy:
         # If we're near a grid level below center -> BUY (price dipped)
         # If we're near a grid level above center -> SELL (price peaked)
         
-        if current_position is None or current_position == "":
-            # Looking for entry - price near a grid level below center
-            if current_level_idx < len(grid_levels) // 2 and distance_to_grid < 0.005:
-                # Price is near a buy grid level (below center)
-                confidence = 1.0 - distance_to_grid * 100  # Higher confidence when closer to grid
-                return Signal(
-                    action="BUY",
-                    confidence=min(1.0, confidence),
-                    reason=f"Grid buy: Price near level {current_level_idx} ({current_level_price:.2f}), {distance_to_grid:.2%} from grid. Center: {center:.2f}",
-                    entry_price=current_price,
-                    stop_loss=support * 0.98,  # Below detected support
-                    take_profit=center,  # Sell back at center
-                )
-        
-        elif current_position == "long":
-            # Looking for exit - price near a grid level above entry
+        # SAFETY FIX: If already holding a position, don't buy again at same level
+        # Grid trading should buy once per level, then sell at next level up
+        if current_position == "long":
+            # Only look for exits when long
             if current_level_idx > len(grid_levels) // 2 and distance_to_grid < 0.005:
-                # Price is near a sell grid level (above center)
                 confidence = 1.0 - distance_to_grid * 100
                 return Signal(
                     action="SELL",
@@ -150,13 +137,28 @@ class GridTradingStrategy:
                     entry_price=current_price,
                 )
             
-            # Also sell if price dropped below support (range breakout)
             if current_price < support * 0.99:
                 return Signal(
                     action="SELL",
                     confidence=0.9,
                     reason=f"Stop loss: Price {current_price:.2f} below support {support:.2f}. Range breakout detected.",
                     entry_price=current_price,
+                )
+            
+            # Already long, no sell signal - HOLD
+            return Signal("HOLD", 0.0, f"Holding position. Price {current_price:.2f}. Waiting for next grid level.")
+        
+        if current_position is None or current_position == "":
+            # Looking for entry - price near a grid level below center
+            if current_level_idx < len(grid_levels) // 2 and distance_to_grid < 0.005:
+                confidence = 1.0 - distance_to_grid * 100
+                return Signal(
+                    action="BUY",
+                    confidence=min(1.0, confidence),
+                    reason=f"Grid buy: Price near level {current_level_idx} ({current_level_price:.2f}), {distance_to_grid:.2%} from grid. Center: {center:.2f}",
+                    entry_price=current_price,
+                    stop_loss=support * 0.98,
+                    take_profit=center,
                 )
         
         return Signal("HOLD", 0.0, f"Price {current_price:.2f} not near any grid level. Center: {center:.2f}")
