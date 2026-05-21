@@ -1,0 +1,112 @@
+{
+  "incident_id": "PROD-20260521-0919",
+  "incident_type": "AUTONOMOUS_PRODUCTIVITY_FAILURE",
+  "created_at": "2026-05-21T09:19:00+00:00",
+  "resolved_at": "2026-05-21T09:21:00+00:00",
+  "resolution_time_minutes": 2,
+  "root_cause": "Daemon crashed due to missing .env loading in systemd context. Restart loop for 2+ hours.",
+  "impact": "Zero pipeline cycles, zero strategy research, zero backtesting for 113 minutes.",
+  "work_queue": [
+    {
+      "id": "RECOVER-1",
+      "priority": "P0",
+      "team": "Execution/Monitoring",
+      "task": "Fix daemon .env loading and restart",
+      "status": "DONE",
+      "deadline": "2026-05-21T09:25:00Z",
+      "completed_at": "2026-05-21T09:21:00Z"
+    },
+    {
+      "id": "RECOVER-2",
+      "priority": "P0",
+      "team": "Strategy Research",
+      "task": "Search GitHub for open-source crypto trading strategies with backtests",
+      "status": "IN_PROGRESS",
+      "deadline": "2026-05-21T09:45:00Z",
+      "completed_at": null
+    },
+    {
+      "id": "RECOVER-3",
+      "priority": "P0",
+      "team": "Backtesting",
+      "task": "Backtest Donchian Channel on 4H BTC/USD data",
+      "status": "PENDING",
+      "deadline": "2026-05-21T09:45:00Z",
+      "completed_at": null
+    },
+    {
+      "id": "RECOVER-4",
+      "priority": "P0",
+      "team": "Backtesting",
+      "task": "Backtest Volatility-Filtered Momentum on 4H data",
+      "status": "PENDING",
+      "deadline": "2026-05-21T10:00:00Z",
+      "completed_at": null
+    },
+    {
+      "id": "RECOVER-5",
+      "priority": "P1",
+      "team": "Backtesting",
+      "task": "Backtest EMA Crossover 20/50 on 4H data",
+      "status": "PENDING",
+      "deadline": "2026-05-21T10:30:00Z",
+      "completed_at": null
+    },
+    {
+      "id": "RECOVER-6",
+      "priority": "P1",
+      "team": "Self-Evolution",
+      "task": "Log this incident as evolution event with prevention rules",
+      "status": "PENDING",
+      "deadline": "2026-05-21T09:30:00Z",
+      "completed_at": null
+    },
+    {
+      "id": "RECOVER-7",
+      "priority": "P1",
+      "team": "Risk",
+      "task": "Review why position monitor-only alerts masked pipeline failure",
+      "status": "PENDING",
+      "deadline": "2026-05-21T10:00:00Z",
+      "completed_at": null
+    },
+    {
+      "id": "RECOVER-8",
+      "priority": "P2",
+      "team": "Chief Architect",
+      "task": "Add .env loading to all Python entry points (tests, scripts, src)",
+      "status": "PENDING",
+      "deadline": "2026-05-21T10:30:00Z",
+      "completed_at": null
+    },
+    {
+      "id": "RECOVER-9",
+      "priority": "P2",
+      "team": "Execution/Monitoring",
+      "task": "Add pipeline cycle health check (last cycle timestamp)",
+      "status": "PENDING",
+      "deadline": "2026-05-21T11:00:00Z",
+      "completed_at": null
+    },
+    {
+      "id": "RECOVER-10",
+      "priority": "P2",
+      "team": "Jarvis",
+      "task": "Create pre-report health check checklist",
+      "status": "PENDING",
+      "deadline": "2026-05-21T09:30:00Z",
+      "completed_at": null
+    }
+  ],
+  "prevention_rules": [
+    "Before every report, verify last pipeline cycle timestamp",
+    "If no cycle in >30 min, report AUTONOMOUS_PRODUCTIVITY_FAILURE",
+    "Position monitor logs alone do NOT mean system is healthy",
+    "Before claiming 'actions running', verify actual execution",
+    "Daemon must log .env loading success/failure on startup",
+    "Add health-check endpoint reporting last cycle time",
+    "Add test: daemon starts without manual .env sourcing",
+    "All idle periods >30 min must be logged as evolution events"
+  ],
+  "notes": "Recovery in progress. Next report at 09:45 with backtest results."
+}

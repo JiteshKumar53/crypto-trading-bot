@@ -1,0 +1,62 @@
+{
+  "strategy_id": "channel_breakout_v1",
+  "name": "Channel Breakout Strategy",
+  "version": "1.0",
+  "description": "Price momentum-based technical strategy using rolling highs/lows. Long when price breaks above Y-period rolling high, exit when falls below X-period rolling low. Sharpe ~2.04 on Top 10 crypto universe.",
+  "category": "momentum",
+  "regime": "trending",
+  "timeframe": "1d",
+  "universe": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "author": "Jarvis - External Research (GitHub/adamkucson)",
+  "source": "https://github.com/adamkucson/Crypto-Alpha-Strategies",
+  "date_added": "2026-05-21",
+  "status": "testing",
+  "confidence": 0.82,
+  
+  "entry_rules": {
+    "long": "Price breaks above Y-period rolling high",
+    "short": "Price breaks below Y-period rolling high (optional)"
+  },
+  "exit_rules": {
+    "long": "Price falls below X-period rolling low",
+    "short": "Price rises above X-period rolling high (optional)"
+  },
+  "parameters": {
+    "breakout_period": {
+      "default": 75,
+      "range": [50, 100],
+      "description": "Period for rolling high breakout"
+    },
+    "exit_period": {
+      "default": 20,
+      "range": [10, 30],
+      "description": "Period for rolling low exit"
+    },
+    "position_size": {
+      "default": 0.1,
+      "range": [0.05, 0.2],
+      "description": "Position size as fraction of capital per signal"
+    }
+  },
+  
+  "backtest_results": {},
+  
+  "research_notes": {
+    "source_performance": {
+      "channel_breakout_top10": {
+        "sharpe_ratio": 2.04,
+        "annual_return": "56.9%",
+        "max_drawdown": "-17.2%",
+        "alpha_annual": "43.5%",
+        "beta": 0.20,
+        "alpha_t_stat": 1.76
+      }
+    },
+    "key_insight": "Fixed-weight allocation essential. Fully-invested approaches produced -70% drawdowns. Quality beats quantity.",
+    "risk_profile": "Medium - requires position sizing discipline"
+  },
+  
+  "implementation_status": "pending",
+  "backtest_status": "pending",
+  "validation_status": "pending"
+}

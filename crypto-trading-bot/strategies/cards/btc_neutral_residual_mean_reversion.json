@@ -1,0 +1,58 @@
+{
+  "strategy_id": "btc_neutral_residual_mean_reversion_v1",
+  "name": "BTC-Neutral Residual Mean Reversion",
+  "version": "1.0",
+  "description": "Isolates idiosyncratic coin performance independent of Bitcoin using rolling regression. Trades residuals (returns net of BTC influence) for mean reversion. Best Sharpe ~2.3 in research.",
+  "category": "mean_reversion",
+  "regime": "ranging",
+  "timeframe": "1d",
+  "universe": ["ETHUSD", "SOLUSD"],
+  "author": "Jarvis - External Research (Medium/briplotnik)",
+  "source": "https://medium.com/@briplotnik/systematic-crypto-trading-strategies-momentum-mean-reversion-volatility-filtering-8d7da06d60ed",
+  "date_added": "2026-05-21",
+  "status": "testing",
+  "confidence": 0.75,
+  
+  "entry_rules": {
+    "long": "Residual Z-score below negative threshold (oversold relative to BTC)",
+    "short": "Residual Z-score above positive threshold (overbought relative to BTC)"
+  },
+  "exit_rules": {
+    "long": "Residual Z-score reverts to 0",
+    "short": "Residual Z-score reverts to 0"
+  },
+  "parameters": {
+    "regression_window": {
+      "default": 180,
+      "range": [90, 360],
+      "description": "Rolling regression window for beta calculation"
+    },
+    "min_periods": {
+      "default": 30,
+      "range": [20, 60],
+      "description": "Minimum periods for regression"
+    },
+    "z_score_threshold": {
+      "default": 1.5,
+      "range": [1.0, 2.5],
+      "description": "Z-score threshold for entry"
+    }
+  },
+  
+  "backtest_results": {},
+  
+  "research_notes": {
+    "source_performance": {
+      "btc_neutral_residual_mr": {
+        "sharpe_ratio": 2.3,
+        "notes": "Particularly strong post-2021. Isolates alpha from BTC beta."
+      }
+    },
+    "key_insight": "Stripping out BTC component reveals true idiosyncratic alpha. Requires longer holding periods.",
+    "risk_profile": "Lower frequency, higher conviction per trade"
+  },
+  
+  "implementation_status": "pending",
+  "backtest_status": "pending",
+  "validation_status": "pending"
+}

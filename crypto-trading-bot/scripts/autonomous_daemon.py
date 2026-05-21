@@ -21,6 +21,17 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Load environment variables from .env file manually
+env_path = Path('/data/.openclaw/workspace/crypto-trading-bot/.env')
+if env_path.exists():
+    with open(env_path) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#'):
+                if '=' in line:
+                    key, value = line.split('=', 1)
+                    os.environ[key] = value
+
 from position_monitor_v2 import PositionMonitorV2
 from chart_monitor.live_chart_monitor import LiveChartMonitor
 from chart_monitor.data_sources.alpaca_source import AlpacaDataSource

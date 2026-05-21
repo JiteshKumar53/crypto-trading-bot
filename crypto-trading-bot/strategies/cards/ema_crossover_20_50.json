@@ -1,0 +1,59 @@
+{
+  "strategy_id": "ema_crossover_20_50_v1",
+  "name": "EMA Crossover 20/50 (Daily)",
+  "version": "1.0",
+  "description": "Golden cross / death cross approach with shorter EMAs. Buy when 20 EMA crosses above 50 EMA, sell on reverse. Pure trend-following. High return (+1446%) but high drawdown (-51%).",
+  "category": "trend_following",
+  "regime": "trending",
+  "timeframe": "1d",
+  "universe": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "author": "Jarvis - External Research (CoinQuant)",
+  "source": "https://www.coinquant.ai/blog/best-crypto-trading-strategy-in-2025-what-the-data-shows",
+  "date_added": "2026-05-21",
+  "status": "testing",
+  "confidence": 0.70,
+  
+  "entry_rules": {
+    "long": "20-period EMA crosses above 50-period EMA",
+    "short": "20-period EMA crosses below 50-period EMA"
+  },
+  "exit_rules": {
+    "long": "20-period EMA crosses below 50-period EMA",
+    "short": "20-period EMA crosses above 50-period EMA"
+  },
+  "parameters": {
+    "fast_ema": {
+      "default": 20,
+      "range": [10, 30],
+      "description": "Fast EMA period"
+    },
+    "slow_ema": {
+      "default": 50,
+      "range": [30, 100],
+      "description": "Slow EMA period"
+    }
+  },
+  
+  "backtest_results": {},
+  
+  "research_notes": {
+    "source_performance": {
+      "ema_20_50_daily_btc": {
+        "total_return": "+1446%",
+        "sharpe_ratio": 1.00,
+        "max_drawdown": "-51.4%",
+        "profit_factor": 2.40,
+        "win_rate": "40.9%",
+        "avg_win_loss_ratio": 3.47,
+        "cagr": "40.8%",
+        "total_trades": 22
+      }
+    },
+    "key_insight": "Highest raw return but requires iron conviction. 51% drawdown means watching half capital evaporate.",
+    "risk_profile": "High return, high drawdown - psychologically demanding"
+  },
+  
+  "implementation_status": "pending",
+  "backtest_status": "pending",
+  "validation_status": "pending"
+}

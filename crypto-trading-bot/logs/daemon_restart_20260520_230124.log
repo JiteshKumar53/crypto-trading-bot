@@ -62,3 +62,155 @@
 2026-05-21 00:36:30,616 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2122.95, unrealized=-0.80%, held=1.6h, high=$2136.42
 2026-05-21 00:41:30,918 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
 2026-05-21 00:41:30,918 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2122.95, unrealized=-0.80%, held=1.7h, high=$2136.42
+2026-05-21 00:46:31,209 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:46:31,209 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2122.95, unrealized=-0.80%, held=1.8h, high=$2136.42
+2026-05-21 00:51:31,506 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:51:31,507 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2122.95, unrealized=-0.80%, held=1.8h, high=$2136.42
+2026-05-21 00:56:31,799 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 00:56:31,799 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2125.83, unrealized=-0.66%, held=1.9h, high=$2136.42
+2026-05-21 01:01:32,100 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:01:32,100 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2125.83, unrealized=-0.66%, held=2.0h, high=$2136.42
+2026-05-21 01:06:32,388 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:06:32,388 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2122.90, unrealized=-0.80%, held=2.1h, high=$2136.42
+2026-05-21 01:11:32,692 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:11:32,692 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2125.27, unrealized=-0.69%, held=2.2h, high=$2136.42
+2026-05-21 01:16:32,981 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:16:32,981 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2125.27, unrealized=-0.69%, held=2.3h, high=$2136.42
+2026-05-21 01:21:33,281 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:21:33,281 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2121.55, unrealized=-0.86%, held=2.3h, high=$2136.42
+2026-05-21 01:26:33,574 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:26:33,575 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2121.55, unrealized=-0.86%, held=2.4h, high=$2136.42
+2026-05-21 01:31:33,863 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:31:33,863 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2121.55, unrealized=-0.86%, held=2.5h, high=$2136.42
+2026-05-21 01:36:34,168 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:36:34,168 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2121.55, unrealized=-0.86%, held=2.6h, high=$2136.42
+2026-05-21 01:41:34,459 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:41:34,459 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2121.55, unrealized=-0.86%, held=2.7h, high=$2136.42
+2026-05-21 01:46:34,761 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:46:34,761 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2121.55, unrealized=-0.86%, held=2.8h, high=$2136.42
+2026-05-21 01:51:35,053 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:51:35,053 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2121.55, unrealized=-0.86%, held=2.8h, high=$2136.42
+2026-05-21 01:56:35,342 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 01:56:35,342 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2126.83, unrealized=-0.62%, held=2.9h, high=$2136.42
+2026-05-21 02:01:35,789 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:01:35,789 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2126.83, unrealized=-0.62%, held=3.0h, high=$2136.42
+2026-05-21 02:06:36,078 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:06:36,078 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2130.70, unrealized=-0.44%, held=3.1h, high=$2136.42
+2026-05-21 02:11:36,372 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:11:36,373 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2128.90, unrealized=-0.52%, held=3.2h, high=$2136.42
+2026-05-21 02:16:36,679 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:16:36,679 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2128.90, unrealized=-0.52%, held=3.3h, high=$2136.42
+2026-05-21 02:21:36,968 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:21:36,968 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2128.90, unrealized=-0.52%, held=3.3h, high=$2136.42
+2026-05-21 02:26:37,254 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:26:37,254 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2130.61, unrealized=-0.44%, held=3.4h, high=$2136.42
+2026-05-21 02:31:37,543 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:31:37,543 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2130.61, unrealized=-0.44%, held=3.5h, high=$2136.42
+2026-05-21 02:36:37,846 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:36:37,846 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2133.40, unrealized=-0.31%, held=3.6h, high=$2136.42
+2026-05-21 02:41:38,137 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:41:38,137 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2133.31, unrealized=-0.31%, held=3.7h, high=$2136.42
+2026-05-21 02:46:38,426 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:46:38,426 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2133.31, unrealized=-0.31%, held=3.8h, high=$2136.42
+2026-05-21 02:51:38,726 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:51:38,727 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2133.31, unrealized=-0.31%, held=3.8h, high=$2136.42
+2026-05-21 02:56:39,015 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 02:56:39,015 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2133.31, unrealized=-0.31%, held=3.9h, high=$2136.42
+2026-05-21 03:01:39,306 [INFO] position_monitor_v2: [POSITION MONITOR] Checking 1 open positions
+2026-05-21 03:01:39,306 [INFO] position_monitor_v2:   ETHUSD: qty=0.232174, entry=$2140.02, current=$2143.50, unrealized=0.16%, held=4.0h, high=$2143.50
+2026-05-21 03:01:39,306 [WARNING] position_monitor_v2: [POSITION MONITOR] SELL_ALL TRIGGERED for ETHUSD: stale_profit_exit (4.0h, 0.16%)
+2026-05-21 03:01:39,401 [INFO] evolver_runtime: [EVOLVER] Loaded 11 genes (11 active)
+2026-05-21 03:01:39,401 [INFO] evolver_runtime: [EVOLVER] Initialized 5 capsules
+2026-05-21 03:01:39,401 [INFO] position_monitor_v2: [POSITION MONITOR] Exit idempotency PASSED via EVOLVER: capsule=CAPSULE-005, gene=GENE-006
+2026-05-21 03:01:39,501 [INFO] broker.alpaca_client: Paper order submitted: sell 0.232174405 ETHUSD order_id=e730cd5d-c700-4c33-adb9-f0d3a5ab3038
+2026-05-21 03:01:39,501 [INFO] position_monitor_v2: [POSITION MONITOR] EXIT EXECUTED: SELL_ALL 0.232174405 ETHUSD reason=stale_profit_exit (4.0h, 0.16%) order_id=e730cd5d-c700-4c33-adb9-f0d3a5ab3038
+2026-05-21 03:01:39,501 [INFO] position_monitor_v2: [POSITION MONITOR] ETHUSD: fully exited
+2026-05-21 03:06:39,791 [CRITICAL] position_monitor_v2: [RECONCILIATION] Broker shows 0 positions but local state has 1: ['ETHUSD']. CLEARING LOCAL STATE.
+2026-05-21 03:06:39,791 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 03:10:35,628 [INFO] __main__: ============================================================
+2026-05-21 03:10:35,628 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-21 03:10:35,628 [INFO] __main__: ============================================================
+2026-05-21 03:11:40,090 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 03:16:40,376 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 03:19:16,069 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-21 03:19:16,070 [INFO] __main__: Next cycle at: 2026-05-21 05:19:16 UTC (position monitor keeps running)
+2026-05-21 03:21:40,669 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 03:26:40,952 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 03:31:41,252 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 03:36:41,543 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 03:41:41,829 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 03:46:42,119 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 03:51:42,404 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 03:56:42,709 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:01:42,996 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:06:43,297 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:11:43,585 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:16:43,894 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:21:44,182 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:26:44,472 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:31:44,766 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:36:45,056 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:41:45,345 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:46:45,631 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:51:45,933 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 04:56:46,220 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:01:46,502 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:06:46,785 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:11:47,075 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:16:47,375 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:21:47,665 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:26:47,954 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:31:48,252 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:36:48,541 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:41:48,830 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:46:49,116 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:51:49,401 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 05:56:49,690 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:01:49,977 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:06:50,275 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:11:50,566 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:16:50,854 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:21:51,152 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:26:51,444 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:31:51,728 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:36:52,016 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:41:52,317 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:46:52,604 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:51:52,901 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 06:56:53,202 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:01:53,489 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:06:53,789 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:11:54,076 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:16:54,374 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:19:16,070 [INFO] __main__: ============================================================
+2026-05-21 07:19:16,070 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-21 07:19:16,070 [INFO] __main__: ============================================================
+2026-05-21 07:21:54,658 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:26:35,881 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-21 07:26:35,881 [INFO] __main__: Next cycle at: 2026-05-21 09:26:35 UTC (position monitor keeps running)
+2026-05-21 07:26:54,958 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:31:55,248 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:36:55,552 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:41:55,838 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:46:56,124 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:51:56,411 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 07:56:56,712 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:01:57,001 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:06:57,283 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:11:57,574 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:16:57,861 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:21:58,152 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:26:58,452 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:31:58,755 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:36:59,043 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:41:59,334 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:46:59,639 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:51:59,926 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 08:57:00,229 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 09:02:00,542 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 09:07:00,844 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 09:12:01,131 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 09:17:01,434 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 09:20:22,550 [INFO] __main__: Received signal 15, shutting down...
+2026-05-21 09:20:27,553 [INFO] position_monitor_v2: [POSITION MONITOR v2] Stopped
+2026-05-21 09:20:27,553 [INFO] __main__: [Daemon] Position monitor stopped on shutdown

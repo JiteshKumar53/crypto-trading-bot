@@ -1,0 +1,68 @@
+{
+  "strategy_id": "volatility_filtered_momentum_v1",
+  "name": "Volatility-Filtered Momentum",
+  "version": "1.0",
+  "description": "Momentum strategy with volatility filter. Only trades when rolling volatility falls below threshold, improving signal consistency. Based on Medium research showing Sharpe ~1.2 with improved stability.",
+  "category": "momentum",
+  "regime": "trending_low_vol",
+  "timeframe": "1h",
+  "universe": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "author": "Jarvis - External Research (Medium/briplotnik)",
+  "source": "https://medium.com/@briplotnik/systematic-crypto-trading-strategies-momentum-mean-reversion-volatility-filtering-8d7da06d60ed",
+  "date_added": "2026-05-21",
+  "status": "testing",
+  "confidence": 0.80,
+  
+  "entry_rules": {
+    "long": "Z-score of returns above threshold AND rolling volatility below max_volatility threshold",
+    "short": "Z-score of returns below negative threshold AND rolling volatility below max_volatility threshold"
+  },
+  "exit_rules": {
+    "long": "Z-score reverts to mean or volatility spikes above threshold",
+    "short": "Z-score reverts to mean or volatility spikes above threshold"
+  },
+  "parameters": {
+    "short_window": {
+      "default": 10,
+      "range": [5, 20],
+      "description": "Short window for return calculation"
+    },
+    "long_window": {
+      "default": 30,
+      "range": [20, 60],
+      "description": "Long window for return calculation"
+    },
+    "z_score_threshold": {
+      "default": 1.0,
+      "range": [0.5, 2.0],
+      "description": "Z-score threshold for entry"
+    },
+    "volatility_window": {
+      "default": 20,
+      "range": [10, 30],
+      "description": "Rolling volatility lookback"
+    },
+    "max_volatility": {
+      "default": 0.05,
+      "range": [0.02, 0.10],
+      "description": "Maximum allowed volatility for entry (as decimal)"
+    }
+  },
+  
+  "backtest_results": {},
+  
+  "research_notes": {
+    "source_performance": {
+      "vol_filtered_momentum": {
+        "sharpe_ratio": 1.2,
+        "notes": "Improved stability vs unfiltered momentum. Better in post-2021 regime."
+      }
+    },
+    "key_insight": "Momentum is more effective during stable periods. Volatility filter improves consistency.",
+    "risk_profile": "Medium - filtered entries reduce whipsaw losses"
+  },
+  
+  "implementation_status": "pending",
+  "backtest_status": "pending",
+  "validation_status": "pending"
+}

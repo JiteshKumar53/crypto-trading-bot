@@ -1,0 +1,64 @@
+{
+  "strategy_id": "donchian_channel_breakout_v1",
+  "name": "Donchian Channel Breakout",
+  "version": "1.0",
+  "description": "Volatility breakout strategy based on Turtle Trading methodology. Enters long when price breaks above N-period high, exits on opposite signal. Adapted from TradingView/CoinQuant research showing best risk-adjusted returns in crypto.",
+  "category": "momentum",
+  "regime": "trending",
+  "timeframe": "4h",
+  "universe": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "author": "Jarvis - External Research (CoinQuant/TradingView)",
+  "source": "https://www.coinquant.ai/blog/best-crypto-trading-strategy-in-2025-what-the-data-shows",
+  "date_added": "2026-05-21",
+  "status": "testing",
+  "confidence": 0.85,
+  
+  "entry_rules": {
+    "long": "Price closes above the N-period Donchian upper band (highest high of last N periods)",
+    "short": "Price closes below the N-period Donchian lower band (lowest low of last N periods)"
+  },
+  "exit_rules": {
+    "long": "Price closes below the N-period Donchian lower band",
+    "short": "Price closes above the N-period Donchian upper band"
+  },
+  "parameters": {
+    "channel_period": {
+      "default": 20,
+      "range": [10, 50],
+      "description": "Lookback period for Donchian channel calculation"
+    },
+    "atr_period": {
+      "default": 14,
+      "range": [10, 21],
+      "description": "ATR period for position sizing"
+    },
+    "risk_per_trade": {
+      "default": 0.02,
+      "range": [0.01, 0.05],
+      "description": "Risk per trade as fraction of equity"
+    }
+  },
+  
+  "backtest_results": {},
+  
+  "research_notes": {
+    "source_performance": {
+      "donchian_20_4h_btc": {
+        "total_return": "+94.8%",
+        "sharpe_ratio": 1.95,
+        "max_drawdown": "-21.6%",
+        "profit_factor": 2.45,
+        "win_rate": "33.3%",
+        "avg_win_loss_ratio": 4.90,
+        "cagr": "94.8%",
+        "total_trades": 21
+      }
+    },
+    "key_insight": "Accept many small losses, let few big winners pay for everything. Best risk-adjusted performance of three tested strategies.",
+    "risk_profile": "Medium - requires psychological discipline due to low win rate"
+  },
+  
+  "implementation_status": "pending",
+  "backtest_status": "pending",
+  "validation_status": "pending"
+}
