@@ -154,7 +154,17 @@ class EvolverRuntime:
             result = validate_strategy(strategy, asset)
             if not result.approved:
                 return {"passed": False, "blocked": True, "reason": f"Strategy validation failed: {result.reason}", "capsule": "CAPSULE-001", "gene": "GENE-001"}
-            return {"passed": True, "blocked": False, "reason": "Strategy validated", "status": result.strategy_status, "capsule": "CAPSULE-001", "gene": "GENE-001"}
+            # Pass through all constraints for pipeline to enforce
+            return {
+                "passed": True,
+                "blocked": False,
+                "reason": "Strategy validated",
+                "status": result.strategy_status,
+                "max_position_size": result.max_position_size,
+                "max_open_positions": result.max_open_positions,
+                "capsule": "CAPSULE-001",
+                "gene": "GENE-001"
+            }
         except Exception as e:
             return {"passed": False, "blocked": True, "reason": f"Strategy validation error: {e}", "capsule": "CAPSULE-001", "gene": "GENE-001"}
 

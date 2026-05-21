@@ -151,9 +151,19 @@ def validate_strategy(strategy_name: str, asset: str) -> ValidationResult:
         )
     
     if status == "active":
+        max_size = strategy_data.get("active_limit_usd", 500.0)
         logger.info(
             f"[STRATEGY GATE] APPROVED: {strategy_name} on {asset} "
-            f"is ACTIVE — full size with Risk Governor approval"
+            f"is ACTIVE — full size with Risk Governor approval, limit ${max_size}"
+        )
+        return ValidationResult(
+            approved=True,
+            reason="Strategy is ACTIVE — full size with Risk Governor approval",
+            max_position_size=max_size,
+            max_open_positions=5,
+            strategy_status="active",
+            backtest_return=backtest_return,
+            backtest_sharpe=backtest_sharpe
         )
         return ValidationResult(
             approved=True,

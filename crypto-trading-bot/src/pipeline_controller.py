@@ -313,10 +313,20 @@ class PipelineController:
             return result
         else:
             constraints = gate_result.get("constraints", {})
-            if gate_result.get("status") == "testing":
+            gate_status = gate_result.get("status", "unknown")
+            
+            # Enforce ACTIVE strategy limit if present
+            if gate_status == "active":
+                active_limit = gate_result.get("max_position_size", 500.0)
+                if order_value > active_limit:
+                    order_value = min(order_value, active_limit)
+                    qty = order_value / current_price
+                    logger.info(f"[STAGE 3.5] ACTIVE strategy limit enforced: ${order_value:.2f} (max ${active_limit})")
+            elif gate_status == "testing":
                 order_value = min(order_value, 100.0)
                 qty = order_value / current_price
                 logger.info(f"[STAGE 3.5] Testing mode via EVOLVER: order size limited to ${order_value:.2f}")
+            
             logger.info(f"[STAGE 3.5] Strategy validation PASSED via EVOLVER: {strategy_name} — capsule={gate_result.get('capsule')}, gene={gate_result.get('gene')}")
             result["stages"]["strategy_validation"] = {
                 "status": "approved",
@@ -324,6 +334,7 @@ class PipelineController:
                 "strategy_name": strategy_name,
                 "capsule": gate_result.get("capsule"),
                 "gene": gate_result.get("gene"),
+                "max_position_size": order_value,
             }
         
         # Stage 4: Risk Governor check
