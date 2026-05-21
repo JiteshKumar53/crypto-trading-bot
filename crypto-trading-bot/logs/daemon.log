@@ -468,3 +468,25 @@ _main__: Received signal 15, shutting down...
 2026-05-21 23:46:35,893 [INFO] __main__: [pipeline] [ENTRY LOCK] Cannot run pipeline until ENTRY_LOCK is removed.
 2026-05-21 23:46:35,893 [INFO] __main__: [pipeline] [ENTRY LOCK] EA Core integration not yet complete.
 2026-05-21 23:46:35,893 [INFO] __main__: Next cycle at: 2026-05-22 01:46:35 UTC (position monitor keeps running)
+2026-05-21 23:51:36,015 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:56:36,314 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-22 00:01:36,597 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-22 00:06:36,887 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-22 00:06:43,979 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-22 00:06:43,979 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-22 00:06:43,979 [INFO] __main__: [Daemon] LiveChartMonitor initialized
+2026-05-22 00:06:44,347 [INFO] position_monitor_v2: [POSITION MONITOR v2] Started (interval: 300s)
+2026-05-22 00:06:44,347 [INFO] __main__: [Daemon] Position monitor v2 started (5-min intervals, 24/7)
+2026-05-22 00:06:44,347 [INFO] __main__: [Daemon] Position monitor connected to chart intelligence
+2026-05-22 00:06:44,347 [INFO] __main__: ============================================================
+2026-05-22 00:06:44,347 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-22 00:06:44,347 [INFO] __main__: Interval: 4 hours
+2026-05-22 00:06:44,347 [INFO] __main__: PID: 7025
+2026-05-22 00:06:44,347 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-22 00:06:44,347 [INFO] __main__: ============================================================
+2026-05-22 00:06:44,347 [INFO] __main__: ============================================================
+2026-05-22 00:06:44,347 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-22 00:06:44,347 [INFO] __main__: ============================================================
+2026-05-22 00:06:44,648 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-22 00:06:48,479 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-22 00:06:48,479 [INFO] __main__: Next cycle at: 2026-05-22 02:06:48 UTC (position monitor keeps running)

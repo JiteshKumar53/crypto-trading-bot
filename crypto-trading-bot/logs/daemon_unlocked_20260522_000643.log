@@ -1,0 +1,18 @@
+2026-05-22 00:06:43,979 [INFO] chart_monitor.chart_analyzer: [ChartAnalyzer] Initialized
+2026-05-22 00:06:43,979 [INFO] chart_monitor.live_chart_monitor: [LiveChartMonitor] Initialized
+2026-05-22 00:06:43,979 [INFO] __main__: [Daemon] LiveChartMonitor initialized
+2026-05-22 00:06:44,347 [INFO] position_monitor_v2: [POSITION MONITOR v2] Started (interval: 300s)
+2026-05-22 00:06:44,347 [INFO] __main__: [Daemon] Position monitor v2 started (5-min intervals, 24/7)
+2026-05-22 00:06:44,347 [INFO] __main__: [Daemon] Position monitor connected to chart intelligence
+2026-05-22 00:06:44,347 [INFO] __main__: ============================================================
+2026-05-22 00:06:44,347 [INFO] __main__: JARVIS AUTONOMOUS DAEMON STARTED
+2026-05-22 00:06:44,347 [INFO] __main__: Interval: 4 hours
+2026-05-22 00:06:44,347 [INFO] __main__: PID: 7025
+2026-05-22 00:06:44,347 [INFO] __main__: PID file: /tmp/jarvis_autonomous_daemon.pid
+2026-05-22 00:06:44,347 [INFO] __main__: ============================================================
+2026-05-22 00:06:44,347 [INFO] __main__: ============================================================
+2026-05-22 00:06:44,347 [INFO] __main__: DAEMON: Starting autonomous pipeline cycle
+2026-05-22 00:06:44,347 [INFO] __main__: ============================================================
+2026-05-22 00:06:44,648 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-22 00:06:48,479 [INFO] __main__: Pipeline cycle completed successfully
+2026-05-22 00:06:48,479 [INFO] __main__: Next cycle at: 2026-05-22 02:06:48 UTC (position monitor keeps running)

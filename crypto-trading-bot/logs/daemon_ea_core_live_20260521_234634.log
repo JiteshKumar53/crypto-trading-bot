@@ -19,3 +19,7 @@
 2026-05-21 23:46:35,893 [INFO] __main__: [pipeline] [ENTRY LOCK] Cannot run pipeline until ENTRY_LOCK is removed.
 2026-05-21 23:46:35,893 [INFO] __main__: [pipeline] [ENTRY LOCK] EA Core integration not yet complete.
 2026-05-21 23:46:35,893 [INFO] __main__: Next cycle at: 2026-05-22 01:46:35 UTC (position monitor keeps running)
+2026-05-21 23:51:36,015 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-21 23:56:36,314 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-22 00:01:36,597 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
+2026-05-22 00:06:36,887 [INFO] position_monitor_v2: [POSITION MONITOR] No open positions
