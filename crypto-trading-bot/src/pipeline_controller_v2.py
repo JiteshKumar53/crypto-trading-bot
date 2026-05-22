@@ -8,8 +8,8 @@ CRITICAL ARCHITECTURE:
 4. If EA Core is not active, ALL new entries are HARD BLOCKED
 """
 
-import os
-import sys
+import time
+import json
 import logging
 from typing import Dict, List, Optional
 from datetime import datetime, timezone
@@ -25,6 +25,7 @@ from orchestrator import TradingOrchestrator
 from memory.decision_log import DecisionLog
 from chart_monitor.data_sources.alpaca_source import AlpacaDataSource
 from chart_monitor.live_chart_monitor import LiveChartMonitor, ChartObservationReporter
+from position_tracker import record_entry
 
 # EA Core Engine — MANDATORY for all order execution
 from core.ea_core_engine import EACoreEngine
@@ -220,7 +221,7 @@ class PipelineController:
         order_value = portfolio_value * 0.05
         qty = order_value / current_price
         
-        # Enforce limits from EA Core
+        # Enforce limits from EA Core — MUST cap BEFORE orchestrator to avoid rejection
         if gate_status == "active":
             active_limit = gate_max_size
             if order_value > active_limit:
@@ -228,9 +229,15 @@ class PipelineController:
                 qty = order_value / current_price
                 logger.info(f"[Stage 4] ACTIVE limit: ${order_value:.2f} (max ${active_limit})")
         elif gate_status == "testing":
+            # CEO VALIDATION MODE: Hard cap at $100 for testing
             order_value = min(order_value, 100.0)
             qty = order_value / current_price
-            logger.info(f"[Stage 4] TESTING limit: ${order_value:.2f}")
+            logger.info(f"[Stage 4] TESTING limit: ${order_value:.2f} (hard cap $100)")
+        else:
+            # Unknown gate status — use testing limit for safety
+            order_value = min(order_value, 100.0)
+            qty = order_value / current_price
+            logger.info(f"[Stage 4] UNKNOWN gate status — using TESTING limit: ${order_value:.2f}")
         
         side = "buy"  # EA Core already validated signal direction
         
@@ -301,6 +308,16 @@ class PipelineController:
         if order_result.success:
             result["approved"] = True
             logger.info(f"Paper order executed: {order_result.order_id}")
+            # Record position entry with SL/TP
+            try:
+                record_entry(
+                    symbol=symbol.replace('/', ''),
+                    entry_price=current_price,
+                    qty=round(qty, 6),
+                    reason=f"{strategy_name} {gate_status.upper()} mode"
+                )
+            except Exception as e:
+                logger.warning(f"[TRACKER] Failed to record entry: {e}")
         else:
             logger.error(f"Order execution failed: {order_result.error}")
         
