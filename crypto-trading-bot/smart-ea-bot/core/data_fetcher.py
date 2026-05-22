@@ -53,6 +53,10 @@ class DataFetcher:
             logger.error("Alpaca API not available")
             return []
 
+        # Alpaca requires slash format: BTC/USD
+        if "USD" in symbol and "/" not in symbol:
+            symbol = symbol.replace("USD", "/USD")
+
         try:
             # Alpaca uses BTC/USD format
             bars = self.api.get_crypto_bars(
@@ -65,13 +69,22 @@ class DataFetcher:
 
             result = []
             for bar in bars:
+                # Handle different Alpaca API versions
+                timestamp = getattr(bar, 'timestamp', getattr(bar, 't', None))
+                if timestamp and hasattr(timestamp, 'isoformat'):
+                    ts = timestamp.isoformat()
+                elif timestamp:
+                    ts = str(timestamp)
+                else:
+                    ts = None
+                
                 result.append({
-                    "timestamp": bar.timestamp.isoformat(),
-                    "open": float(bar.open),
-                    "high": float(bar.high),
-                    "low": float(bar.low),
-                    "close": float(bar.close),
-                    "volume": float(bar.volume),
+                    "timestamp": ts,
+                    "open": float(getattr(bar, 'open', getattr(bar, 'o', 0))),
+                    "high": float(getattr(bar, 'high', getattr(bar, 'h', 0))),
+                    "low": float(getattr(bar, 'low', getattr(bar, 'l', 0))),
+                    "close": float(getattr(bar, 'close', getattr(bar, 'c', 0))),
+                    "volume": float(getattr(bar, 'volume', getattr(bar, 'v', 0))),
                 })
 
             logger.info(f"Fetched {len(result)} bars for {symbol}")

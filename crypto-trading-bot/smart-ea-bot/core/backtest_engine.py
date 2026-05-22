@@ -162,20 +162,40 @@ class BacktestEngine:
         return None
 
     def _calculate_pnl(self, position: Dict, exit: Dict, fee_pct: float, slippage_pct: float) -> float:
-        """Calculate PnL for a trade including fees and slippage."""
-        # Simple fixed risk model: 0.25% equity per trade
-        risk_amount = self.initial_equity * 0.0025
-
+        """Calculate PnL for a trade including fees and slippage.
+        
+        Position sizing: 0.25% risk per trade.
+        Position size = risk_amount / stop_loss_distance
+        """
+        risk_amount = self.initial_equity * 0.0025  # 0.25% of equity
+        entry_price = position["entry_price"]
+        stop_loss = position["stop_loss"]
+        exit_price = exit["price"]
+        
+        # Calculate stop loss distance
         if position["side"] == "buy":
-            gross_pnl = (exit["price"] - position["entry_price"]) / position["entry_price"] * risk_amount * 4  # 4:1 RR approximation
-        else:
-            gross_pnl = (position["entry_price"] - exit["price"]) / position["entry_price"] * risk_amount * 4
-
-        # Deduct fees and slippage (both sides)
+            sl_distance = abs(entry_price - stop_loss) / entry_price
+            gross_return_pct = (exit_price - entry_price) / entry_price
+        else:  # sell
+            sl_distance = abs(stop_loss - entry_price) / entry_price
+            gross_return_pct = (entry_price - exit_price) / entry_price
+        
+        # Avoid division by zero
+        if sl_distance < 0.0001:
+            sl_distance = 0.005  # Default to 0.5%
+        
+        # Position size based on risk
+        position_size = risk_amount / sl_distance
+        
+        # Gross PnL
+        gross_pnl = position_size * gross_return_pct
+        
+        # Fees and slippage on notional
         total_cost_pct = (fee_pct + slippage_pct) * 2 / 100
-        cost = abs(gross_pnl) * total_cost_pct + self.initial_equity * total_cost_pct
-        net_pnl = gross_pnl - cost
-
+        fees = position_size * total_cost_pct
+        
+        net_pnl = gross_pnl - fees
+        
         return net_pnl
 
     def _build_result(self, asset: str, fee_pct: float) -> BacktestResult:

@@ -1,0 +1,102 @@
+[
+  {
+    "bot": "mean_reversion_scalper_v2",
+    "asset": "BTCUSD",
+    "total_return_pct": 0.0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": 0.0,
+    "total_trades": 0,
+    "avg_win_pct": 0.0,
+    "avg_loss_pct": 0.0,
+    "worst_streak": 0,
+    "fees_pct": 0.0,
+    "net_profit_pct": 0.0,
+    "passes_thresholds": false,
+    "regime_distribution": {
+      "ranging": 3261,
+      "high_volatility": 1053,
+      "low_liquidity": 3673,
+      "trending_down": 992,
+      "trending_up": 832,
+      "choppy": 189
+    },
+    "exit_reasons": {}
+  },
+  {
+    "bot": "mean_reversion_scalper_v2",
+    "asset": "ETHUSD",
+    "total_return_pct": 0.0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": 0.0,
+    "total_trades": 0,
+    "avg_win_pct": 0.0,
+    "avg_loss_pct": 0.0,
+    "worst_streak": 0,
+    "fees_pct": 0.0,
+    "net_profit_pct": 0.0,
+    "passes_thresholds": false,
+    "regime_distribution": {
+      "ranging": 4509,
+      "high_volatility": 1216,
+      "low_liquidity": 2184,
+      "trending_down": 1070,
+      "trending_up": 728,
+      "choppy": 293
+    },
+    "exit_reasons": {}
+  },
+  {
+    "bot": "trend_pullback_scalper_v2",
+    "asset": "BTCUSD",
+    "total_return_pct": 0.0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": 0.0,
+    "total_trades": 0,
+    "avg_win_pct": 0.0,
+    "avg_loss_pct": 0.0,
+    "worst_streak": 0,
+    "fees_pct": 0.0,
+    "net_profit_pct": 0.0,
+    "passes_thresholds": false,
+    "regime_distribution": {
+      "ranging": 3261,
+      "high_volatility": 1053,
+      "low_liquidity": 3673,
+      "trending_down": 992,
+      "trending_up": 832,
+      "choppy": 189
+    },
+    "exit_reasons": {}
+  },
+  {
+    "bot": "trend_pullback_scalper_v2",
+    "asset": "ETHUSD",
+    "total_return_pct": 0.0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": 0.0,
+    "total_trades": 0,
+    "avg_win_pct": 0.0,
+    "avg_loss_pct": 0.0,
+    "worst_streak": 0,
+    "fees_pct": 0.0,
+    "net_profit_pct": 0.0,
+    "passes_thresholds": false,
+    "regime_distribution": {
+      "ranging": 4509,
+      "high_volatility": 1216,
+      "low_liquidity": 2184,
+      "trending_down": 1070,
+      "trending_up": 728,
+      "choppy": 293
+    },
+    "exit_reasons": {}
+  }
+]
