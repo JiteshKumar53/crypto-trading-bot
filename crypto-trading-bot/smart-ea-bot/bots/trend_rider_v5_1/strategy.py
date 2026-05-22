@@ -1,0 +1,147 @@
+"""
+Smart EA Bot Company — Trend Rider v5.1
+Relaxed entry conditions for higher trade frequency.
+Based on v5 which showed PF 2.92 on BTC but only 3 trades.
+"""
+
+from typing import List, Dict
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def calculate_ema(prices: List[float], period: int) -> List[float]:
+    if len(prices) < period:
+        return prices[:]
+    emas = [sum(prices[:period]) / period]
+    multiplier = 2 / (period + 1)
+    for i in range(period, len(prices)):
+        ema = (prices[i] * multiplier) + (emas[-1] * (1 - multiplier))
+        emas.append(ema)
+    return [emas[0]] * (period - 1) + emas
+
+
+def calculate_rsi(prices: List[float], period: int = 14) -> List[float]:
+    if len(prices) < period + 1:
+        return [50.0] * len(prices)
+    
+    rsis = [50.0] * period
+    for i in range(period, len(prices)):
+        gains = []
+        losses = []
+        for j in range(i - period + 1, i + 1):
+            change = prices[j] - prices[j - 1]
+            if change > 0:
+                gains.append(change)
+            else:
+                losses.append(abs(change))
+        
+        avg_gain = sum(gains) / period if gains else 0
+        avg_loss = sum(losses) / period if losses else 0
+        
+        if avg_loss == 0:
+            rsis.append(100.0)
+        else:
+            rs = avg_gain / avg_loss
+            rsis.append(100 - (100 / (1 + rs)))
+    
+    return rsis
+
+
+def calculate_atr(bars: List[Dict], period: int = 14) -> List[float]:
+    atrs = [0.0] * period
+    for i in range(period, len(bars)):
+        trs = []
+        for j in range(i - period + 1, i + 1):
+            bar = bars[j]
+            high_low = bar["high"] - bar["low"]
+            high_close = abs(bar["high"] - bars[j - 1]["close"])
+            low_close = abs(bar["low"] - bars[j - 1]["close"])
+            trs.append(max(high_low, high_close, low_close))
+        atrs.append(sum(trs) / period)
+    return atrs
+
+
+def trend_rider_v5_1_strategy(bars: List[Dict]) -> List[Dict]:
+    """
+    Trend Rider v5.1 — Relaxed 4h Trend Following.
+    
+    Changes from v5:
+    - RSI range widened: 35-60 (was 40-55 long, 45-60 short)
+    - Deviation reduced: 0.5 ATR (was 1.0 ATR)
+    - Volume filter removed (was > 1.2x average)
+    - EMA alignment relaxed: EMA 12 > EMA 26 (was EMA 12 > EMA 26 > EMA 50)
+    """
+    if len(bars) < 100:
+        return [{"action": "hold"} for _ in bars]
+    
+    closes = [bar["close"] for bar in bars]
+    highs = [bar["high"] for bar in bars]
+    lows = [bar["low"] for bar in bars]
+    
+    ema12 = calculate_ema(closes, period=12)
+    ema26 = calculate_ema(closes, period=26)
+    ema50 = calculate_ema(closes, period=50)
+    rsi = calculate_rsi(closes, period=14)
+    atr = calculate_atr(bars, period=14)
+    
+    signals = []
+    
+    for i in range(len(bars)):
+        signal = {"action": "hold"}
+        
+        if i < 50 or i >= len(bars) - 1:
+            signals.append(signal)
+            continue
+        
+        current_price = closes[i]
+        current_ema12 = ema12[i]
+        current_ema26 = ema26[i]
+        current_ema50 = ema50[i]
+        current_rsi = rsi[i]
+        current_atr = atr[i] if i < len(atr) else atr[-1]
+        
+        # Relaxed trend: EMA 12 > EMA 26 (don't require EMA 50)
+        uptrend = current_ema12 > current_ema26
+        downtrend = current_ema12 < current_ema26
+        
+        # Trend strength
+        trend_strength = abs(current_ema12 - current_ema26) / current_ema26 if current_ema26 > 0 else 0
+        valid_trend = trend_strength > 0.015  # 1.5% spread (was 2%)
+        
+        if not valid_trend:
+            signals.append(signal)
+            continue
+        
+        # Deviation from EMA12 in ATR units (relaxed to 0.5 ATR)
+        deviation = abs(current_price - current_ema12) / current_atr if current_atr > 0 else 0
+        
+        # LONG: Uptrend + pullback + RSI not overbought
+        if uptrend and current_price < current_ema12 and deviation >= 0.5:
+            if 35 <= current_rsi <= 60:  # Wider range
+                signal = {
+                    "action": "buy",
+                    "stop_loss": current_price - current_atr * 2.5,
+                    "take_profit": None,
+                    "trailing_stop": True,
+                    "trailing_distance": current_atr * 3.0,
+                    "max_hold_bars": 20,
+                    "reason": "trend_pullback_long_v5_1",
+                }
+        
+        # SHORT: Downtrend + rally + RSI not oversold
+        elif downtrend and current_price > current_ema12 and deviation >= 0.5:
+            if 40 <= current_rsi <= 65:  # Wider range for shorts
+                signal = {
+                    "action": "sell",
+                    "stop_loss": current_price + current_atr * 2.5,
+                    "take_profit": None,
+                    "trailing_stop": True,
+                    "trailing_distance": current_atr * 3.0,
+                    "max_hold_bars": 20,
+                    "reason": "trend_pullback_short_v5_1",
+                }
+        
+        signals.append(signal)
+    
+    return signals

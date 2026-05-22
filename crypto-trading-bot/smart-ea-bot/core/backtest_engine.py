@@ -147,13 +147,35 @@ class BacktestEngine:
         if position["side"] == "buy":
             if next_bar["low"] <= position["stop_loss"]:
                 return {"time": next_bar["timestamp"], "price": position["stop_loss"], "reason": "stop_loss"}
-            if next_bar["high"] >= position["take_profit"]:
-                return {"time": next_bar["timestamp"], "price": position["take_profit"], "reason": "take_profit"}
         else:  # sell
             if next_bar["high"] >= position["stop_loss"]:
                 return {"time": next_bar["timestamp"], "price": position["stop_loss"], "reason": "stop_loss"}
-            if next_bar["low"] <= position["take_profit"]:
-                return {"time": next_bar["timestamp"], "price": position["take_profit"], "reason": "take_profit"}
+
+        # Take profit
+        if position["take_profit"] is not None:
+            if position["side"] == "buy":
+                if next_bar["high"] >= position["take_profit"]:
+                    return {"time": next_bar["timestamp"], "price": position["take_profit"], "reason": "take_profit"}
+            else:  # sell
+                if next_bar["low"] <= position["take_profit"]:
+                    return {"time": next_bar["timestamp"], "price": position["take_profit"], "reason": "take_profit"}
+
+        # Trailing stop (if enabled)
+        if position.get("trailing_stop"):
+            if position["side"] == "buy":
+                # Update highest price seen
+                highest_since_entry = max(position.get("highest_price", position["entry_price"]), next_bar["high"])
+                position["highest_price"] = highest_since_entry
+                trailing_level = highest_since_entry - position["trailing_distance"]
+                if next_bar["low"] <= trailing_level:
+                    return {"time": next_bar["timestamp"], "price": trailing_level, "reason": "trailing_stop"}
+            else:  # sell
+                # Update lowest price seen
+                lowest_since_entry = min(position.get("lowest_price", position["entry_price"]), next_bar["low"])
+                position["lowest_price"] = lowest_since_entry
+                trailing_level = lowest_since_entry + position["trailing_distance"]
+                if next_bar["high"] >= trailing_level:
+                    return {"time": next_bar["timestamp"], "price": trailing_level, "reason": "trailing_stop"}
 
         # Time stop
         if position["bars_held"] >= position["max_hold_bars"]:
