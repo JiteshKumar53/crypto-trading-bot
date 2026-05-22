@@ -54,11 +54,17 @@ class PipelineController:
         use_backtest: bool = True,
         use_risk_governor: bool = True,
         paper_only: bool = True,
+        force_testing_mode: bool = True,
     ):
         self.use_agents = use_agents
         self.use_backtest = use_backtest
         self.use_risk_governor = use_risk_governor
         self.paper_only = paper_only
+        self.force_testing_mode = force_testing_mode
+        
+        # CEO VALIDATION MODE: Always enforce testing limits
+        if self.force_testing_mode:
+            logger.info("[PipelineController] VALIDATION MODE: force_testing_mode=True — all orders capped at $100")
         
         # Order cooldown: prevent multiple orders for same asset within interval
         self.order_cooldown_seconds = 3600
@@ -222,7 +228,12 @@ class PipelineController:
         qty = order_value / current_price
         
         # Enforce limits from EA Core — MUST cap BEFORE orchestrator to avoid rejection
-        if gate_status == "active":
+        # CEO VALIDATION MODE: If force_testing_mode, ALWAYS cap at $100 regardless of gate status
+        if self.force_testing_mode:
+            order_value = min(order_value, 100.0)
+            qty = order_value / current_price
+            logger.info(f"[Stage 4] VALIDATION MODE: Hard cap at ${order_value:.2f} (max $100)")
+        elif gate_status == "active":
             active_limit = gate_max_size
             if order_value > active_limit:
                 order_value = min(order_value, active_limit)
@@ -346,8 +357,8 @@ class PipelineController:
         
         for strategy in strategies:
             try:
-                engine = BacktestEngine(strategy, symbol)
-                result = engine.run(data)
+                engine = BacktestEngine()
+                result = engine.run(strategy, data, symbol)
                 if result.get("total_return", 0) > best_return:
                     best_return = result.get("total_return", 0)
                     best_result = result

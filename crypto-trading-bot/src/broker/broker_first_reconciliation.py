@@ -212,7 +212,7 @@ class BrokerFirstReconciliation:
         
         # If local and broker disagree on qty -> mismatch, block
         if symbol in local_positions and symbol in broker_by_symbol:
-            local_qty = float(local_positions[symbol].get('qty', 0))
+            local_qty = float(getattr(local_positions[symbol], 'qty', 0))
             broker_qty = float(broker_by_symbol[symbol]['qty'])
             if abs(local_qty - broker_qty) > 0.0001:
                 return False, f"Position mismatch for {symbol}: local={local_qty:.6f} vs broker={broker_qty:.6f}. Block trades until reconciliation."
