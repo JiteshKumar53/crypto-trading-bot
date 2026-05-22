@@ -244,6 +244,7 @@ class PipelineController:
             recommendations=[],
             strategy_backtest_passed=True,
             qa_passed=True,
+            ea_core_mode=True,
         )
         
         result["stages"]["orchestrator"] = {

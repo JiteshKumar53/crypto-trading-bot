@@ -49,6 +49,7 @@ class TradingOrchestrator:
         recommendations: List[Dict],
         strategy_backtest_passed: bool = False,
         qa_passed: bool = False,
+        ea_core_mode: bool = False,
     ) -> Dict:
         """
         Run the full trading decision pipeline.
@@ -70,10 +71,10 @@ class TradingOrchestrator:
         decision_id = f"dec-{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}-{datetime.now(timezone.utc).microsecond:06d}-{symbol.replace('/', '')}"
         timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
-        logger.info(f"[Pipeline Start] {decision_id} for {side} {qty} {symbol}")
+        logger.info(f"[Pipeline Start] {decision_id} for {side} {qty} {symbol} (ea_core_mode={ea_core_mode})")
 
-        # Step 1: Validate recommendations present
-        if len(recommendations) < 5:
+        # Step 1: Validate recommendations present (skip in EA Core mode for paper)
+        if not ea_core_mode and len(recommendations) < 5:
             return self._reject(
                 decision_id=decision_id,
                 reason="Insufficient agent recommendations. All 5 required.",
