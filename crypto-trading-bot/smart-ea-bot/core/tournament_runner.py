@@ -10,11 +10,21 @@ import logging
 from datetime import datetime, timezone, timedelta
 from typing import List, Dict
 
+# Load .env file before importing modules that need API keys
+env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), '.env')
+if os.path.exists(env_path):
+    with open(env_path) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#') and '=' in line:
+                key, value = line.split('=', 1)
+                os.environ[key] = value
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from core.data_fetcher import DataFetcher
 from core.backtest_engine import BacktestEngine
-from core.regime_filter import classify_regime
+from core.regime_filter import regime_filter as classify_regime
 from bots.mean_reversion_scalper_v2.strategy import mean_reversion_v2_strategy
 from bots.trend_pullback_scalper_v2.strategy import trend_pullback_v2_strategy
 
