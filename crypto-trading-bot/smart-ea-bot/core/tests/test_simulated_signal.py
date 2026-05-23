@@ -28,37 +28,57 @@ class TestSimulatedSignal(unittest.TestCase):
     def tearDown(self):
         os.chdir(self.orig_dir)
 
+    def _make_crossover_bars(self, crossover_price=200.0, flat_price=100.0):
+        """Generate bars where last bar crosses above SMA50."""
+        bars = []
+        base = datetime(2024, 1, 1, tzinfo=timezone.utc)
+        for i in range(59):
+            bars.append({
+                'timestamp': (base + timedelta(days=i)).isoformat(),
+                'open': flat_price, 'high': flat_price + 1.0, 'low': flat_price - 1.0,
+                'close': flat_price, 'volume': 1000,
+            })
+        bars.append({
+            'timestamp': (base + timedelta(days=59)).isoformat(),
+            'open': crossover_price, 'high': crossover_price + 1.0,
+            'low': crossover_price - 1.0, 'close': crossover_price, 'volume': 1000,
+        })
+        return bars
+
+    def _make_declining_bars(self, start_price=100.0):
+        """Generate bars that stay below SMA50."""
+        bars = []
+        base = datetime(2024, 1, 1, tzinfo=timezone.utc)
+        for i in range(60):
+            p = start_price - i * 0.5
+            bars.append({
+                'timestamp': (base + timedelta(days=i)).isoformat(),
+                'open': p, 'high': p + 1.0, 'low': p - 1.0,
+                'close': p, 'volume': 1000,
+            })
+        return bars
+
     @patch('alpaca_trade_api.REST')
     @patch('paper_daemon.DataFetcher')
     def test_full_pipeline_on_crossover(self, MockFetcher, MockREST):
         """
-        Simulate BTC crossing above SMA50.
-        Verify:
-        1. Crossover detected
-        2. Order placement attempted
-        3. Heartbeat written with signal and order_placed=true
+        Simulate BTC crossing above SMA50 while ETH stays below.
+        Verify end-to-end pipeline: signal -> order -> heartbeat.
         """
         from paper_daemon import PaperDaemon
         d = PaperDaemon()
 
-        # Create bars where price crosses above SMA on last bar
-        mock_bars = []
-        base = datetime(2024, 1, 1, tzinfo=timezone.utc)
-        for i in range(59):
-            mock_bars.append({
-                'timestamp': (base + timedelta(days=i)).isoformat(),
-                'open': 100.0, 'high': 101.0, 'low': 99.0,
-                'close': 100.0, 'volume': 1000,
-            })
-        # Last bar: price jumps to 200 (well above SMA50 ~100)
-        mock_bars.append({
-            'timestamp': (base + timedelta(days=59)).isoformat(),
-            'open': 200.0, 'high': 201.0, 'low': 199.0,
-            'close': 200.0, 'volume': 1000,
-        })
+        # BTC crosses, ETH declines (no cross)
+        btc_bars = self._make_crossover_bars(crossover_price=200.0, flat_price=100.0)
+        eth_bars = self._make_declining_bars(start_price=100.0)
+
+        def fetch_side_effect(asset, **kwargs):
+            if asset == 'BTCUSD':
+                return btc_bars
+            return eth_bars
 
         d.fetcher = MagicMock()
-        d.fetcher.fetch_bars.return_value = mock_bars
+        d.fetcher.fetch_bars.side_effect = fetch_side_effect
 
         # Mock API — capture order placement
         d.api = MagicMock()
@@ -70,11 +90,11 @@ class TestSimulatedSignal(unittest.TestCase):
         # Run daemon cycle
         d.run_cycle()
 
-        # Verify 1: Order placement was attempted
-        self.assertTrue(d.api.submit_order.called,
-                        "submit_order was not called — signal may not have been detected")
+        # Verify 1: Order placement was attempted exactly once (BTC only)
+        self.assertEqual(d.api.submit_order.call_count, 1,
+                        f"Expected 1 order (BTC), got {d.api.submit_order.call_count}")
 
-        # Verify 2: Order parameters are correct
+        # Verify 2: Order is for BTC
         call_args = d.api.submit_order.call_args[1]
         self.assertEqual(call_args.get('side'), 'buy')
         self.assertEqual(call_args.get('symbol'), 'BTC/USD')
@@ -92,7 +112,7 @@ class TestSimulatedSignal(unittest.TestCase):
             hb = json.load(f)
 
         self.assertEqual(hb['status'], 'SIGNAL_FIRED')
-        self.assertIn('LONG', hb.get('signal', ''))
+        self.assertEqual(hb['signal'], 'BTCUSD_LONG')
         self.assertEqual(hb['order_placed'], True)
         self.assertEqual(hb['btc_price'], 200.0)
 

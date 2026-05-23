@@ -1,0 +1,11 @@
+{
+  "last_check_utc": "2026-05-23T08:28:15.028439+00:00",
+  "status": "SKIPPED",
+  "btc_price": null,
+  "btc_sma50": null,
+  "eth_price": null,
+  "eth_sma50": null,
+  "signal": "NONE",
+  "order_placed": false,
+  "error_message": null
+}

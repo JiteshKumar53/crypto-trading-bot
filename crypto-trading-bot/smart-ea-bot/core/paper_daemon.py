@@ -157,8 +157,8 @@ class PaperDaemon:
                 if attempt < MAX_RETRIES:
                     time.sleep(RETRY_BACKOFF_SECONDS)
                 else:
-                    logger.error(f"{asset}: All {MAX_RETRIES} retries exhausted. Returning empty.")
-                    return []
+                    logger.error(f"{asset}: All {MAX_RETRIES} retries exhausted. Raising error.")
+                    raise  # Re-raise so caller can catch and write ERROR heartbeat
         
         return []
     
@@ -363,7 +363,12 @@ class PaperDaemon:
             positions = []
         
         # Check signals (hardened)
-        signals, details = self.check_signals()
+        try:
+            signals, details = self.check_signals()
+        except Exception as e:
+            logger.error(f"Signal check failed: {e}")
+            self.write_heartbeat('ERROR', error=e)
+            return
         
         if not signals:
             logger.info("No valid signals today.")
