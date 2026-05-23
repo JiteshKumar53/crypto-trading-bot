@@ -1,8 +1,20 @@
-# Paper Readiness Pack — Trend Rider v5.6
-**Date:** Friday, May 22, 2026 — 19:27 CEST  
+# Paper Readiness Pack — Trend Rider v5.6 (Alpaca-Validated)
+**Date:** Saturday, May 23, 2026 — 10:15 CEST  
 **Bot:** Trend Rider v5.6  
 **Strategy:** 50-day SMA trend following (daily timeframe)  
+**Data Source:** Alpaca (single authoritative source)  
 **Status:** ✅ **ALL GATES PASSED — PAPER TRADING AUTHORIZED**
+
+---
+
+## ⚠️ VERSION HISTORY
+
+| Version | Date | Data Source | BTC PF | ETH PF | Status |
+|---------|------|-------------|--------|--------|--------|
+| v1.0 | 2026-05-22 | Yahoo Finance | 2.14 | 4.85 | Superseded |
+| **v2.0** | **2026-05-23** | **Alpaca** | **1.58** | **4.89** | **Active** |
+
+**Superseded:** v1.0 used Yahoo Finance data. A data source mismatch investigation (2026-05-23) revealed that Alpaca — the execution venue — should be the single authoritative source to eliminate reconciliation risk. v5.6 was revalidated on Alpaca 5-year data and passes all gates.
 
 ---
 
@@ -38,45 +50,66 @@
 
 ---
 
-## 3. BACKTEST RESULTS
+## 3. BACKTEST RESULTS (Alpaca 5-Year Data)
 
-### Full Period (5 years)
+### Full Period (2021-05-23 to 2026-05-23)
 
 | Metric | BTC/USD | ETH/USD |
 |--------|---------|---------|
 | **Trades** | 28 | 23 |
-| **Total Return** | +5.96% | +13.00% |
-| **Profit Factor** | **2.14** | **4.85** |
-| **Max Drawdown** | 2.20% | 1.44% |
-| **Win Rate** | ~60% | ~65% |
+| **Total Return** | +3.04% | +13.14% |
+| **Profit Factor** | **1.58** | **4.89** |
+| **Max Drawdown** | 2.26% | 1.44% |
+| **Win Rate** | ~54% | ~61% |
 | **Fee Drag** | 0.04% | 0.04% |
 
-### Walk-Forward (3-fold)
+### Walk-Forward (3-fold, Alpaca Data)
 
 | Asset | Fold 1 | Fold 2 | Fold 3 | Positive |
 |-------|--------|--------|--------|----------|
-| BTC | ✅ PF 2.51 | ❌ PF 0.51 | ✅ PF 1.11 | 2/3 |
-| ETH | ✅ PF 4.08 | ✅ PF 3.87 | ✅ PF 9.11 | 3/3 |
+| BTC | ✅ PF 1.11 | ✅ PF 1.91 | ✅ PF 1.37 | 3/3 |
+| ETH | ✅ PF 9.35 | ✅ PF 3.81 | ✅ PF 4.05 | 3/3 |
 
-### Fee Sensitivity
+### Fee Sensitivity (Alpaca Data)
 
-| Asset | Normal | 1.5x | 2x | 3x |
-|-------|--------|------|----|----|
-| BTC | PF 2.14 | PF 2.09 | PF 2.04 | PF 1.95 |
-| ETH | PF 4.85 | PF 4.74 | PF 4.64 | PF 4.44 |
+| Asset | 0.5x | 1x | 2x | 3x |
+|-------|------|----|----|----|
+| BTC | PF 1.63 | PF 1.58 | PF 1.50 | PF 1.43 |
+| ETH | PF 5.00 | PF 4.89 | PF 4.68 | PF 4.48 |
 
-**Survives 3x fees on both assets.**
+**Survives 3x fees on both assets.** BTC PF drops to 1.43 at 3x but remains above 1.0.
 
 ---
 
-## 4. RISK REVIEW
+## 4. DATA SOURCE RESOLUTION
+
+### Root Cause (Fixed 2026-05-23)
+
+Two independent bugs were found during data source reconciliation:
+
+1. **data_fetcher.py hardcoded timeframe**: The `timeframe` parameter was ignored. All calls returned 5-minute bars regardless of requested timeframe.
+2. **Reconciliation timezone offset**: Alpaca crypto daily bars use UTC timestamps starting at 20:00 UTC. The reconciliation script extracted dates in local timezone (-04:00), creating a 1-day offset.
+
+Both bugs are fixed and regression tests are committed (see `core/tests/`).
+
+### Decision
+
+**Alpaca selected as single authoritative source.**
+- Alpaca is the execution venue — same source for backtest + live eliminates mismatch risk
+- v5.6 passes all gates on Alpaca data
+- Alpaca provides 5+ years of daily crypto data
+- No need for Yahoo Finance fallback
+
+---
+
+## 5. RISK REVIEW
 
 | Risk Parameter | Value | Status |
 |----------------|-------|--------|
 | Risk per trade | 0.25% equity | ✅ Within limit |
 | Max order size | $100 | ✅ Within limit |
 | Max positions | 2 | ✅ Within limit |
-| Max daily loss | 1% | ✅ Strategy max DD 2.2% |
+| Max daily loss | 1% | ✅ Strategy max DD 2.26% |
 | Max weekly loss | 3% | ✅ Well within limit |
 | Leverage | 0x | ✅ No leverage |
 | Martingale | No | ✅ No averaging down |
@@ -85,7 +118,7 @@
 
 ---
 
-## 5. QA RESULTS
+## 6. QA RESULTS
 
 | Test | Result |
 |------|--------|
@@ -93,12 +126,14 @@
 | No lookahead bias | ✅ PASS |
 | Fee impact realism | ✅ PASS (0.04% drag) |
 | Risk Governor blocks | ✅ PASS (blocked $35,000 order) |
+| Regression: data_fetcher timeframe | ✅ PASS |
+| Regression: reconciliation timezone | ✅ PASS |
 
 **QA Approval:** ✅ **APPROVED**
 
 ---
 
-## 6. EXPECTED TRADE FREQUENCY
+## 7. EXPECTED TRADE FREQUENCY
 
 | Asset | Expected Trades/Year | Expected Hold Time |
 |-------|---------------------|-------------------|
@@ -109,7 +144,7 @@
 
 ---
 
-## 7. FAILURE CONDITIONS
+## 8. FAILURE CONDITIONS
 
 Bot must STOP paper trading if:
 - 3 consecutive losing trades
@@ -119,7 +154,7 @@ Bot must STOP paper trading if:
 
 ---
 
-## 8. STOP/RE-LOCK CONDITIONS
+## 9. STOP/RE-LOCK CONDITIONS
 
 Paper trading will be halted and ENTRY_LOCK re-activated if:
 - Live drawdown exceeds 5% (half of max allowed)
@@ -130,7 +165,7 @@ Paper trading will be halted and ENTRY_LOCK re-activated if:
 
 ---
 
-## 9. DAEMON STARTUP PLAN
+## 10. DAEMON STARTUP PLAN (v2.0)
 
 1. **Pre-flight checks:**
    - Verify ENTRY_LOCK is released
@@ -139,13 +174,14 @@ Paper trading will be halted and ENTRY_LOCK re-activated if:
    - Verify no existing positions
 
 2. **Startup sequence:**
-   - Fetch current 50-day SMA for BTC/USD and ETH/USD
+   - Fetch daily bars from Alpaca (single authoritative source)
+   - Compute 50-day SMA
    - Check current price vs SMA
    - If signal present, place paper order (max $100)
    - Log all decisions
 
 3. **Daily cycle:**
-   - Fetch yesterday's close
+   - Fetch yesterday's close from Alpaca
    - Update SMAs
    - Check for crossovers
    - Execute if signal present
@@ -159,7 +195,7 @@ Paper trading will be halted and ENTRY_LOCK re-activated if:
 
 ---
 
-## 10. ROLLBACK PLAN
+## 11. ROLLBACK PLAN
 
 If paper trading shows negative results:
 1. Stop daemon immediately
@@ -182,13 +218,15 @@ I, Jarvis, Junior CEO of Smart EA Bot Company, authorize the start of Alpaca PAP
 - All safety systems active
 
 This authorization is given based on:
-- 5 years of backtest data showing PF > 2.0
-- Walk-forward validation (2/3 positive for BTC, 3/3 for ETH)
+- 5 years of Alpaca data showing PF 1.58 (BTC), PF 4.89 (ETH)
+- Walk-forward validation (3/3 positive for both assets)
 - Fee survival up to 3x normal fees
 - QA tests all passing
 - Risk review approving parameters
+- Data source resolved (Alpaca single source)
 
-**Date:** Friday, May 22, 2026 — 19:27 CEST  
-**Commit:** `26475fd` — v5.6 walk-forward + fee sensitivity complete
+**Date:** Saturday, May 23, 2026 — 10:15 CEST  
+**Commit:** `e521999` — data_crisis_resolved: Alpaca single source, daemon v2.0  
+**Tag:** (pending merge) `v5.6-alpaca-validated`
 
-🦊 **Jarvis — Junior CEO. First bot passes gates. Paper trading starting autonomously.**
+🦊 **Jarvis — Junior CEO. Data crisis resolved. Paper trading ready on signal.**
