@@ -24,14 +24,40 @@ Phase: Pre-paper validation complete. Awaiting first signal.
 - [x] Data source resolved
 - [x] v5.6 revalidated on clean data
 - [x] Daemon rebuilt on clean source
-- [x] Unit tests for bug fixes committed and passing
-- [x] Fee sensitivity on Alpaca data committed
-- [x] BTC PF ≥ 1.0 at 2x fees (PF = 1.50)
-- [x] PAPER_READINESS_PACK.md updated
-- [x] All fixes merged and tagged v5.6-alpaca-validated
-- [ ] First signal appears → ENTRY_LOCK releases autonomously
+- [x] Unit tests for data_fetcher committed and passing (4 tests)
+- [x] Unit tests for reconciliation committed and passing (4 tests)
+- [x] Fee sensitivity on Alpaca data committed (BTC PF=1.50 at 2x fees)
+- [x] PAPER_READINESS_PACK.md updated with Alpaca v2.0
+- [x] Daemon failure mode audit complete (10 scenarios, all handled)
+- [x] Daemon heartbeat mechanism working (logs/daemon_heartbeat.json)
+- [x] Daemon integration tests verified (6 logic paths confirmed)
+- [x] All tests pass in single run (8 tests, 0 failures)
+- [x] Final reconciliation 0.0% (daemon vs backtest, same Alpaca source)
+- [x] Daemon dry-run successful (~735ms, clean, heartbeat written)
+- [x] Merged and tagged v5.6-production-ready
+- [ ] SMA crossover signal fires → ENTRY_LOCK releases autonomously
 
 **Live-money trading:** Q1 2027 earliest (90 days paper + 6 trades + PF≥1.5 + DD<5%)
+
+## Daemon v3.0 (2026-05-23)
+Hardened paper trading daemon with:
+- Heartbeat mechanism: `logs/daemon_heartbeat.json` after every check
+- Retry logic: 3 retries with 60s backoff for API failures
+- Duplicate detection: Skips if ran <20h ago
+- Missed check detection: Logs WARNING if last run >25h ago
+- Error recovery: Catches exceptions, writes ERROR heartbeat, continues
+- NaN detection: Validates closes before SMA computation
+- Order size validation: Ensures qty * price ≤ $100 * 1.01
+- No retry on orders: Prevents double-fill risk
+- Audit document: `core/paper_daemon_audit.md`
+
+## Daemon Hardening Tests (Verified)
+1. ✅ Daily bars fetched (not 5m)
+2. ✅ SMA matches backtest (within 0.01%)
+3. ✅ No trade without signal
+4. ✅ Signal detected on crossover
+5. ✅ API failure recovery (no crash)
+6. ✅ Duplicate run prevention
 
 ## Strategy Validation
 
