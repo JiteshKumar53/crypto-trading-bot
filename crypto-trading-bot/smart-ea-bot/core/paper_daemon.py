@@ -1,7 +1,7 @@
 """
-Smart EA Bot Company — Paper Trading Daemon v1.1
-Runs Trend Rider v5.6 with pre-trade price validation.
-Daily cycle: check 50-day SMA, validate Alpaca vs Yahoo price, place paper orders if signal + valid.
+Smart EA Bot Company — Paper Trading Daemon v2.0
+Runs Trend Rider v5.6 using Alpaca as the single authoritative data source.
+Daily cycle: fetch daily bars from Alpaca, compute 50-day SMA, place paper orders if signal.
 """
 
 import os
@@ -13,11 +13,11 @@ from datetime import datetime, timezone, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from core.yahoo_data_fetcher import fetch_yahoo_bars
+from core.data_fetcher import DataFetcher
 from core.attribution_logger import log_trade
 
 # Alpaca
-from alpaca_trade_api import REST
+from alpaca_trade_api import REST, TimeFrame, TimeFrameUnit
 
 logging.basicConfig(
     level=logging.INFO,
@@ -41,11 +41,12 @@ SECRET_KEY = os.environ.get('ALPACA_SECRET_KEY')
 class PaperDaemon:
     def __init__(self):
         self.api = REST(API_KEY, SECRET_KEY, 'https://paper-api.alpaca.markets', api_version='v2')
+        self.fetcher = DataFetcher(paper=True)
         self.equity = 10000.0
         self.max_order = 100.0
         self.assets = ['BTCUSD', 'ETHUSD']
         self.state_file = 'data/daemon_state.json'
-        self.price_tolerance = 0.02  # 2% max difference
+        self.price_tolerance = 0.02  # 2% max difference (legacy, now same source)
         os.makedirs('data', exist_ok=True)
         
     def load_state(self):
@@ -81,77 +82,65 @@ class PaperDaemon:
         return True, "ok"
     
     def check_signals(self):
-        """Check for SMA cross signals with pre-trade validation."""
+        """Check for SMA cross signals using Alpaca daily data as authoritative source."""
         signals = []
         
         for asset in self.assets:
-            # Fetch last 60 days daily from Yahoo (for signal generation)
-            yahoo_bars = fetch_yahoo_bars(asset, interval='1d', period='3mo')
-            if len(yahoo_bars) < 51:
-                logger.warning(f"{asset}: insufficient Yahoo data ({len(yahoo_bars)} bars)")
-                continue
-            
-            yahoo_price = yahoo_bars[-1]['close']
-            prev_price = yahoo_bars[-2]['close']
-            sma50 = self.get_50sma(yahoo_bars[:-1])
-            prev_sma50 = self.get_50sma(yahoo_bars[:-2]) if len(yahoo_bars) > 52 else sma50
-            
-            if sma50 is None:
-                continue
-            
-            # Pre-trade validation: Fetch Alpaca current price
             alpaca_symbol = asset[:3] + '/' + asset[3:]
-            alpaca_price = None
             
-            try:
-                # Alpaca crypto uses get_crypto_bars, not get_latest_bar
-                alpaca_bars = self.api.get_crypto_bars(alpaca_symbol, '1D', limit=1)
-                alpaca_price = None
-                for bar in alpaca_bars:
-                    alpaca_price = bar.c
-                    break
-            except Exception as e:
-                logger.error(f"Could not fetch Alpaca price for {alpaca_symbol}: {e}")
-                continue  # Skip on error
+            # Fetch daily bars from Alpaca (single authoritative source)
+            end = datetime.now(timezone.utc)
+            start = end - timedelta(days=80)
+            bars_raw = self.fetcher.fetch_bars(
+                asset, timeframe="1Day", start=start, end=end, limit=100
+            )
             
-            # Validate price
-            is_valid, reason = self.validate_price(yahoo_price, alpaca_price, asset)
-            
-            if not is_valid:
-                # Log skipped trade due to price mismatch
-                log_trade(
-                    asset=asset, side="hold", 
-                    signal_time=datetime.now(timezone.utc).isoformat(),
-                    expected_price=yahoo_price, actual_fill_price=alpaca_price or 0,
-                    qty=0, fees=0,
-                    regime_state={"reason": "price_validation_failed", "diff_pct": reason}
-                )
-                logger.warning(f"⏭️ Signal SKIPPED for {asset}: {reason}")
+            if len(bars_raw) < 51:
+                logger.warning(f"{asset}: insufficient data ({len(bars_raw)} bars)")
                 continue
+            
+            # Sort by timestamp
+            bars_raw.sort(key=lambda b: b['timestamp'])
+            
+            # Remove current day if incomplete
+            today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+            bars = [b for b in bars_raw if b['timestamp'][:10] != today]
+            
+            if len(bars) < 51:
+                logger.warning(f"{asset}: insufficient completed bars ({len(bars)} bars)")
+                continue
+            
+            closes = [b['close'] for b in bars]
+            current_price = closes[-1]
+            prev_price = closes[-2]
+            
+            # Compute SMA50
+            sma50 = sum(closes[-50:]) / 50
+            prev_sma50 = sum(closes[-51:-1]) / 50
+            
+            logger.info(f"{asset}: Price ${current_price:,.2f}, SMA50 ${sma50:,.2f}, Prev SMA50 ${prev_sma50:,.2f}")
             
             # Check crossover
-            if yahoo_price > sma50 and prev_price <= prev_sma50:
+            if current_price > sma50 and prev_price <= prev_sma50:
                 signals.append({
                     'asset': asset,
                     'side': 'buy',
-                    'yahoo_price': yahoo_price,
-                    'alpaca_price': alpaca_price,
+                    'price': current_price,
                     'sma50': sma50,
                     'reason': 'sma50_cross_long'
                 })
-                logger.info(f"{asset}: LONG signal — Yahoo ${yahoo_price:.2f}, Alpaca ${alpaca_price:.2f}, SMA50 ${sma50:.2f}")
-            elif yahoo_price < sma50 and prev_price >= prev_sma50:
+                logger.info(f"{asset}: LONG signal — Price ${current_price:.2f}, SMA50 ${sma50:.2f}")
+            elif current_price < sma50 and prev_price >= prev_sma50:
                 signals.append({
                     'asset': asset,
                     'side': 'sell',
-                    'yahoo_price': yahoo_price,
-                    'alpaca_price': alpaca_price,
+                    'price': current_price,
                     'sma50': sma50,
                     'reason': 'sma50_cross_short'
                 })
-                logger.info(f"{asset}: SHORT signal — Yahoo ${yahoo_price:.2f}, Alpaca ${alpaca_price:.2f}, SMA50 ${sma50:.2f}")
+                logger.info(f"{asset}: SHORT signal — Price ${current_price:.2f}, SMA50 ${sma50:.2f}")
             else:
-                logger.info(f"{asset}: No signal — Yahoo ${yahoo_price:.2f}, SMA50 ${sma50:.2f}")
+                logger.info(f"{asset}: No signal — Price ${current_price:.2f}, SMA50 ${sma50:.2f}")
         
         return signals
     
@@ -159,7 +148,7 @@ class PaperDaemon:
         """Place paper order on Alpaca."""
         symbol = signal['asset']
         side = signal['side']
-        price = signal['alpaca_price']  # Use validated Alpaca price
+        price = signal['price']  # Use Alpaca price (single source)
         
         # Calculate qty for $100 max order
         qty = self.max_order / price
@@ -186,12 +175,12 @@ class PaperDaemon:
             log_trade(
                 asset=symbol, side=side,
                 signal_time=datetime.now(timezone.utc).isoformat(),
-                expected_price=signal['yahoo_price'],
+                expected_price=price,
                 actual_fill_price=price,
                 qty=qty,
                 fees=0.0,  # Will be updated on fill
                 regime_state={
-                    "sma50_distance_pct": abs(signal['yahoo_price'] - signal['sma50']) / signal['sma50'] * 100,
+                    "sma50_distance_pct": abs(signal['price'] - signal['sma50']) / signal['sma50'] * 100,
                     "trend_strength": "unknown",
                     "volatility_regime": "unknown",
                 }
@@ -237,8 +226,8 @@ class PaperDaemon:
     def run(self):
         """Main daemon loop."""
         logger.info("=" * 60)
-        logger.info("🏁 Trend Rider v5.6 Paper Daemon v1.1 STARTED")
-        logger.info("Features: Pre-trade price validation (2% tolerance)")
+        logger.info("🏁 Trend Rider v5.6 Paper Daemon v2.0 STARTED")
+        logger.info("Features: Single-source Alpaca data for backtest + live")
         logger.info("=" * 60)
         
         while True:

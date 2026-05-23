@@ -1,6 +1,7 @@
 """
 Smart EA Bot Company — Data Fetcher
-Fetch 5m OHLCV bars from Alpaca for backtesting and live trading.
+Fetch OHLCV bars from Alpaca for backtesting and live trading.
+Supports 5m, 1h, 4h, 1d timeframes.
 """
 
 import os
@@ -58,14 +59,23 @@ class DataFetcher:
             symbol = symbol.replace("USD", "/USD")
 
         try:
-            # Alpaca uses BTC/USD format
+            # Parse timeframe string to Alpaca TimeFrame
+            if timeframe == "1Day" or timeframe == "1d":
+                tf = tradeapi.TimeFrame(1, tradeapi.TimeFrameUnit.Day)
+            elif timeframe == "1Hour" or timeframe == "1h":
+                tf = tradeapi.TimeFrame(1, tradeapi.TimeFrameUnit.Hour)
+            elif timeframe == "4Hour" or timeframe == "4h":
+                tf = tradeapi.TimeFrame(4, tradeapi.TimeFrameUnit.Hour)
+            else:
+                tf = tradeapi.TimeFrame(5, tradeapi.TimeFrameUnit.Minute)
+            
             bars = self.api.get_crypto_bars(
-                symbol,
-                tradeapi.TimeFrame(5, tradeapi.TimeFrameUnit.Minute),
-                start=start.isoformat() if start else None,
-                end=end.isoformat() if end else None,
-                limit=limit,
-            )
+                    symbol,
+                    tf,
+                    start=start.isoformat() if start else None,
+                    end=end.isoformat() if end else None,
+                    limit=limit,
+                )
 
             result = []
             for bar in bars:
