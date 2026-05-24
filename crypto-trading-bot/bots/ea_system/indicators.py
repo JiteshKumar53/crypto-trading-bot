@@ -3,7 +3,59 @@ EA System — Technical Indicators
 Minimal, fast, no dependencies beyond stdlib.
 """
 
-from typing import List, Optional
+from typing import List, Optional, Tuple
+
+
+def bollinger_bands(prices: List[float], period: int = 20, std: float = 2.0) -> Tuple[List[float], List[float], List[float]]:
+    """Calculate Bollinger Bands (upper, middle, lower).
+    Returns: (upper_band, sma, lower_band)
+    """
+    if len(prices) < period:
+        return [], [], []
+
+    sma_vals = sma(prices, period)
+    if not sma_vals:
+        return [], [], []
+
+    upper = []
+    lower = []
+    for i in range(len(sma_vals)):
+        window = prices[i:i + period]
+        std_dev = (sum((x - sma_vals[i]) ** 2 for x in window) / period) ** 0.5
+        upper.append(sma_vals[i] + std * std_dev)
+        lower.append(sma_vals[i] - std * std_dev)
+
+    return upper, sma_vals, lower
+
+
+def vwap(highs: List[float], lows: List[float], closes: List[float], volumes: List[float], window: int = 24) -> List[float]:
+    """Calculate Volume Weighted Average Price over a rolling window.
+    Default window: 24 bars = 6 hours of 15m data.
+    Returns rolling VWAP up to each bar.
+    """
+    if len(closes) == 0 or len(volumes) == 0:
+        return []
+
+    typical_prices = [(h + l + c) / 3 for h, l, c in zip(highs, lows, closes)]
+    vwaps = []
+    for i in range(len(typical_prices)):
+        start = max(0, i - window + 1)
+        tp_window = typical_prices[start:i+1]
+        vol_window = volumes[start:i+1]
+        cum_pv = sum(tp * vol for tp, vol in zip(tp_window, vol_window))
+        cum_vol = sum(vol_window)
+        if cum_vol == 0:
+            vwaps.append(typical_prices[i])
+        else:
+            vwaps.append(cum_pv / cum_vol)
+    return vwaps
+
+
+def sma(prices: List[float], period: int) -> List[float]:
+    """Calculate Simple Moving Average."""
+    if len(prices) < period:
+        return []
+    return [sum(prices[i:i+period]) / period for i in range(len(prices) - period + 1)]
 
 
 def ema(prices: List[float], period: int) -> List[float]:
