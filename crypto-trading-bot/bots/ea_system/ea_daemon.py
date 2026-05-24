@@ -41,7 +41,19 @@ os.environ['APCA_API_SECRET_KEY'] = os.environ.get('ALPACA_SECRET_KEY', '')
 API_KEY = os.environ.get('ALPACA_API_KEY', '')
 SECRET_KEY = os.environ.get('ALPACA_SECRET_KEY', '')
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# ─── Logging ────────────────────────────────────────────────────────────────
+LOGS_DIR = os.path.join(BASE_DIR, 'logs')
+os.makedirs(LOGS_DIR, exist_ok=True)
+
+log_file = os.path.join(LOGS_DIR, 'ea_daemon.log')
+handler = logging.FileHandler(log_file, mode='a')
+handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[handler, logging.StreamHandler()]
+)
 logger = logging.getLogger(__name__)
 
 # ─── Config ──────────────────────────────────────────────────────────────────
