@@ -2,9 +2,9 @@
 # Smart EA Bot Health Check Script
 # Checks if daemon heartbeat is recent
 
-HEARTBEAT_FILE="/data/.openclaw/workspace/crypto-trading-bot/smart-ea-bot/core/logs/daemon_heartbeat.json"
-ALERT_LOG="/data/.openclaw/workspace/logs/heartbeat_alerts.log"
-MAX_AGE_HOURS=25
+HEARTBEAT_FILE="/data/.openclaw/workspace/crypto-trading-bot/bots/ea_system/logs/ea_heartbeat.json"
+ALERT_LOG="/data/.openclaw/workspace/crypto-trading-bot/bots/ea_system/logs/heartbeat_alerts.log"
+MAX_AGE_HOURS=1
 
 now_epoch=$(date -u +%s)
 
