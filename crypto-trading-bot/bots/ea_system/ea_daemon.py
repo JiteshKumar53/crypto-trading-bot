@@ -50,7 +50,7 @@ MAX_OPEN_TRADES = 3
 MAX_TRADES_PER_DAY = 20
 DAILY_LOSS_CAP = 0.03
 COOLDOWN_MINUTES = 30
-ASSETS = ['BTC/USD', 'ETH/USD']
+ASSETS = ['BTCUSD', 'ETHUSD']
 
 LOGS_DIR = os.path.join(BASE_DIR, 'logs')
 OPEN_TRADES_FILE = os.path.join(BASE_DIR, 'open_trades.json')
@@ -60,16 +60,10 @@ COOLDOWN_FILE = os.path.join(LOGS_DIR, 'ea_cooldown.json')
 
 STRATEGY_PRIORITY = ['rsi_scalp', 'bollinger', 'vwap', 'ema_rsi']
 
-# ─── Symbol Helpers ──────────────────────────────────────────────────────────
-def normalize_symbol(symbol):
-    """Convert BTCUSD -> BTC/USD for internal use."""
-    if '/' not in symbol:
-        return symbol.replace('USD', '/USD')
-    return symbol
+from utils import normalize_symbol, to_alpaca_symbol
 
-def denormalize_symbol(symbol):
-    """Convert BTC/USD -> BTCUSD for Alpaca API."""
-    return symbol.replace('/', '')
+# normalize_symbol: BTC/USD -> BTCUSD (for internal storage)
+# to_alpaca_symbol: BTCUSD -> BTC/USD (for Alpaca API calls)
 
 
 class EADaemon:
@@ -119,9 +113,8 @@ class EADaemon:
     def get_open_trade(self, symbol):
         """Find the most recent OPEN trade for this symbol."""
         data = self._load_json(OPEN_TRADES_FILE)
-        denorm = denormalize_symbol(symbol)
         for t in reversed(data['trades']):
-            if t.get('status') == 'OPEN' and t.get('pair') == denorm:
+            if t.get('status') == 'OPEN' and t.get('pair') == symbol:
                 return t
         return None
 
@@ -149,19 +142,19 @@ class EADaemon:
 
     def set_cooldown(self, symbol):
         data = self.get_cooldowns()
-        data[denormalize_symbol(symbol)] = (datetime.now(timezone.utc) + timedelta(minutes=COOLDOWN_MINUTES)).isoformat()
+        data[symbol] = (datetime.now(timezone.utc) + timedelta(minutes=COOLDOWN_MINUTES)).isoformat()
         self._save_json(COOLDOWN_FILE, data)
 
     def is_on_cooldown(self, symbol):
         data = self.get_cooldowns()
-        key = denormalize_symbol(symbol)
+        key = symbol
         if key not in data:
             return False
         end_time = datetime.fromisoformat(data[key])
         if datetime.now(timezone.utc) >= end_time:
             return False
         remaining = (end_time - datetime.now(timezone.utc)).total_seconds() / 60
-        logger.info(f"⏳ {normalize_symbol(key)} on cooldown: {remaining:.0f} min remaining")
+        logger.info(f"⏳ {key} on cooldown: {remaining:.0f} min remaining")
         return True
 
     # ─── Risk Governor ───────────────────────────────────────────────────────────
@@ -207,12 +200,13 @@ class EADaemon:
     # ─── Data ────────────────────────────────────────────────────────────────────
 
     def fetch_bars(self, symbol, timeframe='15Min', limit=100):
-        symbol = normalize_symbol(symbol)
+        # Alpaca bar API needs BTC/USD format
+        api_symbol = to_alpaca_symbol(symbol)
         end = datetime.now(timezone.utc)
         start = end - timedelta(hours=48)
         try:
             bars = self.api.get_crypto_bars(
-                symbol, timeframe=timeframe,
+                api_symbol, timeframe=timeframe,
                 start=start.isoformat(), end=end.isoformat(), limit=limit
             ).df
             if bars.empty:
@@ -236,7 +230,7 @@ class EADaemon:
         try:
             positions = self.api.list_positions()
             return [{
-                'symbol': normalize_symbol(p.symbol),  # BTCUSD -> BTC/USD
+                'symbol': normalize_symbol(p.symbol),  # BTCUSD -> BTCUSD (identity)
                 'qty': float(p.qty),
                 'avg_entry_price': float(p.avg_entry_price),
                 'current_price': float(p.current_price),
@@ -248,7 +242,7 @@ class EADaemon:
             return []
 
     def place_order(self, symbol, side, qty, order_type='market'):
-        symbol = denormalize_symbol(symbol)  # BTC/USD -> BTCUSD
+        # symbol is already BTCUSD (no slash) — used directly for Alpaca orders
         try:
             order = self.api.submit_order(
                 symbol=symbol, qty=qty, side=side, type=order_type, time_in_force='gtc'
@@ -317,7 +311,7 @@ class EADaemon:
                     trade_id = f"trade_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
                     trade_meta = {
                         'id': trade_id,
-                        'pair': denormalize_symbol(symbol),
+                        'pair': symbol,
                         'strategy': strategy_name,
                         'direction': 'LONG',
                         'entry_price': round(signal['price'], 2),
