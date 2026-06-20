@@ -1,192 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🦊 Jarvis Trading Dashboard</title>
-    <style>
-        :root {
-            --bg: #0a0e17;
-            --surface: #111827;
-            --surface-light: #1f2937;
-            --text: #e5e7eb;
-            --text-muted: #9ca3af;
-            --accent: #10b981;
-            --accent-fail: #ef4444;
-            --accent-warn: #f59e0b;
-            --border: #374151;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.5;
-        }
-        h1 {
-            margin: 0 0 10px 0;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .subtitle {
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .section h2 {
-            margin-top: 0;
-            font-size: 16px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-        .card {
-            background: var(--surface-light);
-            border-radius: 6px;
-            padding: 15px;
-            text-align: center;
-        }
-        .card-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--accent);
-        }
-        .card-label {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 5px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-        th, td {
-            padding: 10px 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-        th {
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.05em;
-        }
-        tr:hover {
-            background: var(--surface-light);
-        }
-        .result-success { color: var(--accent); }
-        .result-fail { color: var(--accent-fail); }
-        .result-warn { color: var(--accent-warn); }
-        .result-neutral { color: var(--text-muted); }
-        .meta {
-            color: var(--text-muted);
-            font-size: 12px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .status-paper {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--accent);
-            border: 1px solid var(--accent);
-        }
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            .cards { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦊 Jarvis Trading Dashboard</title>
+<style>
+  :root{
+    --bg:#0a0e17; --surface:#111827; --surface-light:#1f2937; --text:#e5e7eb;
+    --muted:#9ca3af; --green:#10b981; --red:#ef4444; --amber:#f59e0b; --border:#374151;
+  }
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:var(--bg);color:var(--text);margin:0;padding:20px;line-height:1.5}
+  h1{margin:0 0 6px;font-size:24px;display:flex;align-items:center;gap:10px}
+  .subtitle{color:var(--muted);margin-bottom:18px;font-size:14px}
+  .section{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:18px 20px;margin-bottom:18px}
+  .section h2{margin:0 0 14px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+  .card{background:var(--surface-light);border-radius:6px;padding:15px;text-align:center}
+  .card-value{font-size:23px;font-weight:700;color:var(--green)}
+  .card-label{font-size:12px;color:var(--muted);margin-top:5px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+  th{color:var(--muted);font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
+  tr:hover td{background:var(--surface-light)}
+  .pos{color:var(--green)} .neg{color:var(--red)} .muted{color:var(--muted)}
+  .badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:600;border:1px solid}
+  .badge.paper{background:rgba(16,185,129,.1);color:var(--green);border-color:var(--green)}
+  .badge.live-on{background:rgba(16,185,129,.12);color:var(--green);border-color:var(--green)}
+  .badge.live-off{background:rgba(245,158,11,.12);color:var(--amber);border-color:var(--amber)}
+  .banner{border-radius:6px;padding:12px 16px;margin-bottom:18px;font-size:14px;
+    background:rgba(245,158,11,.08);border:1px solid var(--amber);color:#fde68a}
+  .meta{color:var(--muted);font-size:12px;margin-top:18px;text-align:center}
+  a{color:var(--green)}
+  .empty{text-align:center;color:var(--muted);padding:14px}
+  @media(max-width:600px){body{padding:10px}.cards{grid-template-columns:repeat(2,1fr)}}
+</style>
 </head>
 <body>
-    <h1>🦊 Jarvis Trading Dashboard</h1>
-    <div class="subtitle">
-        Crypto AI Trading System | Paper Trading Mode 
-        <span class="status-badge status-paper">PAPER</span>
-        | Auto-refresh: 30s
+  <h1>🦊 Jarvis Trading Dashboard</h1>
+  <div class="subtitle">
+    Crypto AI Trading System
+    <span class="badge paper">PAPER</span>
+    <span id="liveBadge" class="badge live-off">LIVE: …</span>
+    | Auto-refresh: 20s
+  </div>
+
+  <div id="banner" class="banner" style="display:none"></div>
+
+  <div class="section">
+    <h2>Account State</h2>
+    <div class="cards" id="accountCards">
+      <div class="card"><div class="card-value muted">—</div><div class="card-label">Loading…</div></div>
     </div>
+  </div>
 
-    
-        <div class="section">
-            <h2>Account State</h2>
-            <div class="cards">
-                <div class="card">
-                    <div class="card-value">$9,996.82</div>
-                    <div class="card-label">Portfolio Value</div>
-                </div>
-                <div class="card">
-                    <div class="card-value">$9,000.56</div>
-                    <div class="card-label">Cash</div>
-                </div>
-                <div class="card">
-                    <div class="card-value">$18,001.12</div>
-                    <div class="card-label">Buying Power</div>
-                </div>
-                <div class="card">
-                    <div class="card-value">0</div>
-                    <div class="card-label">Open Positions</div>
-                </div>
-            </div>
-        </div>
-        
+  <div class="section">
+    <h2>Open Positions</h2>
+    <table><thead><tr>
+      <th>Symbol</th><th>Qty</th><th>Entry</th><th>Price</th><th>Mkt Value</th><th>Unrealized P/L</th>
+    </tr></thead><tbody id="positions"><tr><td colspan="6" class="empty">—</td></tr></tbody></table>
+  </div>
 
-    
-        <div class="section">
-            <h2>Agent Status</h2>
-            <p>Agent status not yet captured. Will populate during next pipeline run.</p>
-        </div>
-        
+  <div class="section">
+    <h2>Recent Orders</h2>
+    <table><thead><tr>
+      <th>Time</th><th>Symbol</th><th>Side</th><th>Qty</th><th>Type</th><th>Status</th><th>Fill</th>
+    </tr></thead><tbody id="orders"><tr><td colspan="7" class="empty">—</td></tr></tbody></table>
+  </div>
 
-    <div class="section">
-        <h2>Decision Log (Latest 50)</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Timestamp</th>
-                    <th>Type</th>
-                    <th>Decision Maker</th>
-                    <th>Title</th>
-                    <th>Result</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td colspan="5" style="text-align:center;color:var(--text-muted)">No decisions logged yet</td></tr>
-            </tbody>
-        </table>
-    </div>
+  <div class="section">
+    <h2>Recent Fills</h2>
+    <table><thead><tr>
+      <th>Time</th><th>Symbol</th><th>Side</th><th>Qty</th><th>Price</th>
+    </tr></thead><tbody id="fills"><tr><td colspan="5" class="empty">—</td></tr></tbody></table>
+  </div>
 
-    <div class="meta">
-        Generated: 2026-05-19 07:31:22 UTC | 
-        <a href="?" style="color:var(--accent)">Refresh Now</a> | 
-        <a href="../logs/decisions/decisions.jsonl" style="color:var(--accent)">Raw Logs</a>
-    </div>
+  <div class="section">
+    <h2>Honest Backtest (cost-aware, 2024–2026)</h2>
+    <table><thead><tr>
+      <th>Strategy</th><th>Asset</th><th>Return</th><th>Sharpe</th><th>Max DD</th><th>Trades</th><th>Win%</th><th>PF</th><th>Fees</th>
+    </tr></thead><tbody id="backtest"><tr><td colspan="9" class="empty">—</td></tr></tbody></table>
+  </div>
 
-    <script>
-        // Auto-refresh every 30 seconds
-        setInterval(function() {
-            location.reload();
-        }, 30000);
-    </script>
+  <div class="meta">
+    Last update: <span id="ts">never</span> | <a href="#" onclick="load();return false">Refresh now</a>
+  </div>
+
+<script>
+const $ = id => document.getElementById(id);
+const usd = n => (n<0?'-$':'$') + Math.abs(n).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const cls = n => n>0?'pos':(n<0?'neg':'muted');
+const fmtT = t => t ? new Date(t).toLocaleString() : '—';
+
+function renderAccount(a){
+  if(!a){ $('accountCards').innerHTML='<div class="card"><div class="card-value muted">—</div><div class="card-label">No live account</div></div>'; return; }
+  const dayPL = a.last_equity ? a.equity - a.last_equity : 0;
+  $('accountCards').innerHTML = `
+    <div class="card"><div class="card-value">${usd(a.portfolio_value||a.equity)}</div><div class="card-label">Portfolio Value</div></div>
+    <div class="card"><div class="card-value">${usd(a.cash)}</div><div class="card-label">Cash</div></div>
+    <div class="card"><div class="card-value">${usd(a.buying_power)}</div><div class="card-label">Buying Power</div></div>
+    <div class="card"><div class="card-value ${cls(dayPL)}">${usd(dayPL)}</div><div class="card-label">P/L Today</div></div>`;
+}
+function rows(tbodyId, items, cols, cells){
+  const tb=$(tbodyId);
+  if(!items||!items.length){ tb.innerHTML=`<tr><td colspan="${cols}" class="empty">None</td></tr>`; return; }
+  tb.innerHTML = items.map(cells).join('');
+}
+function renderBacktest(bt){
+  const items = bt && bt.results ? bt.results : [];
+  rows('backtest', items, 9, m=>{
+    const r=(m.total_return*100), pf=(m.profit_factor==null?'inf':m.profit_factor.toFixed(2));
+    return `<tr>
+      <td>${m.strategy}</td><td>${m.symbol}</td>
+      <td class="${cls(r)}">${r.toFixed(1)}%</td>
+      <td class="${cls(m.sharpe_ratio)}">${m.sharpe_ratio.toFixed(2)}</td>
+      <td class="neg">${(m.max_drawdown*100).toFixed(1)}%</td>
+      <td>${m.closed_trades}</td><td>${(m.win_rate*100).toFixed(0)}%</td>
+      <td>${pf}</td><td class="muted">${usd(m.total_commission||0)}</td></tr>`;
+  });
+}
+
+async function load(){
+  try{
+    const d = await (await fetch('/api/data',{cache:'no-store'})).json();
+    const lb=$('liveBadge'), bn=$('banner');
+    if(d.live && d.live.connected){
+      lb.className='badge live-on'; lb.textContent='LIVE: connected'; bn.style.display='none';
+    }else{
+      lb.className='badge live-off'; lb.textContent='LIVE: offline';
+      bn.style.display='block';
+      bn.textContent='⚠ Live Alpaca data unavailable — '+((d.live&&d.live.reason)||'unknown reason')+' Showing backtest only.';
+    }
+    renderAccount(d.account);
+    rows('positions', d.positions, 6, p=>`<tr>
+      <td>${p.symbol}</td><td>${p.qty}</td><td>${usd(p.entry)}</td><td>${usd(p.price)}</td>
+      <td>${usd(p.market_value)}</td>
+      <td class="${cls(p.upl)}">${usd(p.upl)} (${p.upl_pct.toFixed(2)}%)</td></tr>`);
+    rows('orders', d.orders, 7, o=>`<tr>
+      <td class="muted">${fmtT(o.submitted_at)}</td><td>${o.symbol}</td>
+      <td class="${o.side==='buy'?'pos':'neg'}">${o.side}</td><td>${o.qty??'—'}</td>
+      <td>${o.type??'—'}</td><td>${o.status}</td><td>${o.filled_avg_price?usd(+o.filled_avg_price):'—'}</td></tr>`);
+    rows('fills', d.fills, 5, f=>`<tr>
+      <td class="muted">${fmtT(f.time)}</td><td>${f.symbol}</td>
+      <td class="${f.side&&f.side.includes('buy')?'pos':'neg'}">${f.side}</td>
+      <td>${f.qty}</td><td>${f.price?usd(+f.price):'—'}</td></tr>`);
+    renderBacktest(d.backtest);
+    $('ts').textContent = new Date().toLocaleString();
+  }catch(e){
+    $('banner').style.display='block';
+    $('banner').textContent='⚠ Could not reach the dashboard API ('+e+'). Is trade_ui_server.py running?';
+  }
+}
+load();
+setInterval(load, 20000);
+</script>
 </body>
 </html>
