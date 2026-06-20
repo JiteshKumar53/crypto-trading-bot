@@ -80,6 +80,15 @@ class BacktestResult:
     turnover: float
     worst_day: float
     worst_trade: float
+    # Honest round-trip fields (added 2026-06-20)
+    closed_trades: int = 0
+    gross_profit: float = 0.0
+    gross_loss: float = 0.0
+    expectancy: float = 0.0
+    avg_win: float = 0.0
+    avg_loss: float = 0.0
+    max_consecutive_losses: int = 0
+    total_commission: float = 0.0
     trades: List[Trade] = field(default_factory=list)
     equity_curve: pd.DataFrame = field(default_factory=pd.DataFrame)
 
@@ -113,8 +122,12 @@ class BacktestEngine:
     def __init__(
         self,
         initial_capital: float = 10000.0,
-        commission: float = 0.0,  # Alpaca is commission-free
-        slippage: float = 0.001,  # 0.1% slippage per trade
+        # Realistic per-side trading cost. Crypto venues are NOT fee-free
+        # (Binance spot taker ~0.10%, Alpaca crypto ~0.15-0.25%). Defaulting
+        # to 0 silently inflated every historical backtest — see
+        # DEEP_ANALYSIS_2026-06-20.md. 0.10% is a conservative floor.
+        commission: float = 0.001,
+        slippage: float = 0.0005,  # 0.05% slippage per side
     ):
         self.initial_capital = initial_capital
         self.commission = commission
