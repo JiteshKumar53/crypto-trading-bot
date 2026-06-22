@@ -93,32 +93,131 @@ def sig_rsi_meanrev(df):
     return entry, exit_
 
 
+def sig_tsmom(df, lookback=90):
+    """Time-series momentum: long while trailing N-day return is positive."""
+    c = df["close"]
+    mom = c > c.shift(lookback)
+    entry = (mom & ~mom.shift(1).fillna(False)).fillna(False).to_numpy()
+    exit_ = (~mom).fillna(False).to_numpy()
+    return entry, exit_
+
+
+def macd_lines(c, fast=12, slow=26, sig=9):
+    line = ema(c, fast) - ema(c, slow)
+    signal = ema(line, sig)
+    return line, signal
+
+
+def sig_macd(df):
+    line, signal = macd_lines(df["close"])
+    cross_up = (line.shift(1) <= signal.shift(1)) & (line > signal)
+    cross_dn = (line.shift(1) >= signal.shift(1)) & (line < signal)
+    return cross_up.fillna(False).to_numpy(), cross_dn.fillna(False).to_numpy()
+
+
+def sig_bollinger_breakout(df, n=20, k=2.0):
+    """Volatility breakout: enter above upper band, exit back below the mean."""
+    c = df["close"]
+    mid = c.rolling(n).mean()
+    sd = c.rolling(n).std()
+    upper = mid + k * sd
+    entry = (c > upper).fillna(False).to_numpy()
+    exit_ = (c < mid).fillna(False).to_numpy()
+    return entry, exit_
+
+
 STRATEGIES = {
     "TrendRegime": sig_trend_regime,
     "Donchian": sig_donchian,
     "RSIMeanRev": sig_rsi_meanrev,
+    "TSMOM_90": sig_tsmom,
+    "MACD": sig_macd,
+    "BollBreakout": sig_bollinger_breakout,
 }
+
+# Strategies that also get a volatility-sized variant (addresses drawdown).
+VOL_SIZED = {"Donchian", "TSMOM_90"}
 
 
 # ---------------- execution ----------------
-def run(df, entry, exit_, symbol):
+def run(df, entry, exit_, symbol, vol_target=None):
+    """Long-only execution. If vol_target is set (daily vol, e.g. 0.03), size the
+    position by min(1, vol_target / realized_vol) — volatility targeting, which
+    caps risk in turbulent regimes (the Donchian near-miss fix)."""
     eng = BacktestEngine(INITIAL_CAPITAL, commission=COMMISSION, slippage=SLIPPAGE)
     eng.reset()
     closes = df["close"].to_numpy()
     idx = df.index
+    if vol_target is not None:
+        rvol = df["close"].pct_change().rolling(20).std().bfill().to_numpy()
     for i in range(len(df)):
         price = float(closes[i]); ts = idx[i]
         in_pos = symbol in eng.positions
         if in_pos and bool(exit_[i]):
             eng.place_order(Order(symbol, OrderSide.SELL, eng.positions[symbol].qty, timestamp=ts), price)
         elif (not in_pos) and bool(entry[i]):
-            qty = (eng.cash * CASH_USE) / price
-            eng.place_order(Order(symbol, OrderSide.BUY, qty, timestamp=ts), price)
+            frac = CASH_USE
+            if vol_target is not None and rvol[i] > 0:
+                frac = CASH_USE * min(1.0, vol_target / rvol[i])
+            qty = (eng.cash * frac) / price
+            if qty > 0:
+                eng.place_order(Order(symbol, OrderSide.BUY, qty, timestamp=ts), price)
         eng.update_equity(ts, {symbol: price})
     eq = pd.DataFrame(eng.equity_history).set_index("timestamp")
     eq["returns"] = eq["equity"].pct_change().fillna(0)
     m = MetricsCalculator.calculate(eq, eng.trades, INITIAL_CAPITAL)
     return m
+
+
+# ---------------- portfolio rotation (multi-asset) ----------------
+def _max_dd(equity):
+    peak = np.maximum.accumulate(equity)
+    return float(np.max((peak - equity) / peak))
+
+
+def run_rotation(closes: pd.DataFrame, target_weight_fn, rebalance="W"):
+    """Weekly-rebalanced long-only rotation across assets.
+    closes: DataFrame of daily closes (columns = symbols).
+    target_weight_fn(history_df) -> dict{symbol: weight}, weights sum <= 1 (rest cash).
+    Returns dict of metrics (return, sharpe, max_dd, rebalances)."""
+    rets = closes.pct_change().fillna(0)
+    rebal_days = set(closes.resample(rebalance).last().index)
+    weights = {s: 0.0 for s in closes.columns}
+    equity = 1.0
+    curve = []
+    rebalances = 0
+    cost = COMMISSION + SLIPPAGE
+    for i, (ts, row) in enumerate(closes.iterrows()):
+        port_ret = sum(weights[s] * rets.loc[ts, s] for s in closes.columns)
+        equity *= (1 + port_ret)
+        if ts in rebal_days and i >= 60:
+            target = target_weight_fn(closes.iloc[: i + 1])
+            turnover = sum(abs(target.get(s, 0.0) - weights[s]) for s in closes.columns)
+            equity *= (1 - turnover * cost)
+            if turnover > 1e-6:
+                rebalances += 1
+            weights = {s: target.get(s, 0.0) for s in closes.columns}
+        curve.append(equity)
+    curve = np.array(curve)
+    daily = pd.Series(curve).pct_change().fillna(0)
+    sharpe = (daily.mean() / daily.std() * np.sqrt(365)) if daily.std() > 0 else 0.0
+    return {"total_return": curve[-1] - 1, "sharpe": float(sharpe),
+            "max_drawdown": _max_dd(curve), "rebalances": rebalances}
+
+
+def w_dual_momentum(hist, lookback=60):
+    """Hold the asset with the highest positive trailing return, else cash."""
+    mom = {s: hist[s].iloc[-1] / hist[s].iloc[-lookback] - 1 for s in hist.columns}
+    best = max(mom, key=mom.get)
+    return {best: 0.98} if mom[best] > 0 else {}
+
+
+def w_ratio_rotation(hist, lookback=30):
+    """Relative strength: always invested in whichever of BTC/ETH has stronger
+    recent momentum (a long-only proxy for the BTC/ETH pairs trade)."""
+    mom = {s: hist[s].iloc[-1] / hist[s].iloc[-lookback] - 1 for s in hist.columns}
+    best = max(mom, key=mom.get)
+    return {best: 0.98}
 
 
 def buy_hold_return(df):
@@ -148,8 +247,10 @@ def main():
           % (COMMISSION * 100, SLIPPAGE * 100, N_FOLDS))
     print("=" * 100)
 
+    daily_closes = {}
     for symbol in ["BTC", "ETH"]:
         df = load_daily(symbol)
+        daily_closes[symbol] = df["close"]
         bh = buy_hold_return(df)
         print(f"\n### {symbol}  (buy & hold net: {bh*100:.1f}%)")
         for name, sigfn in STRATEGIES.items():
@@ -161,11 +262,48 @@ def main():
             rows.append({"strategy": name, "symbol": symbol, "metrics": m,
                          "benchmark": bh, "walk_forward": wf, "passed": v.passed})
             pf = "inf" if m["profit_factor"] == float("inf") else f"{m['profit_factor']:.2f}"
-            print(f"  {name:<12} ret={m['total_return']*100:7.1f}%  "
+            print(f"  {name:<13} ret={m['total_return']*100:7.1f}%  "
                   f"PF={pf:>5}  maxDD={m['max_drawdown']*100:5.1f}%  "
                   f"trades={m['closed_trades']:>3}  win={m['win_rate']*100:4.0f}%  "
                   f"WF={['+' if r>0 else '-' for r in wf]}  -> "
                   f"{'PASS ✓' if v.passed else 'FAIL ✗'}")
+            # volatility-sized variant for selected breakout/momentum strategies
+            if name in VOL_SIZED:
+                mv = run(df, e, x, symbol, vol_target=0.03)
+                vv = validate_strategy(name + "_volsz", symbol, mv, bh, wf)
+                validations.append(vv)
+                rows.append({"strategy": name + "_volsz", "symbol": symbol, "metrics": mv,
+                             "benchmark": bh, "walk_forward": wf, "passed": vv.passed})
+                pfv = "inf" if mv["profit_factor"] == float("inf") else f"{mv['profit_factor']:.2f}"
+                print(f"  {name+'_volsz':<13} ret={mv['total_return']*100:7.1f}%  "
+                      f"PF={pfv:>5}  maxDD={mv['max_drawdown']*100:5.1f}%  "
+                      f"trades={mv['closed_trades']:>3}  win={mv['win_rate']*100:4.0f}%  "
+                      f"WF={['+' if r>0 else '-' for r in wf]}  -> "
+                      f"{'PASS ✓' if vv.passed else 'FAIL ✗'}")
+
+    # ---------- portfolio rotation (multi-asset) ----------
+    closes = pd.DataFrame(daily_closes).dropna()
+    # benchmark: 50/50 BTC+ETH buy & hold (net of one round-trip cost)
+    bench5050 = run_rotation(closes, lambda h: {"BTC": 0.49, "ETH": 0.49}, rebalance="ME")
+    print("\n### PORTFOLIO ROTATION  (benchmark 50/50 BTC+ETH hold: "
+          f"{bench5050['total_return']*100:.1f}%, maxDD {bench5050['max_drawdown']*100:.1f}%)")
+    port_specs = {
+        "DualMomentum": w_dual_momentum,
+        "RatioRotation": w_ratio_rotation,
+    }
+    for pname, wfn in port_specs.items():
+        pm = run_rotation(closes, wfn, rebalance="W")
+        beats = pm["total_return"] > bench5050["total_return"]
+        dd_ok = pm["max_drawdown"] <= 0.25
+        sharpe_ok = pm["sharpe"] >= 0.5
+        passed = beats and dd_ok and sharpe_ok
+        rows.append({"strategy": pname, "symbol": "BTC+ETH", "portfolio": pm,
+                     "benchmark": bench5050["total_return"], "passed": passed})
+        print(f"  {pname:<13} ret={pm['total_return']*100:7.1f}%  "
+              f"Sharpe={pm['sharpe']:5.2f}  maxDD={pm['max_drawdown']*100:5.1f}%  "
+              f"rebalances={pm['rebalances']:>3}  -> "
+              f"{'PASS ✓' if passed else 'FAIL ✗'} "
+              f"(beats5050={beats}, dd<=25%={dd_ok}, sharpe>=0.5={sharpe_ok})")
 
     print("\n" + "=" * 100)
     print("GATE DETAIL")
@@ -186,8 +324,10 @@ def main():
     out = ROOT.parent / "freqtrade_data" / "tournament_results.json"
     ser = []
     for r in rows:
-        mm = {k: (None if v == float("inf") else v) for k, v in r["metrics"].items()}
-        ser.append({**r, "metrics": mm})
+        rr = dict(r)
+        if "metrics" in rr:
+            rr["metrics"] = {k: (None if v == float("inf") else v) for k, v in rr["metrics"].items()}
+        ser.append(rr)
     out.write_text(json.dumps({"generated": datetime.now(timezone.utc).isoformat(),
                                "results": ser}, indent=2))
     print(f"\nSaved -> {out}")

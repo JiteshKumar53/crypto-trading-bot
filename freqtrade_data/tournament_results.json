@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-22T18:25:13.894894+00:00",
+  "generated": "2026-06-22T20:46:44.896179+00:00",
   "results": [
     {
       "strategy": "TrendRegime",
@@ -72,6 +72,41 @@
       "passed": false
     },
     {
+      "strategy": "Donchian_volsz",
+      "symbol": "BTC",
+      "metrics": {
+        "total_return": 1.0029263340111847,
+        "annualized_return": 0.34545495072649324,
+        "sharpe_ratio": 1.2314232065724315,
+        "sortino_ratio": 1.3009832539329662,
+        "max_drawdown": 0.24478780784008025,
+        "calmar_ratio": 1.4112424706714919,
+        "win_rate": 0.3333333333333333,
+        "profit_factor": 2.215217598043372,
+        "avg_trade": 537.8928307062871,
+        "num_trades": 31,
+        "exposure_time": 0.3894736842105263,
+        "turnover": 29.435297005274425,
+        "worst_day": -0.0730965121226762,
+        "worst_trade": -0.11023266100466932,
+        "closed_trades": 15,
+        "gross_profit": 14707.855609897995,
+        "gross_loss": 6639.463149303687,
+        "expectancy": 537.8928307062871,
+        "avg_win": 2941.571121979599,
+        "avg_loss": -663.9463149303687,
+        "max_consecutive_losses": 5,
+        "total_commission": 497.98777021737106
+      },
+      "benchmark": 0.8052967710914327,
+      "walk_forward": [
+        0.18990948313953468,
+        0.5844053753370304,
+        -0.09686974346068528
+      ],
+      "passed": true
+    },
+    {
       "strategy": "RSIMeanRev",
       "symbol": "BTC",
       "metrics": {
@@ -103,6 +138,146 @@
         0.25982442140901785,
         0.06646127735301015,
         -0.05653278125787183
+      ],
+      "passed": false
+    },
+    {
+      "strategy": "TSMOM_90",
+      "symbol": "BTC",
+      "metrics": {
+        "total_return": 0.3235558588692025,
+        "annualized_return": 0.12721678083556864,
+        "sharpe_ratio": 0.5650206958582724,
+        "sortino_ratio": 0.61156975796466,
+        "max_drawdown": 0.18165603437645986,
+        "calmar_ratio": 0.7003168448119234,
+        "win_rate": 0.3076923076923077,
+        "profit_factor": 2.469522084625518,
+        "avg_trade": 250.38846209054438,
+        "num_trades": 27,
+        "exposure_time": 0.46900584795321637,
+        "turnover": 23.304601373542724,
+        "worst_day": -0.07334005158912926,
+        "worst_trade": -0.05273826115890739,
+        "closed_trades": 13,
+        "gross_profit": 5470.089877099529,
+        "gross_loss": 2215.0398699224515,
+        "expectancy": 250.38846209054438,
+        "avg_win": 1367.5224692748823,
+        "avg_loss": -246.11554110249457,
+        "max_consecutive_losses": 6,
+        "total_commission": 268.8654761768012
+      },
+      "benchmark": 0.8052967710914327,
+      "walk_forward": [
+        -0.1487721492401586,
+        0.17797807886380834,
+        -0.005874905068054614
+      ],
+      "passed": false
+    },
+    {
+      "strategy": "TSMOM_90_volsz",
+      "symbol": "BTC",
+      "metrics": {
+        "total_return": 0.34690044145363647,
+        "annualized_return": 0.13566754819619575,
+        "sharpe_ratio": 0.6123614305958963,
+        "sortino_ratio": 0.6659982500917107,
+        "max_drawdown": 0.16582310754311919,
+        "calmar_ratio": 0.8181462174137458,
+        "win_rate": 0.3076923076923077,
+        "profit_factor": 2.679411059251893,
+        "avg_trade": 268.3722783312835,
+        "num_trades": 27,
+        "exposure_time": 0.46900584795321637,
+        "turnover": 22.506360321412398,
+        "worst_day": -0.07334005158912926,
+        "worst_trade": -0.052738261158907396,
+        "closed_trades": 13,
+        "gross_profit": 5566.258127067022,
+        "gross_loss": 2077.4185087603364,
+        "expectancy": 268.3722783312835,
+        "avg_win": 1391.5645317667554,
+        "avg_loss": -230.82427875114848,
+        "max_consecutive_losses": 6,
+        "total_commission": 263.82333100779283
+      },
+      "benchmark": 0.8052967710914327,
+      "walk_forward": [
+        -0.1487721492401586,
+        0.17797807886380834,
+        -0.005874905068054614
+      ],
+      "passed": false
+    },
+    {
+      "strategy": "MACD",
+      "symbol": "BTC",
+      "metrics": {
+        "total_return": 0.36005288971408245,
+        "annualized_return": 0.14039183577468517,
+        "sharpe_ratio": 0.5715302179184326,
+        "sortino_ratio": 0.6675486135640226,
+        "max_drawdown": 0.35263418596886076,
+        "calmar_ratio": 0.398123158107769,
+        "win_rate": 0.35294117647058826,
+        "profit_factor": 1.2926145287211817,
+        "avg_trade": 106.48699385785781,
+        "num_trades": 69,
+        "exposure_time": 0.5029239766081871,
+        "turnover": 67.27271186379129,
+        "worst_day": -0.07530518449489121,
+        "worst_trade": -0.09021382231650102,
+        "closed_trades": 34,
+        "gross_profit": 15993.688431638591,
+        "gross_loss": 12373.13064047143,
+        "expectancy": 106.48699385785781,
+        "avg_win": 1332.8073693032159,
+        "avg_loss": -562.4150291123377,
+        "max_consecutive_losses": 6,
+        "total_commission": 939.6876501259911
+      },
+      "benchmark": 0.8052967710914327,
+      "walk_forward": [
+        0.4523650620540164,
+        0.08371152668789891,
+        -0.14652356203520922
+      ],
+      "passed": false
+    },
+    {
+      "strategy": "BollBreakout",
+      "symbol": "BTC",
+      "metrics": {
+        "total_return": 0.04014238353698111,
+        "annualized_return": 0.016955434176992856,
+        "sharpe_ratio": 0.18950463352814,
+        "sortino_ratio": 0.1676989966786364,
+        "max_drawdown": 0.3498060118584554,
+        "calmar_ratio": 0.048470962768511996,
+        "win_rate": 0.2777777777777778,
+        "profit_factor": 1.044190669543563,
+        "avg_trade": 22.301324187211694,
+        "num_trades": 36,
+        "exposure_time": 0.30409356725146197,
+        "turnover": 35.573710108085905,
+        "worst_day": -0.07307494184825547,
+        "worst_trade": -0.07721482248429314,
+        "closed_trades": 18,
+        "gross_profit": 9485.328639620202,
+        "gross_loss": 9083.90480425039,
+        "expectancy": 22.301324187211694,
+        "avg_win": 1897.0657279240404,
+        "avg_loss": -698.7619080192607,
+        "max_consecutive_losses": 6,
+        "total_commission": 467.16564767882153
+      },
+      "benchmark": 0.8052967710914327,
+      "walk_forward": [
+        0.28775147531470285,
+        0.21629029031313185,
+        -0.2811071499335816
       ],
       "passed": false
     },
@@ -177,6 +352,41 @@
       "passed": false
     },
     {
+      "strategy": "Donchian_volsz",
+      "symbol": "ETH",
+      "metrics": {
+        "total_return": -0.007431704726526732,
+        "annualized_return": -0.003181555957101012,
+        "sharpe_ratio": 0.14841337155856554,
+        "sortino_ratio": 0.13883054480239423,
+        "max_drawdown": 0.4663004889315521,
+        "calmar_ratio": -0.006822973667454229,
+        "win_rate": 0.3888888888888889,
+        "profit_factor": 0.9938438712247223,
+        "avg_trade": -4.128724848070562,
+        "num_trades": 36,
+        "exposure_time": 0.3473684210526316,
+        "turnover": 29.84558501630924,
+        "worst_day": -0.12208995891165475,
+        "worst_trade": -0.1850183300827399,
+        "closed_trades": 18,
+        "gross_profit": 11997.725299171629,
+        "gross_loss": 12072.0423464369,
+        "expectancy": -4.128724848070562,
+        "avg_win": 1713.9607570245184,
+        "avg_loss": -1097.4583951306272,
+        "max_consecutive_losses": 5,
+        "total_commission": 351.7070598879972
+      },
+      "benchmark": 0.008387889884951205,
+      "walk_forward": [
+        -0.05040276212417448,
+        0.9458722489401876,
+        -0.49237076796809703
+      ],
+      "passed": false
+    },
+    {
       "strategy": "RSIMeanRev",
       "symbol": "ETH",
       "metrics": {
@@ -209,6 +419,170 @@
         -0.14758642579392636,
         -0.10656836088178025
       ],
+      "passed": false
+    },
+    {
+      "strategy": "TSMOM_90",
+      "symbol": "ETH",
+      "metrics": {
+        "total_return": 0.2717061146127944,
+        "annualized_return": 0.10813657941285126,
+        "sharpe_ratio": 0.45016646706718105,
+        "sortino_ratio": 0.48299858366617654,
+        "max_drawdown": 0.4219441897210833,
+        "calmar_ratio": 0.2562817122433479,
+        "win_rate": 0.36363636363636365,
+        "profit_factor": 1.962913455055073,
+        "avg_trade": 248.70809058994453,
+        "num_trades": 23,
+        "exposure_time": 0.4105263157894737,
+        "turnover": 20.4373476133737,
+        "worst_day": -0.12190445268199579,
+        "worst_trade": -0.08861795686635715,
+        "closed_trades": 11,
+        "gross_profit": 5576.946716455946,
+        "gross_loss": 2841.157719966556,
+        "expectancy": 248.70809058994453,
+        "avg_win": 1394.2366791139866,
+        "avg_loss": -405.8796742809366,
+        "max_consecutive_losses": 3,
+        "total_commission": 225.35093728864027
+      },
+      "benchmark": 0.008387889884951205,
+      "walk_forward": [
+        -0.13726440566893344,
+        0.14080818844117765,
+        -0.05670453911292625
+      ],
+      "passed": false
+    },
+    {
+      "strategy": "TSMOM_90_volsz",
+      "symbol": "ETH",
+      "metrics": {
+        "total_return": 0.10482293344409808,
+        "annualized_return": 0.043504507389274805,
+        "sharpe_ratio": 0.29241884889856196,
+        "sortino_ratio": 0.29705334038145115,
+        "max_drawdown": 0.3632992117986108,
+        "calmar_ratio": 0.11974842217216491,
+        "win_rate": 0.36363636363636365,
+        "profit_factor": 1.4167046728529153,
+        "avg_trade": 96.77268821948009,
+        "num_trades": 23,
+        "exposure_time": 0.4105263157894737,
+        "turnover": 18.65700510909081,
+        "worst_day": -0.08200351160316888,
+        "worst_trade": -0.08861795686635715,
+        "closed_trades": 11,
+        "gross_profit": 3619.0655250658574,
+        "gross_loss": 2554.5659546515767,
+        "expectancy": 96.77268821948009,
+        "avg_win": 904.7663812664644,
+        "avg_loss": -364.9379935216538,
+        "max_consecutive_losses": 3,
+        "total_commission": 192.26522121555294
+      },
+      "benchmark": 0.008387889884951205,
+      "walk_forward": [
+        -0.13726440566893344,
+        0.14080818844117765,
+        -0.05670453911292625
+      ],
+      "passed": false
+    },
+    {
+      "strategy": "MACD",
+      "symbol": "ETH",
+      "metrics": {
+        "total_return": -0.2013940972358174,
+        "annualized_return": -0.09159997777637385,
+        "sharpe_ratio": 0.03477890630869662,
+        "sortino_ratio": 0.04076582912026778,
+        "max_drawdown": 0.5892795137163801,
+        "calmar_ratio": -0.15544402213931516,
+        "win_rate": 0.2571428571428571,
+        "profit_factor": 0.8982179897198979,
+        "avg_trade": -57.54117063880508,
+        "num_trades": 70,
+        "exposure_time": 0.5146198830409356,
+        "turnover": 68.33687587853275,
+        "worst_day": -0.1235434181816526,
+        "worst_trade": -0.1820244197688728,
+        "closed_trades": 35,
+        "gross_profit": 17772.86582007843,
+        "gross_loss": 19786.806792436608,
+        "expectancy": -57.54117063880508,
+        "avg_win": 1974.7628688976038,
+        "avg_loss": -761.0310304783312,
+        "max_consecutive_losses": 9,
+        "total_commission": 709.6568563728323
+      },
+      "benchmark": 0.008387889884951205,
+      "walk_forward": [
+        0.18304508627181457,
+        0.070984113807233,
+        -0.37724984592975996
+      ],
+      "passed": false
+    },
+    {
+      "strategy": "BollBreakout",
+      "symbol": "ETH",
+      "metrics": {
+        "total_return": 0.4302807327542967,
+        "annualized_return": 0.16518499621403193,
+        "sharpe_ratio": 0.6206369799952444,
+        "sortino_ratio": 0.5807119167019077,
+        "max_drawdown": 0.3626950746922761,
+        "calmar_ratio": 0.455437660283038,
+        "win_rate": 0.4375,
+        "profit_factor": 1.4258588257277935,
+        "avg_trade": 268.92545797143464,
+        "num_trades": 32,
+        "exposure_time": 0.27017543859649124,
+        "turnover": 31.5731908207585,
+        "worst_day": -0.10787978377834273,
+        "worst_trade": -0.11136435622504509,
+        "closed_trades": 16,
+        "gross_profit": 14406.642372383101,
+        "gross_loss": 10103.835044840147,
+        "expectancy": 268.92545797143464,
+        "avg_win": 2058.0917674833004,
+        "avg_loss": -1122.648338315572,
+        "max_consecutive_losses": 5,
+        "total_commission": 473.50653834968057
+      },
+      "benchmark": 0.008387889884951205,
+      "walk_forward": [
+        0.3418369500580053,
+        0.5070526207510405,
+        -0.2975576878307852
+      ],
+      "passed": false
+    },
+    {
+      "strategy": "DualMomentum",
+      "symbol": "BTC+ETH",
+      "portfolio": {
+        "total_return": 0.6982519019563604,
+        "sharpe": 0.7364250417484948,
+        "max_drawdown": 0.40911100334605766,
+        "rebalances": 27
+      },
+      "benchmark": -0.09822878046781303,
+      "passed": false
+    },
+    {
+      "strategy": "RatioRotation",
+      "symbol": "BTC+ETH",
+      "portfolio": {
+        "total_return": 0.011938003365350891,
+        "sharpe": 0.2661312532851261,
+        "max_drawdown": 0.5485956370556243,
+        "rebalances": 26
+      },
+      "benchmark": -0.09822878046781303,
       "passed": false
     }
   ]
