@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-22T20:46:44.896179+00:00",
+  "generated": "2026-06-22T21:31:38.523997+00:00",
   "results": [
     {
       "strategy": "TrendRegime",
@@ -570,6 +570,28 @@
         "max_drawdown": 0.40911100334605766,
         "rebalances": 27
       },
+      "walk_forward": [
+        -0.2841255043871854,
+        0.42051520580122315,
+        -0.07235710490550817
+      ],
+      "benchmark": -0.09822878046781303,
+      "passed": false
+    },
+    {
+      "strategy": "DualMom_VolTgt",
+      "symbol": "BTC+ETH",
+      "portfolio": {
+        "total_return": 0.4646703865126758,
+        "sharpe": 0.736000112661192,
+        "max_drawdown": 0.24433481707358448,
+        "rebalances": 61
+      },
+      "walk_forward": [
+        -0.10732750232037325,
+        0.11849226602596463,
+        -0.12337636418146003
+      ],
       "benchmark": -0.09822878046781303,
       "passed": false
     },
@@ -582,6 +604,11 @@
         "max_drawdown": 0.5485956370556243,
         "rebalances": 26
       },
+      "walk_forward": [
+        -0.16937008525961594,
+        0.11528992176941788,
+        -0.3732257857694513
+      ],
       "benchmark": -0.09822878046781303,
       "passed": false
     }

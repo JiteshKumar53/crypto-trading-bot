@@ -34,12 +34,17 @@ Buy & hold (net): **BTC +80.5%, ETH +0.8%.**
 
 ## Portfolio rotation results
 
-| Strategy | Return | Sharpe | Max DD | vs 50/50 hold | Verdict |
-|----------|-------:|-------:|-------:|:--:|:-------:|
-| **Dual-Momentum (BTC/ETH/cash)** | **+69.8%** | 0.74 | 40.9% | beats (hold = −9.8%) | ✗ (DD only) |
-| Ratio Rotation (BTC↔ETH) | +1.2% | 0.27 | 54.9% | beats | ✗ |
+Portfolio gate = beats 50/50 hold **and** maxDD ≤ 25% **and** Sharpe ≥ 0.5 **and** ≥60% walk-forward folds positive.
+
+| Strategy | Return | Sharpe | Max DD | Walk-fwd | vs 50/50 hold | Verdict |
+|----------|-------:|-------:|-------:|:--:|:--:|:-------:|
+| Dual-Momentum (BTC/ETH/cash) | +69.8% | 0.74 | 40.9% | − + − | beats (hold = −9.8%) | ✗ (DD, WF) |
+| **Dual-Momentum + trend filter + vol-target** | +46.5% | 0.74 | **24.4%** | − + − | beats | ✗ (**WF only**) |
+| Ratio Rotation (BTC↔ETH) | +1.2% | 0.27 | 54.9% | − + − | beats | ✗ |
 
 50/50 BTC+ETH hold (net): **−9.8%, maxDD 54.6%.**
+
+**Vol-targeting the dual-momentum rotation worked as engineering** — adding a 40-day trend filter + 2% volatility target pulled max drawdown from 40.9% to **24.4%** (under the cap) while still beating the 50/50 hold by ~56 points. **But it fails walk-forward** (only the middle fold is positive: `− + −`), so it is *not* a robust edge and the gate correctly keeps it ineligible. This is the overfitting trap caught by the walk-forward check — exactly what the gate exists to prevent. The likely cause: with only **two** assets, "rotation" is a near coin-flip; cross-sectional momentum needs a wider basket to be statistically real.
 
 ## Verdict: the door was worth opening
 
@@ -47,11 +52,11 @@ Buy & hold (net): **BTC +80.5%, ETH +0.8%.**
 2. **Dual-momentum rotation is the most exciting lead.** It returned **+69.8% while a 50/50 hold lost −9.8%** — an ~80-point spread — by rotating into the stronger asset and to cash in downturns. It fails the gate *only* on drawdown (40.9%). Apply the same volatility-targeting that fixed Donchian and it is a strong candidate. This is exactly the kind of structural (cross-sectional/relative-strength) edge that single-asset TA lacks.
 3. **The dry well is confirmed for the rest.** Trend/MACD/RSI/Bollinger on single majors still don't clear the bar after costs — but breadth surfaced the two ideas that do carry real signal.
 
-## Next experiments (now there are several doors open)
+## Next experiments
 
-1. **Promote vol-sized BTC Donchian** to the paper pipeline behind the gate (once Alpaca egress is opened).
-2. **Vol-target the dual-momentum rotation** (add a cash/defensive sleeve when realized vol is high) to bring drawdown under 25% — likely the strongest overall strategy.
-3. **Add more assets** (SOL, and a wider basket) — cross-sectional momentum strengthens with more candidates; 2 assets is the minimum case and it already beat holding.
+1. **Promote vol-sized BTC Donchian** to the paper pipeline behind the gate (once Alpaca egress is opened). It is the only strategy that passes every gate, including walk-forward.
+2. ~~Vol-target the dual-momentum rotation~~ — **done; fixed drawdown but failed walk-forward.** Not robust on 2 assets. Superseded by #3.
+3. **Add more assets (the real fix for rotation).** Cross-sectional momentum needs breadth — with only BTC/ETH, rotation is a coin-flip that won't survive walk-forward. Adding SOL + a wider basket (5–15 liquid coins) is the principled way to make the dual-momentum idea statistically real, rather than curve-fitting two assets. This requires fetching more historical data (blocked today by the same egress wall as Alpaca).
 
 ## Reproduce
 
