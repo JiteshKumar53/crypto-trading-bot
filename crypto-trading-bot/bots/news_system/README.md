@@ -12,12 +12,23 @@ The only credentials required are for your own Telegram bot.
 
 1. Message [@BotFather](https://t.me/BotFather) on Telegram, send `/newbot`,
    and follow the prompts. It replies with a token like `123456:ABC-DEF...`.
-2. Get your chat id:
-   - **Personal chat:** message [@userinfobot](https://t.me/userinfobot); it replies with your id.
-   - **Group:** add the bot to the group, send any message, then open
-     `https://api.telegram.org/bot<TOKEN>/getUpdates` and read `message.chat.id`
-     (group ids are negative, e.g. `-1001234567890`).
-   - **Channel:** add the bot as an administrator and use `@channelname` as the chat id.
+2. Get your chat id. With the token set, send any message to your bot (or add
+   it to the group/channel and post there), then run:
+
+   ```bash
+   cd crypto-trading-bot/bots/news_system
+   python3 news_daemon.py --mode chatid
+   ```
+
+   It prints a ready-to-paste line per chat it can see:
+
+   ```
+   TELEGRAM_CHAT_ID=123456789    # private: Alex @yourhandle
+   TELEGRAM_CHAT_ID=-1001234567890   # supergroup: Trading Desk
+   ```
+
+   This reads pending updates only — it sends nothing. It returns no chats if
+   the bot has never been messaged, or if a webhook is configured.
 
 ### 2. Add them to the environment
 
@@ -44,6 +55,9 @@ chat. If it does not, the log names the reason.
 ## Running
 
 ```bash
+# List chats the bot can post to
+python3 news_daemon.py --mode chatid
+
 # One grouped digest of everything new
 python3 news_daemon.py --mode digest
 
@@ -60,7 +74,7 @@ python3 news_loop.py
 ```
 
 Exit codes: `0` success (including "nothing new"), `1` delivery failure,
-`2` config error, `3` Telegram rejected the request.
+`2` config error, `3` Telegram rejected the request, `4` network unreachable.
 
 ## Configuration
 
@@ -77,6 +91,7 @@ Everything is in [`config/news.yaml`](../../config/news.yaml).
 | `schedule.digest_times` | Local times digests are sent |
 | `schedule.alert_poll_minutes` | How often the loop polls for breaking news |
 | `telegram.quiet_hours` | Window where messages arrive without a notification sound |
+| `telegram.quiet_hours_timezone` | Whose clock quiet hours follow — see below |
 
 ### How a headline is scored
 
@@ -96,6 +111,17 @@ Both tickers and company names are matched case-sensitively, so `meta
 description tips` is not reported as META news and `i spy a bargain` is not
 reported as SPY news. Headlines capitalize company names, so the trade-off
 costs almost nothing.
+
+### Quiet hours follow *your* clock, not the market's
+
+`schedule.timezone` is the market's (`America/New_York`), because digest times
+track the trading day. Quiet hours are different: they should follow wherever
+you are, so `telegram.quiet_hours_timezone` is set separately.
+
+Leaving them coupled is a subtle trap. At GMT+2, 09:00 local is 03:00 in New
+York — inside a `[22, 7]` window — so every alert through your entire morning
+would arrive with no notification sound. It ships as `Europe/Berlin` (GMT+2);
+change it to your actual zone.
 
 ## Behaviour worth knowing
 
@@ -121,13 +147,13 @@ cd crypto-trading-bot
 python3 -m pytest bots/news_system/test_news_system.py -v
 ```
 
-72 tests, no network access required.
+85 tests, no network access required.
 
 ## Files
 
 | File | Purpose |
 | --- | --- |
-| `news_daemon.py` | CLI entry point — `digest`, `alerts`, `test` modes |
+| `news_daemon.py` | CLI entry point — `digest`, `alerts`, `test`, `chatid` modes |
 | `news_loop.py` | Long-lived scheduler that shells out to the daemon |
 | `config.py` | Loads `news.yaml`, applies defaults, reads credentials |
 | `sources.py` | Concurrent RSS/Atom fetching and parsing (stdlib XML) |

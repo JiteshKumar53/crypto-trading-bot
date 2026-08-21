@@ -142,9 +142,20 @@ def format_test_message(bot_name: str, cfg: Dict[str, Any]) -> str:
     )
 
 
+def quiet_hours_timezone(cfg: Dict[str, Any]) -> str:
+    """
+    Timezone the quiet-hours window is measured in.
+
+    Defaults to the schedule timezone, but is configurable because the person
+    reading the alerts often does not live in the market's timezone — and it is
+    their night that should be quiet, not New York's.
+    """
+    return cfg["telegram"].get("quiet_hours_timezone") or cfg["schedule"]["timezone"]
+
+
 def is_quiet_hour(cfg: Dict[str, Any], now: Optional[datetime] = None) -> bool:
     """
-    True when the current local hour falls in the configured quiet window.
+    True when the current hour falls in the configured quiet window.
 
     Quiet hours suppress the notification sound, not the message. The window
     may wrap midnight, e.g. [22, 7] means 22:00-06:59.
@@ -154,7 +165,7 @@ def is_quiet_hour(cfg: Dict[str, Any], now: Optional[datetime] = None) -> bool:
         return False
 
     start, end = window
-    now = now or local_now(cfg["schedule"]["timezone"])
+    now = now or local_now(quiet_hours_timezone(cfg))
     hour = now.hour
 
     if start == end:

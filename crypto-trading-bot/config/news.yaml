@@ -12,8 +12,12 @@ telegram:
   disable_web_page_preview: true
   # Send each digest as one message per chunk of this many characters (API cap is 4096).
   max_message_chars: 3800
-  # Silent delivery outside these local hours (no notification sound).
+  # Silent delivery during these hours (no notification sound). Wraps midnight.
   quiet_hours: [22, 7]
+  # Timezone the quiet window is measured in. Set this to where YOU are, which
+  # is often not the market's timezone — otherwise your morning falls inside
+  # New York's night and alerts arrive silently.
+  quiet_hours_timezone: "Europe/Berlin"   # GMT+2 (CEST)
 
 schedule:
   # IANA timezone used for schedule times and displayed timestamps.

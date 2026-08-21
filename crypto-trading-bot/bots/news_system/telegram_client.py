@@ -118,6 +118,25 @@ class TelegramClient:
             raise TelegramError(f"getMe failed: {payload.get('description', response.text)}")
         return payload["result"]
 
+    def get_updates(self) -> List[Dict[str, Any]]:
+        """
+        Fetch recent updates. Used by `--mode chatid` to discover which chats
+        the bot can post to.
+
+        Only works while no webhook is set and only covers roughly the last 24
+        hours of messages, which is why the caller prompts the user to send a
+        message first.
+        """
+        response = requests.get(
+            self._url("getUpdates"), params={"timeout": 0}, timeout=self.timeout
+        )
+        payload = _safe_json(response)
+        if not payload.get("ok"):
+            raise TelegramError(
+                f"getUpdates failed: {payload.get('description', response.text[:200])}"
+            )
+        return payload.get("result", [])
+
     def send(self, text: str, silent: bool = False) -> bool:
         """
         Send `text`, splitting it across messages when needed.

@@ -41,6 +41,9 @@ def load_config(path: str = None) -> Dict[str, Any]:
     cfg["telegram"].setdefault("disable_web_page_preview", True)
     cfg["telegram"].setdefault("max_message_chars", 3800)
     cfg["telegram"].setdefault("quiet_hours", [])
+    # None means "use the schedule timezone". Set it when you do not live in
+    # the market's timezone, so quiet hours follow your clock, not the NYSE's.
+    cfg["telegram"].setdefault("quiet_hours_timezone", None)
 
     cfg["schedule"].setdefault("timezone", "America/New_York")
     cfg["schedule"].setdefault("digest_times", ["08:30", "16:30"])
@@ -110,21 +113,24 @@ def resolve_feed_urls(cfg: Dict[str, Any]) -> List[Dict[str, str]]:
     return targets
 
 
-def telegram_credentials() -> Dict[str, str]:
+def telegram_credentials(require_chat_id: bool = True) -> Dict[str, str]:
     """
     Read TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID from the environment.
 
-    Raises ConfigError with actionable text when either is missing, so the
+    Raises ConfigError with actionable text when something is missing, so the
     daemon fails loudly at startup rather than silently sending nothing.
+
+    `require_chat_id` is False for the chatid discovery mode, whose whole
+    purpose is to find the chat id the caller does not have yet.
     """
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
 
-    missing = [
-        name
-        for name, value in (("TELEGRAM_BOT_TOKEN", token), ("TELEGRAM_CHAT_ID", chat_id))
-        if not value
-    ]
+    required = [("TELEGRAM_BOT_TOKEN", token)]
+    if require_chat_id:
+        required.append(("TELEGRAM_CHAT_ID", chat_id))
+
+    missing = [name for name, value in required if not value]
     if missing:
         raise ConfigError(
             f"Missing environment variable(s): {', '.join(missing)}. "

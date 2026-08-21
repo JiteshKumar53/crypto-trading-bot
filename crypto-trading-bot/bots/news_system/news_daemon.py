@@ -7,7 +7,11 @@ Usage:
     python3 news_daemon.py --mode test
     python3 news_daemon.py --mode digest --label "Pre-Market Brief"
     python3 news_daemon.py --mode alerts
+    python3 news_daemon.py --mode chatid
     python3 news_daemon.py --mode digest --dry-run
+
+Exit codes: 0 ok, 1 delivery failure, 2 config error, 3 Telegram rejected,
+4 network unreachable.
 """
 
 import argparse
@@ -28,6 +32,8 @@ if os.path.exists(env_path):
             if line and not line.startswith('#') and '=' in line:
                 key, value = line.split('=', 1)
                 os.environ.setdefault(key, value.strip().strip('"').strip("'"))
+
+import requests
 
 import config
 import filters
@@ -52,16 +58,16 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def build_client(cfg, dry_run: bool) -> TelegramClient:
+def build_client(cfg, dry_run: bool, require_chat_id: bool = True) -> TelegramClient:
     """Construct the Telegram sender. In dry-run mode credentials are optional."""
     if dry_run:
         creds = {"token": "DRY-RUN", "chat_id": "DRY-RUN"}
         try:
-            creds = config.telegram_credentials()
+            creds = config.telegram_credentials(require_chat_id)
         except config.ConfigError:
             logger.info("No Telegram credentials set — dry run will only print")
     else:
-        creds = config.telegram_credentials()
+        creds = config.telegram_credentials(require_chat_id)
 
     return TelegramClient(
         token=creds["token"],
@@ -154,6 +160,71 @@ def run_alerts(cfg, client, dry_run: bool) -> int:
     return 0 if len(delivered) == len(urgent) else 1
 
 
+def extract_chats(updates):
+    """
+    Reduce raw getUpdates payloads to a de-duplicated list of chats.
+
+    Telegram nests the chat under different keys depending on the update type,
+    so every known carrier is checked.
+    """
+    carriers = (
+        "message",
+        "edited_message",
+        "channel_post",
+        "edited_channel_post",
+        "my_chat_member",
+    )
+    chats = {}
+
+    for update in updates:
+        for carrier in carriers:
+            chat = (update.get(carrier) or {}).get("chat")
+            if not chat or "id" not in chat:
+                continue
+            title = chat.get("title") or " ".join(
+                part for part in (chat.get("first_name"), chat.get("last_name")) if part
+            )
+            chats[chat["id"]] = {
+                "id": chat["id"],
+                "type": chat.get("type", "unknown"),
+                "title": title or "(no title)",
+                "username": chat.get("username", ""),
+            }
+
+    return list(chats.values())
+
+
+def run_chatid(cfg, client) -> int:
+    """
+    Print the chat ids the bot can currently see, for pasting into .env.
+
+    This does not send anything — it only reads pending updates.
+    """
+    info = client.get_me()
+    logger.info(f"Authenticated as @{info.get('username', 'unknown')}")
+
+    chats = extract_chats(client.get_updates())
+
+    if not chats:
+        logger.warning("No chats found.")
+        logger.warning(
+            "Send any message to the bot (or add it to your group and post "
+            "there), then re-run this command."
+        )
+        logger.warning(
+            "Note: getUpdates returns nothing while a webhook is configured."
+        )
+        return 1
+
+    logger.info(f"Found {len(chats)} chat(s):")
+    for chat in chats:
+        handle = f" @{chat['username']}" if chat["username"] else ""
+        logger.info(f"  TELEGRAM_CHAT_ID={chat['id']}   # {chat['type']}: {chat['title']}{handle}")
+
+    logger.info("Copy the line you want into crypto-trading-bot/.env")
+    return 0
+
+
 def run_test(cfg, client, dry_run: bool) -> int:
     """Verify credentials and delivery end to end."""
     bot_name = "dry-run"
@@ -174,8 +245,11 @@ def run_test(cfg, client, dry_run: bool) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Stocks news → Telegram")
     parser.add_argument(
-        '--mode', required=True, choices=['digest', 'alerts', 'test'],
-        help="digest: grouped roundup; alerts: breaking only; test: connectivity check",
+        '--mode', required=True, choices=['digest', 'alerts', 'test', 'chatid'],
+        help=(
+            "digest: grouped roundup; alerts: breaking only; "
+            "test: connectivity check; chatid: list chats the bot can post to"
+        ),
     )
     parser.add_argument('--label', default='Market Digest', help="Heading for digest mode")
     parser.add_argument('--config', default=None, help="Path to news.yaml")
@@ -191,12 +265,15 @@ def main() -> int:
 
     try:
         cfg = config.load_config(args.config)
-        client = build_client(cfg, args.dry_run)
+        # Discovery mode is what finds the chat id, so it cannot demand one.
+        client = build_client(cfg, args.dry_run, require_chat_id=args.mode != 'chatid')
 
         if args.mode == 'digest':
             code = run_digest(cfg, client, args.label, args.dry_run)
         elif args.mode == 'alerts':
             code = run_alerts(cfg, client, args.dry_run)
+        elif args.mode == 'chatid':
+            code = run_chatid(cfg, client)
         else:
             code = run_test(cfg, client, args.dry_run)
 
@@ -206,6 +283,11 @@ def main() -> int:
     except TelegramError as exc:
         logger.error(f"TELEGRAM ERROR: {exc}")
         return 3
+    except requests.RequestException as exc:
+        # Offline, DNS failure or a blocked egress proxy — expected in
+        # restricted networks, so report it plainly instead of a traceback.
+        logger.error(f"NETWORK ERROR reaching Telegram: {str(exc)[:200]}")
+        return 4
     except Exception as exc:
         logger.exception(f"UNHANDLED ERROR: {exc}")
         return 1

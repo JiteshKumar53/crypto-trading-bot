@@ -7,6 +7,7 @@ import json
 import os
 import sys
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 import pytest
 
@@ -17,6 +18,7 @@ import filters
 import formatter
 import sources
 import state
+import news_daemon
 import telegram_client
 from sources import NewsItem
 
@@ -617,3 +619,103 @@ def test_credentials_read_from_environment(monkeypatch):
     monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "  token  ")
     monkeypatch.setenv("TELEGRAM_CHAT_ID", "-100123")
     assert config.telegram_credentials() == {"token": "token", "chat_id": "-100123"}
+
+
+# ─── chat discovery ──────────────────────────────────────────────────────────
+
+def test_extract_chats_reads_plain_messages():
+    updates = [{"update_id": 1, "message": {"chat": {
+        "id": 123456789, "type": "private", "first_name": "Alex", "username": "yourhandle"}}}]
+    chats = news_daemon.extract_chats(updates)
+    assert chats == [{
+        "id": 123456789, "type": "private", "title": "Alex", "username": "yourhandle"}]
+
+
+def test_extract_chats_reads_groups_and_channels():
+    updates = [
+        {"channel_post": {"chat": {"id": -100999, "type": "channel", "title": "Alerts"}}},
+        {"my_chat_member": {"chat": {"id": -100888, "type": "supergroup", "title": "Desk"}}},
+    ]
+    ids = {chat["id"] for chat in news_daemon.extract_chats(updates)}
+    assert ids == {-100999, -100888}
+
+
+def test_extract_chats_deduplicates_repeat_messages():
+    chat = {"id": 42, "type": "private", "first_name": "A"}
+    updates = [{"message": {"chat": chat}}, {"message": {"chat": chat}}]
+    assert len(news_daemon.extract_chats(updates)) == 1
+
+
+def test_extract_chats_ignores_updates_without_a_chat():
+    assert news_daemon.extract_chats([{"update_id": 1}, {"poll": {"id": "x"}}]) == []
+
+
+def test_extract_chats_handles_missing_names():
+    chats = news_daemon.extract_chats([{"message": {"chat": {"id": 7, "type": "private"}}}])
+    assert chats[0]["title"] == "(no title)"
+
+
+def test_get_updates_returns_results(monkeypatch):
+    monkeypatch.setattr(
+        telegram_client.requests, "get",
+        lambda *a, **k: FakeResponse(200, {"ok": True, "result": [{"update_id": 1}]}),
+    )
+    client = telegram_client.TelegramClient("t", "c")
+    assert client.get_updates() == [{"update_id": 1}]
+
+
+def test_get_updates_raises_on_bad_token(monkeypatch):
+    monkeypatch.setattr(
+        telegram_client.requests, "get",
+        lambda *a, **k: FakeResponse(401, {"ok": False, "description": "Unauthorized"}),
+    )
+    client = telegram_client.TelegramClient("bad", "c")
+    with pytest.raises(telegram_client.TelegramError):
+        client.get_updates()
+
+
+def test_chat_id_optional_for_discovery(monkeypatch):
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "token")
+    monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
+    creds = config.telegram_credentials(require_chat_id=False)
+    assert creds["token"] == "token"
+    assert creds["chat_id"] == ""
+
+
+def test_token_still_required_for_discovery(monkeypatch):
+    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+    with pytest.raises(config.ConfigError):
+        config.telegram_credentials(require_chat_id=False)
+
+
+# ─── quiet hours honour the reader's timezone ────────────────────────────────
+
+def test_quiet_hours_timezone_defaults_to_schedule(cfg):
+    cfg["telegram"]["quiet_hours_timezone"] = None
+    assert formatter.quiet_hours_timezone(cfg) == cfg["schedule"]["timezone"]
+
+
+def test_quiet_hours_timezone_override(cfg):
+    cfg["telegram"]["quiet_hours_timezone"] = "Europe/Berlin"
+    assert formatter.quiet_hours_timezone(cfg) == "Europe/Berlin"
+
+
+def test_market_morning_is_not_quiet_for_a_gmt_plus_2_reader(cfg):
+    """
+    09:00 in Berlin is 03:00 in New York. With quiet hours measured in market
+    time the reader's morning would arrive silently; measured in their own
+    timezone it does not.
+    """
+    cfg["telegram"]["quiet_hours"] = [22, 7]
+    cfg["schedule"]["timezone"] = "America/New_York"
+    berlin_morning = datetime(2026, 8, 21, 9, 0, tzinfo=ZoneInfo("Europe/Berlin"))
+
+    cfg["telegram"]["quiet_hours_timezone"] = "America/New_York"
+    assert formatter.is_quiet_hour(cfg, berlin_morning.astimezone(ZoneInfo("America/New_York"))) is True
+
+    cfg["telegram"]["quiet_hours_timezone"] = "Europe/Berlin"
+    assert formatter.is_quiet_hour(cfg, berlin_morning) is False
+
+
+def test_shipped_quiet_hours_timezone_is_valid(cfg):
+    ZoneInfo(formatter.quiet_hours_timezone(cfg))
