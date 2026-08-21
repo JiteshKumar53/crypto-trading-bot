@@ -1,4 +1,3 @@
-
 # EA System logs and state
 bots/ea_system/logs/
 bots/ea_system/open_trades.json
@@ -6,3 +5,5 @@ bots/ea_system/closed_trades.json
 bots/ea_system/ea_cooldown.json
 smart-ea-bot/core/logs/
 
+# News System logs and state
+bots/news_system/logs/

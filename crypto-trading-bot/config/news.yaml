@@ -1,0 +1,139 @@
+# Stocks News → Telegram Automation
+# Watchlist, feeds and delivery schedule for bots/news_system.
+#
+# Required environment variables (never commit these):
+#   TELEGRAM_BOT_TOKEN   from @BotFather
+#   TELEGRAM_CHAT_ID     your user/group/channel id (see bots/news_system/README.md)
+
+version: "1.0.0"
+
+telegram:
+  # Telegram HTML parse mode is used for formatting.
+  disable_web_page_preview: true
+  # Send each digest as one message per chunk of this many characters (API cap is 4096).
+  max_message_chars: 3800
+  # Silent delivery outside these local hours (no notification sound).
+  quiet_hours: [22, 7]
+
+schedule:
+  # IANA timezone used for schedule times and displayed timestamps.
+  timezone: "America/New_York"
+  # Digest send times, local to the timezone above (24h "HH:MM").
+  digest_times:
+    - "08:30"   # pre-market wrap
+    - "16:30"   # post-close wrap
+  # How often the watch loop polls feeds for breaking alerts, in minutes.
+  alert_poll_minutes: 15
+  # Only send digests / alerts on weekdays.
+  weekdays_only: true
+
+watchlist:
+  # Symbols tracked for per-ticker feeds and headline matching.
+  # aliases: extra strings that identify the company in a headline.
+  - symbol: AAPL
+    name: Apple
+    aliases: ["Apple Inc"]
+  - symbol: MSFT
+    name: Microsoft
+    aliases: []
+  - symbol: NVDA
+    name: Nvidia
+    aliases: ["NVIDIA"]
+  - symbol: TSLA
+    name: Tesla
+    aliases: []
+  - symbol: AMZN
+    name: Amazon
+    aliases: []
+  - symbol: GOOGL
+    name: Alphabet
+    aliases: ["Google"]
+  - symbol: META
+    name: Meta
+    aliases: ["Facebook"]
+  - symbol: SPY
+    name: "S&P 500 ETF"
+    aliases: ["S&P 500", "SP500"]
+
+feeds:
+  # Per-ticker feeds. "{symbol}" is substituted for each watchlist symbol.
+  per_ticker:
+    - name: "Yahoo Finance"
+      url: "https://feeds.finance.yahoo.com/rss/2.0/headline?s={symbol}&region=US&lang=en-US"
+      enabled: true
+    - name: "Google News"
+      url: "https://news.google.com/rss/search?q={symbol}+stock+when:1d&hl=en-US&gl=US&ceid=US:en"
+      enabled: false
+
+  # Market-wide feeds, fetched once per cycle.
+  market:
+    - name: "CNBC Markets"
+      url: "https://www.cnbc.com/id/20910258/device/rss/rss.html"
+      enabled: true
+    - name: "MarketWatch Top Stories"
+      url: "https://feeds.content.dowjones.io/public/rss/mw_topstories"
+      enabled: true
+    - name: "Investing.com Stock Market News"
+      url: "https://www.investing.com/rss/news_25.rss"
+      enabled: false
+
+filters:
+  # Headlines older than this are never sent.
+  max_age_hours: 24
+  # Cap on items per digest, after ranking.
+  max_items_per_digest: 12
+  # Cap on items per ticker section, so one noisy name cannot flood the digest.
+  max_items_per_symbol: 3
+  # Market-wide items are only kept if they mention a watchlist name or a keyword below.
+  require_relevance_for_market_feeds: true
+  # Headlines containing any of these are dropped entirely (case-insensitive).
+  blocklist:
+    - "sponsored"
+    - "advertisement"
+    - "horoscope"
+    - "best credit card"
+
+  # Scoring. Higher score ranks earlier in the digest; items at or above
+  # alert_threshold are pushed immediately by the watch loop instead of waiting
+  # for the next digest.
+  alert_threshold: 6
+  keywords:
+    high:      # +3 each
+      - "earnings"
+      - "guidance"
+      - "downgrade"
+      - "upgrade"
+      - "acquisition"
+      - "merger"
+      - "bankruptcy"
+      - "sec investigation"
+      - "recall"
+      - "halted"
+      - "profit warning"
+    medium:    # +2 each
+      - "revenue"
+      - "outlook"
+      - "lawsuit"
+      - "ceo"
+      - "layoffs"
+      - "buyback"
+      - "dividend"
+      - "fda"
+      - "antitrust"
+    low:       # +1 each
+      - "analyst"
+      - "price target"
+      - "forecast"
+      - "partnership"
+      - "launch"
+
+state:
+  # Seen-item ledger, relative to bots/news_system/. Prevents re-sending headlines.
+  seen_file: "logs/news_seen.json"
+  # Forget seen items older than this so the ledger cannot grow without bound.
+  retention_days: 7
+
+network:
+  timeout_seconds: 15
+  retries: 3
+  user_agent: "stocks-news-bot/1.0 (+https://github.com/jiteshkumar53/crypto-trading-bot)"
